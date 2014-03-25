@@ -1,21 +1,17 @@
 <?php
 //  ------------------------------------------------------------------------ //
-// 本模組由 無名氏 製作
+// 本模組由 prolin 製作
 // 製作日期：2014-02-16
 // $Id:$
 // ------------------------------------------------------------------------- //
 
-define("_MI_MODULE_NAME","我的模組");
-define("_MI_MODULE_AUTHOR","我的模組");
-define("_MI_MODULE_CREDITS","無名氏");
-define("_MI_MODULE_DESC","此模組的用途是...");
-define("_BACK_MODULES_PAGE","回模組首頁");
-define("_MI_MODULE_ADMENU1", "主管理介面");
-define("_MI_MODULE_ADMENU2", "aaa");
-define("_MI_MODULE_TEMPLATE_DESC1", "module001_index_tpl.html的樣板檔。");
-define("_MI_MODULE_TEMPLATE_DESC2", "module001_aaa_tpl.html的樣板檔。");
-define("_MI_MODULE_SMNAME2", "aaa");
-define("_MI_MODULE_BNAME1","我的模組區塊1");
-define("_MI_MODULE_BDESC1","我的模組區塊1(module001_b_show_1)");
-
+define("_MI_ESTUDENTS_NAME","學生名冊");
+define("_MI_ESTUDENTS_AUTHOR","prolin (prolin@tn.edu.tw)");
+define("_MI_ESTUDENTS_CREDITS","prolin");
+define("_MI_ESTUDENTS_DESC","此模組的用途是匯入台南市學生資料，以提供相關模組使用");
+//define("_BACK_MODULES_PAGE","回模組首頁");
+//define("_MI_MODULE_ADMENU1", "主管理介面");
+ 
+define("_MI_ESTUDENTS_CONFIG_TITLE1", "教師的群組");
+define("_MI_ESTUDENTS_CONFIG_DESC1", "要設定教師所在的群組，才能在設定級任時呈現");
 ?>
