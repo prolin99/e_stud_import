@@ -7,19 +7,19 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '0.8';						//模組版次
-$modversion['author'] = _MI_ESTUDENTS_AUTHOR;		//模組作者
+$modversion['version']	= '0.9';				//模組版次
+$modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
 $modversion['license']		= "GPL see LICENSE";		//模組版權
-$modversion['official']		= 0;							//模組是否為官方發佈1，非官方0
-$modversion['image']		= "images/logo.png";			//模組圖示
-$modversion['dirname'] = basename(dirname(__FILE__));	//模組目錄名稱
+$modversion['official']		= 0;				//模組是否為官方發佈1，非官方0
+$modversion['image']		= "images/logo.png";		//模組圖示
+$modversion['dirname'] = basename(dirname(__FILE__));		//模組目錄名稱
 
 //---模組狀態資訊---//
 //$modversion['status_version'] = '0.8';
 $modversion['release_date'] = '2014-04-01';
-$modversion['module_website_url'] = 'http://www.syps.tn.edu.tw';
+$modversion['module_website_url'] = 'https://github.com/prolin99/e_stud_import';
 $modversion['module_website_name'] = 'prolin';
 $modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'http://www.syps.tn.edu.tw';
