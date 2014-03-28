@@ -4,7 +4,16 @@
       <div class="row-fluid">
       <h3>級任設定(配對)</h3>
       <div class="span9" id="class_div">
-      <h4>班級列表</h4>
+      	<div class="row-fluid">
+      	<div class="span2" id="class_div">
+      	<h4>班級列表</h4>
+      	</div>
+      	<div class="span2" id="class_div">
+      	<form  action="teacher_set.php" method="post" >
+      	<button type="submit" name='act_clear'  value='刪除'  class="btn btn-danger" onclick='return confirm("真的要清空設定?")' >清空</button>
+      	</form>
+        </div>
+        </div>
       	<{foreach  key=c_key item=class_id    from= $data.class_list }>
  
       	       <{if ($data.class_set[$c_key])}>  

@@ -12,7 +12,11 @@ include_once "header_admin.php";
 
 include_once "header.php";
 
-
+//清除
+if ($_POST['act_clear']) {
+	$sql = " TRUNCATE   "  . $xoopsDB->prefix("e_classteacher") ;
+    $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
+}	
 /*-----------function區--------------*/
 
 //取得教師名冊
