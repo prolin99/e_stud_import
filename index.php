@@ -44,12 +44,15 @@ $op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 		}		
  
 	}		
+	
+	$sexstr= array(1=>'男' ,2=>'女') ;
  
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
 $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
 $xoopsTpl->assign( "jquery" , get_jquery(true)) ;
 $xoopsTpl->assign( "data" , $data ) ;
+$xoopsTpl->assign( "sexstr" , $sexstr ) ;
 $xoopsTpl->assign( "students" , $students ) ; 
 include_once XOOPS_ROOT_PATH.'/footer.php';
 
