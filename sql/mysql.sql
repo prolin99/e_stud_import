@@ -19,3 +19,9 @@ CREATE TABLE  `e_classteacher` (
   `class_id` varchar(6) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM COMMENT='級任'   ;
+
+CREATE TABLE   `e_staff` (
+  `uid` int(11) NOT NULL,
+  `staff` varchar(10) NOT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=MyISAM COMMENT='職稱'  ;

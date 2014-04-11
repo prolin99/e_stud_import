@@ -17,6 +17,12 @@ $adminmenu[$i]['desc'] ='設定級任' ;
 $adminmenu[$i]['icon'] = 'images/admin/main.png' ;
 
 $i++ ;
+$adminmenu[$i]['title'] = "職稱";
+$adminmenu[$i]['link'] = "admin/staff.php";
+$adminmenu[$i]['desc'] ='設定職稱' ;
+$adminmenu[$i]['icon'] = 'images/admin/main.png' ;
+
+$i++ ;
 $adminmenu[$i]['title'] = "關於";
 $adminmenu[$i]['link'] = "admin/about.php";
 $adminmenu[$i]['desc'] = '說明';

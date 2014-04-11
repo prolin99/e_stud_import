@@ -14,4 +14,7 @@ define("_MI_ESTUDENTS_DESC","此模組的用途是匯入台南市學生資料，
  
 define("_MI_ESTUDENTS_CONFIG_TITLE1", "教師的群組");
 define("_MI_ESTUDENTS_CONFIG_DESC1", "要設定教師所在的群組，才能在設定級任時呈現");
+
+define("_MI_ESTUDENTS_CONFIG_TITLE2", "職稱");
+define("_MI_ESTUDENTS_CONFIG_DESC2", "以逗號或空白分隔， 1.1.01-教務主任   表示(處室.唯一人.序號-職稱)");
 ?>
