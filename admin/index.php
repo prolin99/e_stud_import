@@ -107,6 +107,8 @@ function import_xml($file_up){
 					$stud_year = $c_year +1  -  $user["入學年"];
  					$stud_class = $user["班級"] ;
  					$stud_class_id  = $stud_year*100 + $stud_class ;
+ 					$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+ 
 					$stud_dom =addslashes( $user["監護人"] );
 					
 					$stud_sit = $user["座號"] ;
@@ -179,6 +181,7 @@ function import_excel($file_up,$ver=5) {
 			}
 			$stud_year = $c_year +1  -  $v[3] ; 	//入學年計算
 			$class_id  =  $stud_year*100 + $v[4] ;	//班級
+			$class_id  =  sprintf("%03d" ,$class_id) ;
  
 		}
  

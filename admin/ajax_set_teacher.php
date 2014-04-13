@@ -16,17 +16,20 @@ $_GET['id'] ;
        	$class_id=$id_array[3] ;
        	//echo $uid  .'--'. 	$class_id  ;
 	if ( ( $uid >0 ) and 	$class_id ) {
-		 $sql = " INSERT INTO   "  . $xoopsDB->prefix("e_classteacher") .  
+		//加入班級
+		$sql = " INSERT INTO   "  . $xoopsDB->prefix("e_classteacher") .  
 	     	   " (`uid`, `class_id`)  " .
 	     	   "  VALUES  ( '$uid' , '$class_id' )   " ; 
- 
- 
-     		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+   		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
      		
-     		//echo "insert ok    " ;
+
+     	//更新各人資料 為級任教師  (已有職稱不修改)
+     	$staff =addSlashes($_GET['job']) ;
+     	$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  and user_occ=''  "  ;
+    	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+     	
      		
-     		
-     	}else {
-     		echo "insert error  " .   $_GET['id']  . $sql  ;
-     	}
+     }else {
+     	echo "insert error  " .   $_GET['id']  . $sql  ;
+     }
 }     	

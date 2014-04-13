@@ -15,6 +15,7 @@ include_once TADTOOLS_PATH."/tad_function.php";
 
 
 /********************* 預設函數 *********************/
+ 
 //圓角文字框
 function div_3d($title="",$main="",$kind="raised",$style="",$other=""){
 	$main="<table style='width:auto;{$style}'><tr><td>
@@ -30,7 +31,7 @@ function div_3d($title="",$main="",$kind="raised",$style="",$other=""){
 	</td></tr></table>";
 	return $main;
 }
-
+ 
 //檢查群組權限是否訪客可以查看( true 代表權限設定是 ok，否則提醒) 
 function is_safe_chk() {
 	global  $xoopsDB , $xoopsModule ;
@@ -54,4 +55,93 @@ function is_safe_chk() {
 		return true ;
 	
 }
+
+ 
+//取得職稱陣列
+function get_staff_list() {
+	global $xoopsModuleConfig ;
+	//以逗號、分行
+	$staff_list  = preg_split('/[,\r\n]/' ,$xoopsModuleConfig['es_studs_teacher_job']) ;
+	foreach ($staff_list as $k=>$v) {
+		//代號-職稱
+		$staff_job = preg_split('/[-]/' , $v) ;
+		$sid= trim($staff_job[0]) ;
+		$job= trim($staff_job[1]) ;
+		if ($sid and $job ) {
+			if ($job == '級任教師' ) 
+				$staff['class_tid'] = "$sid-$job" ;
+			$staff['id'][$sid] = $job ;
+			$staff['job'][$job] = $sid ;
+		}	
+	}	
+	
+
+	return $staff ;
+}	
+ 
+//取得教師名冊
+function get_teacher_list($teach_group_id ,$show=0){
+
+	global  $xoopsDB   ;
+/*
+SELECT u.uid, u.name, u.user_occ, g.groupid ,c.class_id
+FROM `xx_groups_users_link` AS g 
+LEFT JOIN `xx_users` AS u ON u.uid = g.uid
+left join  xx_e_classteacher as c on u.uid = c.uid 
+WHERE g.groupid =4 
+group by u.uid
+order by  u.user_occ ,c.class_id  	
+*/
+ 	$sql =  "  SELECT  u.uid, u.name ,u.email ,u.user_viewemail , u.url , u.user_occ , g.groupid ,c.class_id   FROM  " . 
+ 			$xoopsDB->prefix("groups_users_link") .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid " .
+ 			" left join " . $xoopsDB->prefix("e_classteacher") ." as c on u.uid = c.uid " .
+ 	        "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  u.user_occ , c.class_id , u.name " ;
+  	//echo $sql ;
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	while($row=$xoopsDB->fetchArray($result)){
+		if ($show) {
+			//email
+			if ($row['email'] and $row['user_viewemail']) {		//EMAIL 顯示做保護
+				$row['email_show']= email_protect($row['email']) ;
+			}	
+			//班級
+ 			$job_arr = preg_split('/[-]/' ,$row['user_occ']) ;
+ 			$row['staff'] = $job_arr[1] ;
+ 			if ($row['class_id'])
+ 				$row['staff'] .= '-' .$row['class_id'] .'班' ;
+			
+		}
+ 	 	$teacher[$row['uid']]= $row ;
+	}	
+	return $teacher ;
+}	
+
+//EMAIL 保護
+function email_protect($email) {
+ 
+ 	$email_arr = preg_split('/[@.]/' ,$email) ;
+ 	$e1= '&#'. ord('@') .';' ;
+ 	$e2='&#'. ord('.') .';' ;
+ 	$email_t1 = "'{$email_arr[0]}'+e1+'{$email_arr[1]}'" ;
+ 	for ($i=2 ; $i< count($email_arr) ;$i++) {
+		$email_t1 .= "+e$i+'{$email_arr[$i]}'" ;
+ 	}	
+
+	$email_output = "
+	<script type='text/javascript'>
+	var t1='href' ;
+	var t2='mail' ;
+	var t3='to:' ;
+	var e1='$e1'
+	var e2='.' ;
+	var e3='$e2' ;
+	var e4='.' ;
+	var e5='$e2' ;
+	var e6='.' ;
+	
+	document.write('<a ' +t1 +'=' +t2+t3 + $email_t1 +'>') ;
+	document.write($email_t1+'</'+'a>');\n</script> \n" ;
+	return $email_output  ;
+}
+
 ?>

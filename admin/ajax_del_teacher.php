@@ -23,8 +23,10 @@ $_GET['id'] ;
  
      		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
      		
-     		//echo "insert ok    " ;
-     		
+     		// 為級任教師則去除
+     		$staff =addSlashes($_GET['job']) ;
+     		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid' and user_occ='$staff'  "  ;
+    		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
      		
      	}else {
      		echo "delete  error  " .   $_GET['id']  . $sql  ;

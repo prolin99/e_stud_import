@@ -5,19 +5,24 @@
 // $Id:$
 // ------------------------------------------------------------------------- //
 $i=0 ;
-$adminmenu[$i]['title'] ='學生名冊';
+$adminmenu[$i]['title'] ='匯入學生名冊';
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]['desc'] = '匯入學生名冊' ;
 $adminmenu[$i]['icon'] = 'images/admin/home.png' ;
+$i++ ;
+$adminmenu[$i]['title'] = "學生名冊";
+$adminmenu[$i]['link'] = "admin/students.php";
+$adminmenu[$i]['desc'] ='學生名冊' ;
+$adminmenu[$i]['icon'] = 'images/admin/list_all.png' ;
 
 $i++ ;
 $adminmenu[$i]['title'] = "級任設定";
 $adminmenu[$i]['link'] = "admin/teacher_set.php";
 $adminmenu[$i]['desc'] ='設定級任' ;
-$adminmenu[$i]['icon'] = 'images/admin/main.png' ;
+$adminmenu[$i]['icon'] = 'images/admin/group_edit.png' ;
 
 $i++ ;
-$adminmenu[$i]['title'] = "職稱";
+$adminmenu[$i]['title'] = "職稱設定";
 $adminmenu[$i]['link'] = "admin/staff.php";
 $adminmenu[$i]['desc'] ='設定職稱' ;
 $adminmenu[$i]['icon'] = 'images/admin/main.png' ;
