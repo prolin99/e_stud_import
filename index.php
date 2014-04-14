@@ -13,8 +13,10 @@ include_once XOOPS_ROOT_PATH."/header.php";
 
 
 /*-----------function區--------------*/
-
-$data['teacher'] = get_teacher_list(4,1) ;
+  //校內教師群組代號
+  $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
+  $show=1 ;
+  $data['teacher'] = get_teacher_list($teach_group_id , $show) ;
 
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];

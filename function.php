@@ -69,7 +69,7 @@ function get_staff_list() {
 		$job= trim($staff_job[1]) ;
 		if ($sid and $job ) {
 			if ($job == '級任教師' ) 
-				$staff['class_tid'] = "$sid-$job" ;
+				$staff['class_tid'] = "$sid-$job" ;			//級任代號
 			$staff['id'][$sid] = $job ;
 			$staff['job'][$job] = $sid ;
 		}	
@@ -79,7 +79,7 @@ function get_staff_list() {
 	return $staff ;
 }	
  
-//取得教師名冊
+//取得教師名冊， 群組代碼， 顯示模式(0:只取資料， 1:轉換EMAIL、職稱)
 function get_teacher_list($teach_group_id ,$show=0){
 
 	global  $xoopsDB   ;
@@ -109,7 +109,7 @@ order by  u.user_occ ,c.class_id
  			$row['staff'] = $job_arr[1] ;
  			if ($row['class_id'])
  				$row['staff'] .= '-' .$row['class_id'] .'班' ;
-			
+
 		}
  	 	$teacher[$row['uid']]= $row ;
 	}	

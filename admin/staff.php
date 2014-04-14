@@ -18,7 +18,7 @@ include_once "header.php";
   $staff = get_staff_list() ;
   $data['staff'] =$staff['id'] ;
   $data['staff_job2id'] =$staff['job'] ;
-  //$class_tid = $staff['class_tid'] ;	//級任教師代碼
+
 
   //校內教師群組代號
   $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
@@ -26,7 +26,7 @@ include_once "header.php";
   //教師名冊
   $data['teacher_list'] =get_teacher_list($teach_group_id) ;
 
-  //已指定唯一值部份
+  //已指定 
   foreach ($data['teacher_list'] as $uid => $user ) {
 	//
 	$job_arr = preg_split('/[-]/' , $user['user_occ']) ;
