@@ -16,12 +16,13 @@ $_GET['id'] ;
     $staff_id=$id_array[1] ;
     $staff =$staff_id . '-' . addSlashes($_GET['job']) ;   	
        	//echo $uid  .'--'. 	$class_id  ;
-	if ( ( $uid >0 ) and 	$staff_id ) {
- 		if ($_GET['do']=='del' ) 
- 			$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
- 		else 	
-			//更新各人資料 
+    if ( ( $uid >0 ) and 	$staff_id ) {
+ 	if ( ($_GET['do']=='del' ) or  ($staff_id== '990000')  )
+ 		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
+ 	else 	
+		//更新各人資料 
      		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;
+     		
     	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
      	
     	
@@ -30,29 +31,19 @@ $_GET['id'] ;
     	$group_set = substr($staff_id,2,1) ;
  
     	if ($group_set<>0) {
-			if ($_GET['do']=='del' ){
-				$sql = " DELETE FROM  " . $xoopsDB->prefix("groups_users_link") .
-						" WHERE groupid ='$group_set' and uid ='$uid' " ;
-				$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());			
-			}else {
-				//是否已在群組中
-				$sql = "SELECT * FROM " . $xoopsDB->prefix("groups_users_link") .
-						" WHERE groupid ='$group_set' and uid ='$uid' " ;
-				$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
-				$row=$xoopsDB->fetchArray($result) ;
-
-				if (!$row['uid']) {
-					//加入群組
-					$sql = " INSERT INTO   "  . $xoopsDB->prefix("groups_users_link") .  
-				" (`uid`, `groupid`)  " .
-				"  VALUES  ( '$uid' , '$group_set' )   " ; 
-					$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
-				}	
-			}
-
-			
+			if ($_GET['do']=='del' ) 
+				user_in_group($uid, $group_set ,'del') ;
+ 			 else  
+				user_in_group($uid, $group_set) ;
     	}	
- 
+    	//校內教師群組代號
+    	$teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
+    	//如果代碼 990000-離職人員，把校內教師群組移除
+    	if ($staff_id== '990000')  
+ 		user_in_group($uid, $teach_group_id ,'del') ;	
+    	else  
+		user_in_group($uid, $teach_group_id  ) ;
+
      }else {
      	echo "insert error  " .   $_GET['id']  . $sql  ;
      }

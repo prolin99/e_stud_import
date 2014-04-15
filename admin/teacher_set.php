@@ -12,7 +12,7 @@ include_once "header_admin.php";
 
 include_once "header.php";
 
-//清除
+//清除全部級任 ------------------------------------------------------------
 if ($_POST['act_clear']) {
 	$sql = " TRUNCATE   "  . $xoopsDB->prefix("e_classteacher") ;
     $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
@@ -21,10 +21,13 @@ if ($_POST['act_clear']) {
 	$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where  ( user_occ like '%級任教師' ) or  (user_occ like '%學年主任')  "  ;
     $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    
 }	
+
+
 /*-----------function區--------------*/
 
  //校內教師群組代號
 	$teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
+	
  //教師名冊
  	$teacher= get_teacher_list($teach_group_id) ;
  	$data['teacher'] = $teacher ;

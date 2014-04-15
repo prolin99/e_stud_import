@@ -70,6 +70,8 @@ function get_staff_list() {
 		if ($sid and $job ) {
 			if ($job == '級任教師' ) 
 				$staff['class_tid'] = "$sid-$job" ;			//級任代號
+			if ($job == '科任教師' ) 
+				$staff['sect_tid'] = "$sid-$job" ;			//級任代號	
 			$staff['id'][$sid] = $job ;
 			$staff['job'][$job] = $sid ;
 		}	
@@ -143,5 +145,32 @@ function email_protect($email) {
 	document.write($email_t1+'</'+'a>');\n</script> \n" ;
 	return $email_output  ;
 }
+ 
+//使用者加入(移除)群組
+function user_in_group( $uid, $gid, $mode='add') {
+	global  $xoopsDB   ;
+	if  ($mode == 'add' ) {
+		//是否已在群組中
+		$sql = "SELECT * FROM " . $xoopsDB->prefix("groups_users_link") .
+			" WHERE groupid ='$gid' and uid ='$uid' " ;
+		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+		$row=$xoopsDB->fetchArray($result) ;
 
+		if (!$row['uid']) {
+			//加入群組
+			$sql = " INSERT INTO   "  . $xoopsDB->prefix("groups_users_link") .  
+				" (`uid`, `groupid`)  " .
+				"  VALUES  ( '$uid' , '$gid' )   " ; 
+			$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+		}		
+	}else {
+		
+		$sql = " DELETE FROM  " . $xoopsDB->prefix("groups_users_link") .
+						" WHERE groupid ='$gid' and uid ='$uid' " ;
+		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());				
+	}
+
+			 
+}	
+ 
 ?>

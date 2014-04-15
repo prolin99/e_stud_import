@@ -113,6 +113,11 @@
     function link() {
     	var mark_id ,job ;
           if ((label_right != '') & (label_left!=''))  {
+ 
+           	if (	label_right=='sta_990000')  {
+           		//alert(label_right) ;
+           		alert('離職人員，會移除校內教師的群組的權限！\n下次再進入設定畫面會消失。') ;
+           	}	
              mark_id = label_right +':' + label_left ;
              //取得職稱
              job = $('#'+label_right).attr("title")  ;

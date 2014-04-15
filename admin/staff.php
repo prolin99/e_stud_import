@@ -16,9 +16,12 @@ include_once "header.php";
 /*-----------function區--------------*/
   //取得職稱陣列
   $staff = get_staff_list() ;
-  $data['staff'] =$staff['id'] ;
-  $data['staff_job2id'] =$staff['job'] ;
-
+  $data['staff'] =$staff['id'] ;				//代號取名稱
+  $data['staff_job2id'] =$staff['job'] ;		//名稱取代號
+  //	取得級任代號
+  $data['staff_class_id'] = $staff['class_tid'] ;
+  //  科任
+  $data['staff_sect_id'] = $staff['sect_tid'] ;
 
   //校內教師群組代號
   $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
