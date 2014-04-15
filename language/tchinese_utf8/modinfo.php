@@ -5,10 +5,10 @@
 // $Id:$
 // ------------------------------------------------------------------------- //
 
-define("_MI_ESTUDENTS_NAME","學生名冊");
+define("_MI_ESTUDENTS_NAME","單位名冊");
 define("_MI_ESTUDENTS_AUTHOR","prolin (prolin@tn.edu.tw)");
 define("_MI_ESTUDENTS_CREDITS","prolin");
-define("_MI_ESTUDENTS_DESC","此模組的用途是匯入台南市學生資料，以提供相關模組使用");
+define("_MI_ESTUDENTS_DESC","此模組的用途是匯入學生資料、設定教職員資料，以提供相關模組使用。");
 //define("_BACK_MODULES_PAGE","回模組首頁");
 //define("_MI_MODULE_ADMENU1", "主管理介面");
  

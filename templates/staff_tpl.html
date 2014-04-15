@@ -11,12 +11,12 @@
  
       	       <{if ($data.user_staff_id[$c_key])}>  
       	       		<!-- 已設職稱  -->
-      	           <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>' class="label label-inverse">
+      	           <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-inverse">
       	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}><span class="del" id="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>">
       	           <i class="icon-trash icon-white"></i></span></label>
       	           </span>
       	       <{else}>
-      		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label></span>
+      		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label></span>
       		<{/if}> 
       	<{/foreach }>
  
@@ -26,9 +26,9 @@
       <h4>職稱</h4>
 	<{foreach  key=t_key item=staff_list    from= $data.staff }>
 	<{if ($data.staff_user_id[$t_key])}>  
-	<label id="sta_<{$t_key}>" title='<{$staff_list}>' class="label label-success" style="display: none;"><{$staff_list}></label>
+	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="label label-success" style="display: none;"><{$staff_list}></label>
 	<{else}>
-	<label id="sta_<{$t_key}>" title='<{$staff_list}>' class="label label-success"><{$staff_list}></label>
+	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="label label-success"><{$staff_list}></label>
 	<{/if}>
 	<{/foreach }>
  
@@ -37,8 +37,9 @@
       </div>  
       <div class="row-fluid">
       	<p>
-            <span class="label label-info">說明</span>
-            點選雙邊進行設定班級導師，選擇時呈黃色，設定完成為黑色，教師姓名會隱藏。垃圾桶圖示會還原重新設定。
+            <span class="label label-info">說明</span><br/>
+            點選雙邊進行設定，選擇時呈黃色，設定完成為黑色，唯一位的職稱會隱藏。<br/>垃圾桶圖示會還原重新設定。
+            <br/>如為離職人員，會移除校內教師的群組權限，畫面重整後會不再出現，之後需到會員管理加回校內教職員群組。
         </p>  
       </div>
       
@@ -59,7 +60,7 @@
     	  	$(this).removeClass() ;
         	$(this).addClass('label label-warning') ;
 			label_right= $(this).attr("id")  ;
-        	name =  $(this).attr("title")  ;
+        	name =  $(this).attr("name_title")  ;
         	if (o_label_right!=''){
         	   	//換選，先前的還原
         		$('#'+o_label_right).removeClass() ;
@@ -87,7 +88,7 @@
     	  	$(this).removeClass() ;
         	$(this).addClass('label label-warning') ;
 		label_left= $(this).attr("id")  ;
-        	class_id =  $(this).attr("title")  ;
+        	class_id =  $(this).attr("name_title")  ;
         	if (o_label_left!=''){
         		//換選，先前的還原
         		$('#'+o_label_left).removeClass() ;
@@ -120,7 +121,7 @@
            	}	
              mark_id = label_right +':' + label_left ;
              //取得職稱
-             job = $('#'+label_right).attr("title")  ;
+             job = $('#'+label_right).attr("name_title")  ;
              $('#'+label_left).html(class_id +'_'+ name + '<span class="del" id="' + mark_id + '"><i class="icon-trash icon-white"></i></span>')  ;
              $('#'+label_left).addClass('label label-inverse') ;
              //$('#'+label_right).addClass('label label-inverse') ;
@@ -172,7 +173,7 @@
     $('#'+splits[1]).removeClass() ;
     $('#'+splits[1]).addClass('label label-success') ;  
  
-    $('#'+splits[1]).text($('#'+splits[1]).attr("title") ) ;
+    $('#'+splits[1]).text($('#'+splits[1]).attr("name_title") ) ;
     //清除教師
     //alert (mark_id) ;
     ajax_del_teacher(mark_id) ;

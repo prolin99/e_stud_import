@@ -15,15 +15,30 @@ $_GET['id'] ;
     $uid = $id_array[3] ;
     $staff_id=$id_array[1] ;
     $staff =$staff_id . '-' . addSlashes($_GET['job']) ;   	
-       	//echo $uid  .'--'. 	$class_id  ;
+
+    //校內教師群組代號
+    $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
+
     if ( ( $uid >0 ) and 	$staff_id ) {
- 	if ( ($_GET['do']=='del' ) or  ($staff_id== '990000')  )
- 		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
- 	else 	
-		//更新各人資料 
-     		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;
-     		
-    	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+ 	    if  ($_GET['do']=='del' ){
+            //移除職稱
+            $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
+            $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+
+            if ($staff_id== '990000') //把離職條件去除
+                user_in_group($uid, $teach_group_id  ) ;
+        }else {
+		    //指定職稱
+            if ($staff_id== '990000') { //離職人員，無職稱，去群組
+                $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
+                $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+                user_in_group($uid, $teach_group_id ,'del' ) ;
+            }else{
+     	        $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;
+	   	        $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+            }
+
+        }
      	
     	
     	
@@ -36,13 +51,7 @@ $_GET['id'] ;
  			 else  
 				user_in_group($uid, $group_set) ;
     	}	
-    	//校內教師群組代號
-    	$teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
-    	//如果代碼 990000-離職人員，把校內教師群組移除
-    	if ($staff_id== '990000')  
- 		user_in_group($uid, $teach_group_id ,'del') ;	
-    	else  
-		user_in_group($uid, $teach_group_id  ) ;
+
 
      }else {
      	echo "insert error  " .   $_GET['id']  . $sql  ;

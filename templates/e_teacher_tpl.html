@@ -17,12 +17,12 @@
       	<{foreach  key=c_key item=class_id    from= $data.class_list }>
  
       	       <{if ($data.class_set[$c_key])}>  
-      	           <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' class="label label-inverse">
+      	           <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-inverse">
       	           <{$class_id}>_<{ $data.class_teach[$c_key]}><span class="del" id="teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>">
       	           <i class="icon-trash icon-white"></i></span></label>
       	           </span>
       	       <{else}>
-      		   <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' class="label label-success"><{$class_id}></label></span>
+      		   <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-success"><{$class_id}></label></span>
       		<{/if}> 
       	<{/foreach }>
  
@@ -32,9 +32,9 @@
       <h4>教師姓名列表(由偏好中指定所屬的群組)</h4>
 	<{foreach  key=t_key item=teacher_list    from= $data.teacher }>
 	<{if ($data.teacher_class[$t_key])}>  
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>' class="label label-success" style="display: none;"><{$teacher_list.name}></label>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success" style="display: none;"><{$teacher_list.name}></label>
 	<{else}>
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>' class="label label-success"><{$teacher_list.name}></label>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success"><{$teacher_list.name}></label>
 	<{/if}>
 	<{/foreach }>
  
@@ -64,25 +64,25 @@
     	   //可選
     	  	$(this).removeClass() ;
         	$(this).addClass('label label-warning') ;
-		label_tea= $(this).attr("id")  ;
-        	name =  $(this).attr("title")  ;
+		    label_tea= $(this).attr("id")  ;
+        	name =  $(this).attr("name_title")  ;
         	if (o_label_tea!=''){
         	   	//換選，先前的還原
         		$('#'+o_label_tea).removeClass() ;
         		$('#'+o_label_tea).addClass('label label-success') ;
         	}
         	o_label_tea = $(this).attr("id")  ;
-		link() ;
-	}else {
-		if ($(this).attr("class") == "label label-warning" ){
-			//不再選
-			$(this).removeClass() ;
-			$(this).addClass('label label-success') ;
-			label_tea= '' ;
-			o_label_tea ='' ;
+		    link() ;
+	    }else {
+		    if ($(this).attr("class") == "label label-warning" ){
+			    //不再選
+			    $(this).removeClass() ;
+			    $(this).addClass('label label-success') ;
+			    label_tea= '' ;
+			    o_label_tea ='' ;
         		name = '' ;		
-		}
-	}
+		    }
+	    }
         
     });
     
@@ -93,7 +93,7 @@
     	  	$(this).removeClass() ;
         	$(this).addClass('label label-warning') ;
 		label_class= $(this).attr("id")  ;
-        	class_id =  $(this).attr("title")  ;
+        	class_id =  $(this).attr("name_title")  ;
         	if (o_label_class!=''){
         		//換選，先前的還原
         		$('#'+o_label_class).removeClass() ;
@@ -164,7 +164,7 @@
     $('#'+splits[1]).removeClass() ;
     $('#'+splits[1]).addClass('label label-success') ;  
  
-    $('#'+splits[1]).text($('#'+splits[1]).attr("title") ) ;
+    $('#'+splits[1]).text($('#'+splits[1]).attr("name_title") ) ;
     //清除教師
     //alert (mark_id) ;
     ajax_del_teacher(mark_id) ;

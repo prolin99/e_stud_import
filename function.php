@@ -94,7 +94,7 @@ WHERE g.groupid =4
 group by u.uid
 order by  u.user_occ ,c.class_id  	
 */
- 	$sql =  "  SELECT  u.uid, u.name ,u.email ,u.user_viewemail , u.url , u.user_occ , g.groupid ,c.class_id   FROM  " . 
+ 	$sql =  "  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , u.user_occ , g.groupid ,c.class_id   FROM  " .
  			$xoopsDB->prefix("groups_users_link") .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid " .
  			" left join " . $xoopsDB->prefix("e_classteacher") ." as c on u.uid = c.uid " .
  	        "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  u.user_occ , c.class_id , u.name " ;
