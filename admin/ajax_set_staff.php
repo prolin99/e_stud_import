@@ -25,13 +25,14 @@ $_GET['id'] ;
             $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
             $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
 
-            if ($staff_id== '990000') //把離職條件去除
+            if ($staff_id== '990000') //把離職條件去除，再加回校內群組中
                 user_in_group($uid, $teach_group_id  ) ;
         }else {
 		    //指定職稱
             if ($staff_id== '990000') { //離職人員，無職稱，去群組
                 $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
                 $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+                //把校內群組移除
                 user_in_group($uid, $teach_group_id ,'del' ) ;
             }else{
      	        $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;

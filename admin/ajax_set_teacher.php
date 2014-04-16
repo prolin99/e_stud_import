@@ -27,7 +27,10 @@ $_GET['id'] ;
      	$staff =addSlashes($_GET['job']) ;
      	$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  and user_occ=''  "  ;
     	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
-     	
+
+        //指定為校內人員
+        $gid=$xoopsModuleConfig['es_studs_teacher_group']  ; //校內人員
+        user_in_group($uid, $gid  ) ;
      		
      }else {
      	echo "insert error  " .   $_GET['id']  . $sql  ;

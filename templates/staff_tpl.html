@@ -1,15 +1,15 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
-      <div class="row-fluid">
+      <div class="row-fluid" >
       <h3>職稱設定(配對)</h3>
       <div class="span8" id="tea_div">
-
-      	<h4>教師列表</h4>
-
+          <div class="row-fluid">
+              <div class="span3"><h4>教師列表</h4></div>
+              <div class="span3"><button  id='show_register' class="btn btn-primary" smode="0" >校內人員(切換)</button></div>
+          </div>
       	<{foreach  key=c_key item=teacher    from= $data.teacher_list }>
- 
-      	       <{if ($data.user_staff_id[$c_key])}>  
+       	       <{if ($data.user_staff_id[$c_key])}>
       	       		<!-- 已設職稱  -->
       	           <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-inverse">
       	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}><span class="del" id="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>">
@@ -19,8 +19,10 @@
       		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label></span>
       		<{/if}> 
       	<{/foreach }>
- 
-      </div> 
+
+
+      </div>
+
       
       <div class="span3" id="staff_div">
       <h4>職稱</h4>
@@ -39,7 +41,7 @@
       	<p>
             <span class="label label-info">說明</span><br/>
             點選雙邊進行設定，選擇時呈黃色，設定完成為黑色，唯一位的職稱會隱藏。<br/>垃圾桶圖示會還原重新設定。
-            <br/>如為離職人員，會移除校內教師的群組權限，畫面重整後會不再出現，之後需到會員管理加回校內教職員群組。
+            <br/>如為離職人員，會移除校內教師的群組權限。可切換校內群組鍵，查看非在校人員，再重設職稱。
         </p>  
       </div>
       
@@ -219,6 +221,35 @@
                     alert(thrownError);
                  }
            })
-        }  
-        
+        }
+
+    //顯示全部的註冊人員、校內人員(切換)----------------------------------------------------------------------------------
+    $(document).on("click", "#show_register", function(){
+        var smode =  $(this).attr("smode")  ;
+
+        clear_now() ;
+        ajax_show_teacher(smode) ;
+
+    });
+
+    var ajax_show_teacher=function( smode ){
+        //刪除記錄
+        var URLs="ajax_redisp_staff.php" ;
+        //alert(smode) ;
+        $.ajax({
+            url: URLs,
+            type:"GET",
+            dataType:'text',
+            data:{mode:smode } ,
+            success: function(msg){
+                //重顯示教師群
+                $("#tea_div").html(msg) ;
+            },
+
+            error:function(xhr, ajaxOptions, thrownError){
+                alert('error:' + xhr.status);
+                alert(thrownError);
+            }
+        })
+    }
     </script>      

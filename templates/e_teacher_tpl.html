@@ -29,7 +29,8 @@
       </div> 
       
       <div class="span2" id="teacher_div">
-      <h4>教師姓名列表(由偏好中指定所屬的群組)</h4>
+      <h4>教師列表</h4>
+
 	<{foreach  key=t_key item=teacher_list    from= $data.teacher }>
 	<{if ($data.teacher_class[$t_key])}>  
 	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success" style="display: none;"><{$teacher_list.name}></label>
@@ -37,7 +38,7 @@
 	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success"><{$teacher_list.name}></label>
 	<{/if}>
 	<{/foreach }>
- 
+          <p> <button  id='show_register' class="btn btn-primary" smode="0" >校內人員(切換)</button></p>
       </div>
    
       </div>  
@@ -209,6 +210,35 @@
                     alert(thrownError);
                  }
            })
-        }  
-        
+        }
+
+    //顯示全部的註冊人員、校內人員(切換)----------------------------------------------------------------------------------
+    $(document).on("click", "#show_register", function(){
+        var smode =  $(this).attr("smode")  ;
+        //alert(smode)
+        clear_now() ;
+        ajax_show_teacher(smode) ;
+
+    });
+
+    var ajax_show_teacher=function( smode ){
+        //刪除記錄
+        var URLs="ajax_redisp_teacher.php" ;
+
+        $.ajax({
+            url: URLs,
+            type:"GET",
+            dataType:'text',
+            data:{mode:smode } ,
+            success: function(msg){
+                //重顯示教師群
+                $("#teacher_div").html(msg) ;
+            },
+
+            error:function(xhr, ajaxOptions, thrownError){
+                alert('error:' + xhr.status);
+                alert(thrownError);
+            }
+        })
+    }
     </script>      
