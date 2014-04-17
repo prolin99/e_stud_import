@@ -20,18 +20,20 @@ function f1(){
 	} 	
 	
 	
-/*
-	$y = date("Y") -1911 ;
-	if  (date("m")<8) $y-=1 ;
-*/
-	$main .="
+
+    //取得現在學年
+    $c_year = date("Y") -1911 ;
+    if  (date("m")<8) $c_year-=1 ;
+
+    $main .="
 		<form action ='{$_SERVER['PHP_SELF']}' enctype='multipart/form-data' method=post>
 		<fieldset>
-		<legend>台南市學生資料檔案匯入</legend>
-		<p><label>由學籍學生基本資料匯出至健康系統，取得全校資料。</label></p><br/>
- 		<p><label>XML檔案 or EXCEL檔案:</label>
+		<legend>學生資料檔案匯入</legend>
+		<p><label>現在學年度：$c_year </label></p><br/>
+		<p><label>台南市學校可由學籍學生基本資料匯出至健康系統，取得全校資料。</label></p><br/>
+ 		<p><label>上傳 XML檔案 or EXCEL檔案:</label><br/>
 		<input type=file name=userdata></p><br/><br/>
-		
+
 		<input type='hidden' name='op' value='import'>
 		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！)<br/>
 		</fieldset>
@@ -50,7 +52,8 @@ function import_stud(){
 	$file_up = XOOPS_ROOT_PATH."/uploads/" .$_FILES['userdata']['name'] ;
 	copy($_FILES['userdata']['tmp_name'] , $file_up );	
 	$main="開始匯入" . $file_up .'<br>';
- 	 
+
+    //副檔名
  	$file_array= preg_split('/[.]/', $_FILES['userdata']['name'] ) ;
  	$ext= strtoupper(array_pop($file_array)) ;
 	if ($ext=='XML')  
@@ -70,7 +73,7 @@ function import_stud(){
 
 //xml 格式
 function import_xml($file_up){
-	global $xoopsDB;
+	global $xoopsDB,$c_year;
 	
 
 	
@@ -78,12 +81,12 @@ function import_xml($file_up){
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	
-	
+	/*
 	//$c_year = $_POST['current_y'] ;
 	//取得現在學年
 	$c_year = date("Y") -1911 ;
 	if  (date("m")<8) $c_year-=1 ;	
-	
+	*/
 	
    	//讀入 XML 檔案
  	$xmlDoc = new DOMDocument();
@@ -135,16 +138,18 @@ function import_xml($file_up){
 
 //excel 格式
 function import_excel($file_up,$ver=5) {
-	global $xoopsDB;
+    global $xoopsDB,$c_year;
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
-	
+
+    /*
 	//取得現在學年
 	$c_year = date("Y") -1911 ;
 	if  (date("m")<8) $c_year-=1 ;		
-	
+	*/
+
 	include_once '../../tadtools/PHPExcel/IOFactory.php';
 	if ($ver ==5)
 		$reader = PHPExcel_IOFactory::createReader('Excel5');
