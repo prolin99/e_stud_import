@@ -120,7 +120,8 @@
            	if (	label_right=='sta_990000')  {
            		//alert(label_right) ;
            		alert('離職人員，會移除校內教師的群組的權限！') ;
-           	}	
+           	}
+
              mark_id = label_right +':' + label_left ;
              //取得職稱
              job = $('#'+label_right).attr("name_title")  ;
@@ -132,12 +133,17 @@
              var sta_id = label_right.split('_') ;
  			 if (sta_id[1].charAt(3)== '1') {
              	$('#'+label_right).hide() ;
-             	label_right ='' ;
-             	o_label_right ='' ;
-             }	
-             
+             }else{
+                 ///還原顏色
+                 $('#'+o_label_right).removeClass() ;
+                 $('#'+o_label_right).addClass('label label-success') ;
+             }
+
+             label_right ='' ;
+             o_label_right ='' ;
              label_left='' ;
              o_label_left ='' ;
+
              //設定教師
              //alert(mark_id +job) ;
              ajax_set_teacher(mark_id ,job) ;
