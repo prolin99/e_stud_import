@@ -35,8 +35,10 @@ $_GET['id'] ;
                 //把校內群組移除
                 user_in_group($uid, $teach_group_id ,'del' ) ;
             }else{
+                //加入職稱加群組
      	        $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;
 	   	        $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+                user_in_group($uid, $teach_group_id  ) ;
             }
 
         }
