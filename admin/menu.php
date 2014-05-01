@@ -16,10 +16,10 @@ $adminmenu[$i]['desc'] ='學生名冊' ;
 $adminmenu[$i]['icon'] = 'images/admin/list_all.png' ;
 
 $i++ ;
-$adminmenu[$i]['title'] = "學生名冊網頁";
+$adminmenu[$i]['title'] = "網頁樣式匯出";
 $adminmenu[$i]['link'] = "admin/students_web.php";
-$adminmenu[$i]['desc'] ='學生名冊網頁' ;
-$adminmenu[$i]['icon'] = 'images/admin/list_all.png' ;
+$adminmenu[$i]['desc'] ='網頁樣式匯出' ;
+$adminmenu[$i]['icon'] = 'images/admin/txt.png' ;
 
 $i++ ;
 $adminmenu[$i]['title'] = "級任設定";

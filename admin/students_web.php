@@ -13,10 +13,18 @@ include_once "header_admin.php";
 include_once "header.php";
 
 /*-----------function區--------------*/
-// is_safe_chk()  ;	//檢查是否訪客有權限
 
 /*-----------執行動作判斷區----------*/
-//$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
+ 
+  //取回常用樣式
+  $tpl_list  = preg_split('/[,\r\n]/' ,$xoopsModuleConfig['es_studs_exweb']) ;
+  foreach ($tpl_list as $k =>$v) {
+	if (trim($v) ) {
+		$tpl_used[]=$v ;
+		$tpl_list_show[] = htmlentities($v) ;
+	}	
+  }
+  
 
 //取得班級列表
 	$sql =  "  SELECT `class_id`  FROM " . $xoopsDB->prefix("e_student") .  "  GROUP BY `class_id`  ORDER BY  `class_id`  " ;
@@ -33,7 +41,22 @@ include_once "header.php";
 	$patterns[0] = '/__class_id/';
 	$patterns[1] = '/__sitid/';
 	$patterns[2] = '/__name/';
- 
+	$patterns[3] = '/__person_id/';
+	$patterns[4] = '/__birthday/';
+	$patterns[5] = '/__stud_id/';
+	$patterns[6] = '/__parent/';
+	$patterns[7] = '/__sex/';
+	
+/*	
+__class_id 班級代號
+__sitid 座號
+__name 學生姓名
+__person_id 身份証號
+__birthday 生日
+__stud_id 學生代號
+__parent 學生監護人
+__sex 性別代碼
+ */
  
 	
 //取得該班的資料
@@ -42,10 +65,13 @@ include_once "header.php";
 	else 
 		$data['select_class_id'] =$tmp_id   ;
 		
+		
 	if ($_POST['tpl']) 
 		$tpl_str =$_POST['tpl'];
-	else 	
-		$tpl_str ="<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>"  ;
+	else 
+		//取出第一個偏好為預設值
+		$tpl_str =$tpl_used[0] ; 
+		
 				
 	if  ( $data['select_class_id']  ) {
 		$c_id = $data['select_class_id'] ;
@@ -53,17 +79,16 @@ include_once "header.php";
  
 		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 		while($stud=$xoopsDB->fetchArray($result)){
-			/*
-			$students[]=$stud ;
-			$class_id= $stud['class_id'] ;
-			$stud_name= $stud['name'] ;
-			$sitid= $stud['class_sit_num'] ;
-			$begstr = "<a href='play.php?flv=$class_id/$sitid.flv&name=$stud_name&class=$class_id' target='web' >$sitid.$stud_name </a> " ; 
-			*/
+ 
 			$replacements = array();
 			$replacements[0] = $stud['class_id'] ;
 			$replacements[1] =$stud['class_sit_num'] ;
 			$replacements[2] =  $stud['name'] ;
+			$replacements[3] =  $stud['person_id'] ;
+			$replacements[4] =  $stud['birthday'] ;
+			$replacements[5] =  $stud['stud_id'] ;
+			$replacements[6] =  $stud['parent'] ;
+			$replacements[7] =  $stud['sex'] ;
 
 
 			$begstr = preg_replace($patterns, $replacements, $tpl_str);				
@@ -97,6 +122,8 @@ $xoopsTpl->assign( "data" , $data ) ;
 $xoopsTpl->assign( "sexstr" , $sexstr ) ;
 $xoopsTpl->assign( "students" , $students ) ; 
 $xoopsTpl->assign( "main" , $main ) ;
+$xoopsTpl->assign( "tpl_list" , $tpl_list_show ) ;
+$xoopsTpl->assign( "tpl_str" , stripslashes($tpl_str) ) ;
 include_once 'footer.php';
 
 

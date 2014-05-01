@@ -4,18 +4,19 @@
 
     <form   method='post' >
     <fieldset>
-    <legend>學生名單</legend>
+    <legend>選擇班級</legend>
     <span>班級：</span>
     <{html_options name=class_id  options=$data.class_id_list  selected=$data.select_class_id  onchange="submit();"  class="span4" }><br />
-	個人樣版：<input type="text" name="tpl"  class="span10" value="<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>" ></input>
+	個人樣版：<input type="text" name="tpl"  class="span10" value="<{$tpl_str}>" ></input><br />
+	<button class="btn btn-primary"   value="更新" name="act_renew" type="submit">更新</button>
+	
     </fieldset>
     </form>
- 
+   <h3>常用樣式</h3>
+   <{foreach  key=t_key item=list    from= $tpl_list }>
+   <p><span class="label"><{$list}></span>  </p>
+   <{/foreach}>
    <h3><{$data.select_class_id }>班級學生名冊</h3>
-   影片樣式：
-   <input type="text" value="<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>" name="exam_name"  class="span10"></input><br />
-   網頁樣式：
-   <input type="text" value="<a href='/lifetype/index.php?blogId=__class_id__sitid' target='web' >__sitid.__name </a>" name="exam_name"  class="span10"></input><br />
- 
 	<{$main}>
-<textarea class="span10" rows="20" name="dhcp"><{$main}></textarea>
+ 	<h3>網頁原始碼</h3>	
+	<textarea class="span10" rows="20" name="dhcp"><{$main}></textarea>
