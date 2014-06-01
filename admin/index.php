@@ -9,21 +9,19 @@
 include_once "header_admin.php";
 
 /*-----------function區--------------*/
+    //取得現在學年
+    $c_year = date("Y") -1911 ;
+    if  (date("m")<8) $c_year-=1 ;
+    
 //
 function f1(){
-	global $xoopsDB;
+	global $xoopsDB,$c_year;
 	//取得目前學生資料
 	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;	   	
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
 	while($data_list=$xoopsDB->fetchArray($result)){
  		$main = '現在學生數：' . $data_list['students']  . ' 人，最近建制日期： ' .  $data_list['chk_date']  ;
 	} 	
-	
-	
-
-    //取得現在學年
-    $c_year = date("Y") -1911 ;
-    if  (date("m")<8) $c_year-=1 ;
 
     $main .="
 		<form action ='{$_SERVER['PHP_SELF']}' enctype='multipart/form-data' method=post>
