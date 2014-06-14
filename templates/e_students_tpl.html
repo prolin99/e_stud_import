@@ -10,9 +10,9 @@
 
     </fieldset>
     </form>
- 
+ <div class="row-fluid" >
    <h3><{$data.select_class_id }>班級學生名冊</h3>
-    <table class="table table-hover">
+    <table class="table table-hover span5">
 	 <{foreach  key=key item=stud   from= $students }>
 	 <tr>
 	      <td><{$stud.class_sit_num}></td>
@@ -22,3 +22,4 @@
 	 <{/foreach }>
  	
     </table>
+</div>
