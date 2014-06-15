@@ -19,3 +19,11 @@ CREATE TABLE  `e_classteacher` (
   `class_id` varchar(6) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM COMMENT='級任'   ;
+
+CREATE TABLE `es_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `rec_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM   COMMENT='記錄訊息';

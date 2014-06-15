@@ -159,4 +159,40 @@ function user_in_group( $uid, $gid, $mode='add') {
 			 
 }	
  
+//在學生資料更新前把學生人數做統計，寫入記錄檔
+function do_statistics() {
+	global  $xoopsDB   ;
+	//年級人數統計
+	$sql = "SELECT SUBSTR(class_id,1,1) as grade, count( * ) cc  FROM " . $xoopsDB->prefix("e_student") .
+			"  group by  SUBSTR(class_id,1,1)  " ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
+	while($row=$xoopsDB->fetchArray($result)){
+		$grade .= $row['grade'] . "年級:" .  $row['cc']  .  "人<br/>" ;
+		$all += $row['cc']  ;
+	}	
+	//班級人數統計
+	$sql = " SELECT class_id, count( * ) cc FROM " . $xoopsDB->prefix("e_student") . " GROUP BY class_id  " ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
+	while($row=$xoopsDB->fetchArray($result)){
+		$class .= $row['class_id'] . "班:" .  $row['cc']  .  "人<br/>" ;
+	}		
+	
+	$main = date("Y-m-d") .  "<br/>共計 $all 人<br/> $grade $class " ;
+	
+	$sql = " INSERT INTO   "  . $xoopsDB->prefix("es_log") .  
+				" (`module`, `message`)  " .
+				"  VALUES  ( 'e_stud_import' , '$main' )   " ; 
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+	
+/*	
+			
+			SELECT class_id, count( * ) cc
+FROM `xx_e_student`
+GROUP BY class_id
+	SELECT SUBSTR(class_id,1,1) as grade, count( * ) cc
+FROM `xx_e_student`
+GROUP BY SUBSTR(class_id,1,1)
+
+*/
+}	
 ?>

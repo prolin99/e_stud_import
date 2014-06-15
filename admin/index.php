@@ -4,66 +4,45 @@
 // 製作日期：2014-02-16
 // $Id:$
 // ------------------------------------------------------------------------- //
-
+ 
 /*-----------引入檔案區--------------*/
+//樣版
+$xoopsOption['template_main'] = "e_stud_index_adm_tpl.html";
 include_once "header_admin.php";
+
+include_once "header.php";
 
 /*-----------function區--------------*/
 //
     //取得現在學年
     $c_year = date("Y") -1911 ;
     if  (date("m")<8) $c_year-=1 ;
-    
-function f1(){
-	global $xoopsDB , $c_year ;
-	//取得目前學生資料
-	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;	   	
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
-	while($data_list=$xoopsDB->fetchArray($result)){
- 		$main = '現在學生數：' . $data_list['students']  . ' 人，最近建制日期： ' .  $data_list['chk_date']  ;
-	} 	
-	
-    $main .="
-		<form action ='{$_SERVER['PHP_SELF']}' enctype='multipart/form-data' method=post>
-		<fieldset>
-		<legend>學生資料檔案匯入</legend>
-		<p><label>現在學年度：$c_year </label></p><br/>
-		<p><label>台南市學校可由學籍學生基本資料匯出至健康系統，取得全校資料。</label></p><br/>
- 		<p><label>上傳 XML檔案 or EXCEL檔案:</label><br/>
-		<input type=file name=userdata></p><br/><br/>
 
-		<input type='hidden' name='op' value='import'>
-		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！)<br/>
-		</fieldset>
-		</form>
-		<p>相關說明：
-		<a href='../health_sample.xml' target='_blank'>XML 範列檔</a>  ,<a href='../health_sample.xls' target='_blank'>EXCEL 範例檔</a><br/>
-		(只取欄位：身份證字號、姓名、性別、入學年、班級、監護人、座號、生日、代號)
-		</p>" ;
-		
- 
-  return $main;
-}
 
 //匯入判別
 function import_stud(){
-	$file_up = XOOPS_ROOT_PATH."/uploads/" .$_FILES['userdata']['name'] ;
-	copy($_FILES['userdata']['tmp_name'] , $file_up );	
-	$main="開始匯入" . $file_up .'<br>';
+	if ($_FILES['userdata']) {
 
-    //副檔名
- 	$file_array= preg_split('/[.]/', $_FILES['userdata']['name'] ) ;
- 	$ext= strtoupper(array_pop($file_array)) ;
-	if ($ext=='XML')  
-		import_xml($file_up) ;
-	if ($ext=='XLS') 
-		import_excel($file_up) ;	
-	if ($ext=='XLSX') 
-		import_excel($file_up , 2007) ;			
-	//刪除上傳的檔。
-	unlink($file_up)  ;
- 
-	redirect_header($_SERVER['PHP_SELF'],3, '資料寫入!' );
+		$file_up = XOOPS_ROOT_PATH."/uploads/" .$_FILES['userdata']['name'] ;
+		copy($_FILES['userdata']['tmp_name'] , $file_up );	
+		$main="開始匯入" . $file_up .'<br>';
+
+		//副檔名
+		$file_array= preg_split('/[.]/', $_FILES['userdata']['name'] ) ;
+		$ext= strtoupper(array_pop($file_array)) ;
+		if ($ext=='XML')  
+			import_xml($file_up) ;
+		if ($ext=='XLS') 
+			import_excel($file_up) ;	
+		if ($ext=='XLSX') 
+			import_excel($file_up , 2007) ;			
+		//刪除上傳的檔。
+		unlink($file_up)  ;
+		
+		//把整資料庫中的資料匯整成記錄
+		do_statistics() ;
+		redirect_header($_SERVER['PHP_SELF'],3, '資料寫入!' );
+	}
 	
 	return $main; 
  
@@ -78,14 +57,7 @@ function import_xml($file_up){
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-	
-	/*
-	//$c_year = $_POST['current_y'] ;
-	//取得現在學年
-	$c_year = date("Y") -1911 ;
-	if  (date("m")<8) $c_year-=1 ;	
-	*/
-	
+
    	//讀入 XML 檔案
  	$xmlDoc = new DOMDocument();
  	$xmlDoc->load( $file_up );
@@ -142,11 +114,7 @@ function import_excel($file_up,$ver=5) {
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
 
-    /*
-	//取得現在學年
-	$c_year = date("Y") -1911 ;
-	if  (date("m")<8) $c_year-=1 ;		
-	*/
+
 
 	include_once '../../tadtools/PHPExcel/IOFactory.php';
 	if ($ver ==5)
@@ -205,18 +173,28 @@ switch($op){
 	/*---判斷動作請貼在下方---*/
 	
 	case "import":
-	$main=import_stud() ;
-	//header("location: {$_SERVER['PHP_SELF']}");
-	break;
 
-	default:
-	$main=f1();
+	$main=import_stud() ;
 	break;
-	
-	/*---判斷動作請貼在上方---*/
 }
 
+	//取得目前學生資料總計
+	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;	   	
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
+	$data_list=$xoopsDB->fetchArray($result) ;
+ 
+	//取得記錄檔十筆
+	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  order by rec_time DESC  LIMIT 0 , 30 ";	   	
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
+	while($row=$xoopsDB->fetchArray($result)){
+		$recdata[]= $row ;
+	}
+
+
 /*-----------秀出結果區--------------*/
-module_admin_footer($main,0);
+ 	$xoopsTpl->assign( "data_list" , $data_list ) ; 
+ 	$xoopsTpl->assign( "recdata" , $recdata ) ; 
+ 	$xoopsTpl->assign( "c_year" , $c_year ) ; 
+include_once 'footer.php';
 
 ?>

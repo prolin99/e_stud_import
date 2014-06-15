@@ -33,7 +33,7 @@ $modversion['system_menu'] = 1;//---資料表架構---//
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 $modversion['tables'][1] = "e_student";
 $modversion['tables'][2] = "e_classteacher";
-$modversion['tables'][3] = "e_staff";
+$modversion['tables'][3] = "es_log";
 
 //---管理介面設定---//
 $modversion['hasAdmin'] = 1;
@@ -42,6 +42,9 @@ $modversion['adminmenu'] = "admin/menu.php";
 
 //---使用者主選單設定---//
 $modversion['hasMain'] = 1;
+
+//---安裝設定---//
+$modversion['onUpdate'] = "include/onUpdate.php";
 
 
 
@@ -62,6 +65,10 @@ $modversion['templates'][$i]['description'] = "e_students_tpl";
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_web_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_web_tpl";
+$i++ ;
+$modversion['templates'][$i]['file'] = 'e_stud_index_adm_tpl.html';
+$modversion['templates'][$i]['description'] = "e_stud_index_adm_tpl";
+ 
 
 $i=1 ;
 //偏好設定

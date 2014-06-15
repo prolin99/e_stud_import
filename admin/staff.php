@@ -20,7 +20,7 @@ include_once "header.php";
   $data['staff_job2id'] =$staff['job'] ;		//名稱取代號
   //	取得級任代號
   $data['staff_class_id'] = $staff['class_tid'] ;
-  //  科任
+  //  科任代號
   $data['staff_sect_id'] = $staff['sect_tid'] ;
 
   //校內教師群組代號
@@ -29,7 +29,7 @@ include_once "header.php";
   //教師名冊
   $data['teacher_list'] =get_teacher_list($teach_group_id) ;
 
-  //已指定 
+  //已指定，呈現中文名稱 
   foreach ($data['teacher_list'] as $uid => $user ) {
 	//
 	$job_arr = preg_split('/[-]/' , $user['user_occ']) ;

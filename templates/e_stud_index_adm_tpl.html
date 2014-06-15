@@ -1,0 +1,33 @@
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
+      <div class="row-fluid">
+      <div class="span8">
+      <span class="label label-success">現在學生數：<{ $data_list.students }> 人，最近建制日期：<{  $data_list.chk_date }></span>
+ 		<form action ="index.php" enctype='multipart/form-data' method=post>
+		<fieldset>
+		<legend>學生資料檔案匯入</legend>
+		<label>現在學年度：<{$c_year}> </label>
+		
+ 		<label>上傳 XML檔案 or EXCEL檔案:</label>
+		<input type=file name=userdata>
+		
+		<input type='hidden' name='op' value='import'> <br /> <br />
+		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！) 
+		</fieldset>
+		</form>
+		<div class="alert alert-info">
+		<strong>相關說明：</strong>
+		<a href='../health_sample.xml' target='_blank'>XML 範列檔</a>  ,<a href='../health_sample.xls' target='_blank'>EXCEL 範例檔</a><br/>
+		<div>台南市學校可由學籍學生基本資料匯出至健康系統，取得全校資料(XML格式)。 </div>
+		(只取欄位：身份證字號、姓名、性別、入學年、班級、監護人、座號、生日、代號)
+		 </div>
+      </div>
+      <div class="span4">
+      <h4>人數統計記錄</h4>
+      <{foreach  key=key item=rec   from= $recdata }>
+      <span class="badge badge-inverse rec" data_ref="<{$rec.id}>" ><{$rec.rec_time }><i class="icon-remove icon-white del" title="刪除"  data_ref="<{$rec.id}>" ></i></span> . 
+      <{/foreach}>
+      </div>
+      </div>
+   
