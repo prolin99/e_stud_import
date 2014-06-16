@@ -1,8 +1,20 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
+
+  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/css/iconize.css' />
+  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/lib/jquery.mousewheel-3.0.6.pack.js'></script>
+  <script type='text/javascript' language='javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js?v=2.1.4'></script>
+  <link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css?v=2.1.4' type='text/css' media='screen' />
+  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5' />
+  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5'></script>
+  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7' />
+  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7'></script>
+  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5'></script>
+
+    
       <div class="row-fluid">
-      <div class="span8">
+      <div class="span6">
       <span class="label label-success">現在學生數：<{ $data_list.students }> 人，最近建制日期：<{  $data_list.chk_date }></span>
  		<form action ="index.php" enctype='multipart/form-data' method=post>
 		<fieldset>
@@ -23,11 +35,60 @@
 		(只取欄位：身份證字號、姓名、性別、入學年、班級、監護人、座號、生日、代號)
 		 </div>
       </div>
-      <div class="span4">
+      <div class="span6">
       <h4>人數統計記錄</h4>
-      <{foreach  key=key item=rec   from= $recdata }>
-      <span class="badge badge-inverse rec" data_ref="<{$rec.id}>" ><{$rec.rec_time }><i class="icon-remove icon-white del" title="刪除"  data_ref="<{$rec.id}>" ></i></span> . 
-      <{/foreach}>
+      	<{foreach  key=key item=rec   from= $recdata }>
+      	<span class="span3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" ><{$rec.rec_time }></a><i class="icon-remove del" title="刪除"  data_ref="<{$rec.id}>" ></i></span>
+      	<{/foreach}>
       </div>
       </div>
    
+  <script type='text/javascript'>
+    $(document).ready(function(){
+      $(".viewlog_fancy").fancybox({
+      fitToView : true,
+      width   : '40%',
+      height    : '70%',
+      autoSize  : true,
+      closeClick  : false ,
+      type: "iframe"
+      });
+
+    });
+    
+    //清除記錄----------------------------------------------------------------------------------
+  $(document).on("click", ".del", function(){
+    	var iid = $(this).attr("data_ref")  ;
+	if(confirm('是否確定要刪除？')) {
+          		ajax_del( iid) ;  // 刪除動作
+          		//alert (iid) ;
+           		$(this).parent().hide() ;
+        }	 	
+  });    
+  
+  
+   function ajax_del(iid )  {
+  	$.ajax({
+ 		url: 'ajax_del_log.php',
+ 		type: 'GET',
+ 		//dateType:'json', //接收資料格式
+ 		data: {id: iid   },
+ 	})
+ 	.done(function(data) {
+ 		//console.log("success");
+ 		//取得 json 格式
+	 	//var json_obj = jQuery.parseJSON(data) ;
+
+ 		//alert(data) ;
+ 	})
+ 	.fail(function() {
+ 		console.log("error");
+ 	})
+ 	.always(function() {
+ 		console.log("complete");
+ 	});
+ 
+ 	
+ }
+    
+ </script>      

@@ -5,10 +5,10 @@
 // $Id:$
 // ------------------------------------------------------------------------- //
 //引入TadTools的函式庫
-if(!file_exists(TADTOOLS_PATH."/tad_function.php")){
+if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php")){
  redirect_header("http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50",3, _TAD_NEED_TADTOOLS);
 }
-include_once TADTOOLS_PATH."/tad_function.php";
+include_once XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php";
 
 /********************* 自訂函數 *********************/
 
@@ -163,36 +163,43 @@ function user_in_group( $uid, $gid, $mode='add') {
 function do_statistics() {
 	global  $xoopsDB   ;
 	//年級人數統計
-	$sql = "SELECT SUBSTR(class_id,1,1) as grade, count( * ) cc  FROM " . $xoopsDB->prefix("e_student") .
-			"  group by  SUBSTR(class_id,1,1)  " ;
+	$sql = "SELECT SUBSTR(class_id,1,1) as grade,  sex , count( * ) cc  FROM " . $xoopsDB->prefix("e_student") .
+			"  group by  SUBSTR(class_id,1,1), sex  " ;
 	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
 	while($row=$xoopsDB->fetchArray($result)){
-		$grade .= $row['grade'] . "年級:" .  $row['cc']  .  "人<br/>" ;
+		$grade= $row['grade'] ;
+		$sex= $row['sex'] ;
+		$grade_array[$grade][$sex]=$row['cc'] ; 
+		$grade_sum[$grade] += $row['cc'] ; 	//年級總數
 		$all += $row['cc']  ;
 	}	
+	foreach ($grade_sum as $y =>$sum) {
+		$grade_table .= "<tr><td>$y 年級</td><td>{$grade_array[$y][1]}</td><td>{$grade_array[$y][2]}</td> <td>$sum</td></tr>\n" ;
+	}	
+	$grade_table ="<table border=1><tr><td>年級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $grade_table</table>總人數:$all  \n" ;
+	
 	//班級人數統計
-	$sql = " SELECT class_id, count( * ) cc FROM " . $xoopsDB->prefix("e_student") . " GROUP BY class_id  " ;
+	$sql = " SELECT class_id, sex , count( * ) cc FROM " . $xoopsDB->prefix("e_student") . " GROUP BY class_id , sex order by class_id, sex  " ;
 	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
 	while($row=$xoopsDB->fetchArray($result)){
-		$class .= $row['class_id'] . "班:" .  $row['cc']  .  "人<br/>" ;
+		$class_id= $row['class_id'] ;
+		$sex= $row['sex'] ;		
+		$class_array[$class_id][$sex]= $row['cc']; 
+		$class_sum[$class_id] +=$row['cc']; 
+
 	}		
+	foreach ($class_sum as $c =>$sum) {
+		$class_table  .= "<tr><td>$c</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n" ;
+	}
+	$class_table ="<table border=1><tr><td>班級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n" ;
 	
-	$main = date("Y-m-d") .  "<br/>共計 $all 人<br/> $grade $class " ;
+	$main = "<h1>" .date("Y-m-d") ."學生人數統計表</h1>". $grade_table. $class_table  ;
 	
 	$sql = " INSERT INTO   "  . $xoopsDB->prefix("es_log") .  
 				" (`module`, `message`)  " .
 				"  VALUES  ( 'e_stud_import' , '$main' )   " ; 
 	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
 	
-/*	
-			
-			SELECT class_id, count( * ) cc
-FROM `xx_e_student`
-GROUP BY class_id
-	SELECT SUBSTR(class_id,1,1) as grade, count( * ) cc
-FROM `xx_e_student`
-GROUP BY SUBSTR(class_id,1,1)
-
-*/
+ 
 }	
 ?>

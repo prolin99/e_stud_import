@@ -21,8 +21,8 @@ include_once "header.php";
 
 //匯入判別
 function import_stud(){
-	if ($_FILES['userdata']) {
-
+	if ($_FILES['userdata']['name'] ) {
+		 
 		$file_up = XOOPS_ROOT_PATH."/uploads/" .$_FILES['userdata']['name'] ;
 		copy($_FILES['userdata']['tmp_name'] , $file_up );	
 		$main="開始匯入" . $file_up .'<br>';
@@ -184,7 +184,7 @@ switch($op){
 	$data_list=$xoopsDB->fetchArray($result) ;
  
 	//取得記錄檔十筆
-	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  order by rec_time DESC  LIMIT 0 , 30 ";	   	
+	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  order by rec_time DESC  ";	   	
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
 	while($row=$xoopsDB->fetchArray($result)){
 		$recdata[]= $row ;
