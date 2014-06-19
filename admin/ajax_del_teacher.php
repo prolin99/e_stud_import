@@ -17,7 +17,7 @@ $_GET['id'] ;
        	$class_id=$id_array[3] ;
        //	echo $uid  .'--'. 	$class_id  ;
 	if ( ( $uid >0 ) and 	$class_id ) {
-		 $sql = " DELETE FROM  "  . $xoopsDB->prefix("e_classteacher") .  
+		 $sql = " update   "  . $xoopsDB->prefix("e_classteacher") .   " set  class_id=''   " . 
 	     	   "  where uid= '$uid'  and class_id= '$class_id'    " ; 
  
  
@@ -25,7 +25,7 @@ $_GET['id'] ;
      		
      		// 為級任教師則去除
      		$staff =addSlashes($_GET['job']) ;
-     		$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid' and user_occ='$staff'  "  ;
+     		$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid' and staff ='$staff'  "  ;
     		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
      		
      	}else {

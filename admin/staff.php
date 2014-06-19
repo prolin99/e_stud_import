@@ -14,7 +14,7 @@ include_once "header.php";
 
 
 /*-----------function區--------------*/
-  //取得職稱陣列
+  //取得職稱陣列(由偏好中取得)
   $staff = get_staff_list() ;
   $data['staff'] =$staff['id'] ;				//代號取名稱
   $data['staff_job2id'] =$staff['job'] ;		//名稱取代號
@@ -28,11 +28,13 @@ include_once "header.php";
   
   //教師名冊
   $data['teacher_list'] =get_teacher_list($teach_group_id) ;
-
+  //	 var_dump($data['teacher_list'] ) ;
+ 
+ 
   //已指定，呈現中文名稱 
   foreach ($data['teacher_list'] as $uid => $user ) {
 	//
-	$job_arr = preg_split('/[-]/' , $user['user_occ']) ;
+	$job_arr = preg_split('/[-]/' , $user['staff']) ;
 	$user_staff_id[$uid] = $job_arr[0] ;	//代號
 	$user_staff_job[$uid] = $job_arr[1] ;	//職稱
 	if (substr($job_arr[0],3,1) ==1 )  { 

@@ -80,11 +80,11 @@ WHERE g.groupid =4
 group by u.uid
 order by  u.user_occ ,c.class_id  	
 */
- 	$sql =  "  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , u.user_occ , g.groupid ,c.class_id   FROM  " .
+ 	$sql =  "  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , c.staff , g.groupid ,c.class_id   FROM  " .
  			$xoopsDB->prefix("groups_users_link") .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid " .
- 			" left join " . $xoopsDB->prefix("e_classteacher") ." as c on u.uid = c.uid " .
- 	        "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  u.user_occ , c.class_id , u.name " ;
-  	//echo $sql ;
+ 			" left join " . $xoopsDB->prefix("e_classteacher") ." as c on u.uid = c.uid "  .
+ 	        "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  c.staff , c.class_id , u.name " ;
+ 
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	while($row=$xoopsDB->fetchArray($result)){
 		if ($show) {
@@ -93,7 +93,8 @@ order by  u.user_occ ,c.class_id
 				$row['email_show']= email_protect($row['email']) ;
 			}	
 			//班級
- 			$job_arr = preg_split('/[-]/' ,$row['user_occ']) ;
+ 			//$job_arr = preg_split('/[-]/' ,$row['user_occ']) ;
+ 			$job_arr = preg_split('/[-]/' ,$row['staff']) ;
  			$row['staff'] = $job_arr[1] ;
  			if ($row['class_id'])
  				$row['staff'] .= '-' .$row['class_id'] .'班' ;

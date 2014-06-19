@@ -3,7 +3,7 @@
 // 本模組由 prolin 製作
 // 製作日期：2014-04-20
 // $Id:$
-//使用 users 資料表 user_occ欄位 來記錄職稱 例：360002-級任教師
+//使用 e_classteacher 資料表 staff  欄位 來記錄職稱 例：360002-級任教師
 // ------------------------------------------------------------------------- //
 
 /*-----------引入檔案區--------------*/
@@ -23,7 +23,7 @@ $_GET['id'] ;
     if ( ( $uid >0 ) and 	$staff_id ) {
  	    if  ($_GET['do']=='del' ){
             //移除職稱
-            $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
+            $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid'  "  ;
             $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
 
             if ($staff_id== '990000') //把離職條件去除，再加回校內群組中
@@ -31,14 +31,14 @@ $_GET['id'] ;
         }else {
 		    //指定職稱
             if ($staff_id== '990000') { //離職人員，無職稱，去群組
-                $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where uid='$uid'  "  ;
+                $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid'  "  ;
                 $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
                 //把校內群組移除
                 user_in_group($uid, $teach_group_id ,'del' ) ;
             }else{
                 //加入職稱加群組
-     	        $sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='$staff' where uid='$uid'  "  ;
-	   	        $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+     	        $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='$staff' where uid='$uid'  "  ;
+	   	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
                 user_in_group($uid, $teach_group_id  ) ;
             }
 

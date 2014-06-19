@@ -17,8 +17,15 @@ CREATE TABLE `e_student` (
 CREATE TABLE  `e_classteacher` (
   `uid`  int(11)  NOT NULL,
   `class_id` varchar(6) NOT NULL,
-  PRIMARY KEY (`uid`)
+  `staff` varchar(80) NOT NULL DEFAULT '',
+  `teacher_kind` varchar(60) NOT NULL DEFAULT '',
+  `teach_memo` varchar(60) DEFAULT NULL,
+  `teach_condition` tinyint(3) unsigned NOT NULL DEFAULT '0',
+   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM COMMENT='級任'   ;
+
+ 
 
 CREATE TABLE `es_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

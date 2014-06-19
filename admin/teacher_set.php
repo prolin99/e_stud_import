@@ -14,12 +14,13 @@ include_once "header.php";
 
 //清除全部級任 ------------------------------------------------------------
 if ($_POST['act_clear']) {
-	$sql = " TRUNCATE   "  . $xoopsDB->prefix("e_classteacher") ;
-    $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
+	//$sql = " TRUNCATE   "  . $xoopsDB->prefix("e_classteacher") ;
+	$sql = " update    "  . $xoopsDB->prefix("e_classteacher")  . " set class_id=''    "  ; ;	
+    	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
     
-    //清空 use user_occ 職稱  級任教師 或 學年主任
-	$sql = " update  "  . $xoopsDB->prefix("users") ." set user_occ='' where  ( user_occ like '%級任教師' ) or  (user_occ like '%學年主任')  "  ;
-    $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    
+    	//清空    staff 職稱  級任教師 或 學年主任
+	$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where  ( staff   like '%級任教師' ) or  (staff   like '%學年主任')  "  ;
+    	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    
 }	
 
 
