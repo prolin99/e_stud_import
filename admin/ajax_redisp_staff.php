@@ -23,9 +23,9 @@ if ($_GET['mode']){
 $teacher_list = get_teacher_list($gid) ;
 
 foreach($teacher_list as $uid =>$teacher){
-    if ($teacher['user_occ']) {
+    if ($teacher['staff']) {
         //<!-- 已設職稱  -->
-        list($sid,$job) = preg_split('/[-]/',$teacher['user_occ']) ;
+        list($sid,$job) = preg_split('/[-]/',$teacher['staff']) ;
         $output.=" <span class='span3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-inverse'>" ;
         $output.="{$teacher['name']}_$job <span class='del' id='sta_$sid:tea_$uid'> ";
       	$output.=" <i class='icon-trash icon-white'></i></span></label> " ;

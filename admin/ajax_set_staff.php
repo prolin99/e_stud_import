@@ -21,7 +21,9 @@ $_GET['id'] ;
     $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
 
     if ( ( $uid >0 ) and 	$staff_id ) {
+
  	    if  ($_GET['do']=='del' ){
+		
             //移除職稱
             $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid'  "  ;
             $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
@@ -37,9 +39,21 @@ $_GET['id'] ;
                 user_in_group($uid, $teach_group_id ,'del' ) ;
             }else{
                 //加入職稱加群組
-     	        $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='$staff' where uid='$uid'  "  ;
+ 
+              //檢查是否已在表中
+		$sql = " select uid , staff  from "  . $xoopsDB->prefix("e_classteacher") .  " where uid='$uid'  " ;
+	 	$result = $xoopsDB->queryF($sql) ; 
+		$row=$xoopsDB->fetchArray($result) ;
+		$guid = $row['uid'] ;
+ 		if ($guid) {
+     	        	$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='$staff' where uid='$uid'  "  ;
+		}else {
+     	        	$sql = " INSERT INTO "  . $xoopsDB->prefix("e_classteacher") .  
+	     	   			" (`uid`, `class_id` ,staff )  " .
+	     	   			"  VALUES  ( '$uid' , '$class_id' , '$staff'  )   " ; 
+		}	
 	   	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
-                user_in_group($uid, $teach_group_id  ) ;
+              	user_in_group($uid, $teach_group_id  ) ;
             }
 
         }

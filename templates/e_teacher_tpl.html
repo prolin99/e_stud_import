@@ -14,18 +14,23 @@
       	</form>
         </div>
         </div>
+        
+ 	
       	<{foreach  key=c_key item=class_id    from= $data.class_list }>
  
       	       <{if ($data.class_set[$c_key])}>  
-      	           <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-inverse">
-      	           <{$class_id}>_<{ $data.class_teach[$c_key]}><span class="del" id="teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>">
-      	           <i class="icon-trash icon-white"></i></span></label>
-      	           </span>
+      	           <span  class="span2" id="span_<{$class_id}>" > 
+      	           <label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-inverse">
+      	           <{$class_id}>_<{ $data.class_teach[$c_key]}></label><i class="icon-trash del" id="i_<{$class_id}>" data_ref="teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>" ></i>
+       	           </span>
       	       <{else}>
-      		   <span class="span2"><label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-success"><{$class_id}></label></span>
+		<span class="span2" id="span_<{$class_id}>"><label  id="class_<{$class_id}>" title='<{$class_id}>' name_title='<{$class_id}>' class="label label-success"><{$class_id}></label><i id="i_<{$class_id}>" ></i></span>
       		<{/if}> 
       	<{/foreach }>
  
+ 
+ 	
+ 	
       </div> 
       
       <div class="span2" id="teacher_div">
@@ -89,6 +94,7 @@
     
     //班級部份的點選
     $(document).on("click", "#class_div label" ,  function(){
+    	//alert ($(this).attr("class") ) ;
     	if ($(this).attr("class") == "label label-success" ){
     	   //可選
     	  	$(this).removeClass() ;
@@ -118,12 +124,23 @@
  
     //作配對，改成黑色，寫入
     function link() {
+    		// label_class 內容如： class_201
           if ((label_tea != '') & (label_class!=''))  {
              mark_id = label_tea +':' + label_class ;
-             $('#'+label_class).html(class_id +'_'+ name + '<span class="del" id="' + mark_id + '"><i class="icon-trash icon-white"></i></span>')  ;
+             $('#'+label_class).html(class_id +'_'+ name )  ;  //出現姓名
+            //+ '<span class="del" id="' + mark_id + '"><i class="icon-trash icon-white"></i></span>'
+             $('#'+label_class).removeClass() ;
              $('#'+label_class).addClass('label label-inverse') ;
              $('#'+label_tea).addClass('label label-inverse') ;
              $('#'+label_tea).hide() ;
+             
+             //刪除圖示的內容放置
+             var splits = label_class.split('_') ;
+             var icon = 'i_'+ splits[1] ;
+             $('#' +icon).removeClass() ;
+             $('#' +icon).attr('data_ref', mark_id) ;
+ 	     $('#' +icon).addClass("icon-trash del") ;
+             
              label_tea ='' ;
              o_label_tea ='' ;
              label_class='' ;
@@ -155,7 +172,7 @@
     //消除配對，還原----------------------------------------------------------------------------------
   $(document).on("click", ".del", function(){
 
-    var mark_id = $(this).attr("id")  ;
+    var mark_id = $(this).attr("data_ref")  ;
     var splits = mark_id.split(':') ;
     clear_now() ;
 
@@ -169,6 +186,8 @@
     //清除教師
     //alert (mark_id) ;
     ajax_del_teacher(mark_id) ;
+    $(this).removeClass() ;
+    $('#' +icon).attr('data_ref', "") ;
  
   });
   
@@ -182,7 +201,7 @@
                 dataType:'text',
 				data:{id:tid , job:"<{$data.staff_teacher_id }>"} ,
                 success: function(msg){
-                   // alert(msg);
+                    //alert(msg);
                 },
 
                  error:function(xhr, ajaxOptions, thrownError){

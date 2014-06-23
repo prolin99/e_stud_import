@@ -12,11 +12,11 @@
        	       <{if ($data.user_staff_id[$c_key])}>
       	       		<!-- 已設職稱  -->
       	           <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-inverse">
-      	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}><span class="del" id="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>">
-      	           <i class="icon-trash icon-white"></i></span></label>
+      	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}></label>
+      	           <i id="i_<{$c_key}>" class="icon-trash del" data_ref="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>"></i>
       	           </span>
       	       <{else}>
-      		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label></span>
+      		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label><i id="i_<{$c_key}>" ></i></span>
       		<{/if}> 
       	<{/foreach }>
 
@@ -125,10 +125,18 @@
              mark_id = label_right +':' + label_left ;
              //取得職稱
              job = $('#'+label_right).attr("name_title")  ;
-             $('#'+label_left).html(class_id +'_'+ name + '<span class="del" id="' + mark_id + '"><i class="icon-trash icon-white"></i></span>')  ;
+             $('#'+label_left).removeClass() ;
+             $('#'+label_left).html(class_id +'_'+ name) ;	//姓名+ 職稱 
              $('#'+label_left).addClass('label label-inverse') ;
              //$('#'+label_right).addClass('label label-inverse') ;
-             
+    
+             //圖示的內容放置
+             var splits = label_left.split('_') ;
+             var icon = 'i_'+ splits[1] ;
+             $('#' +icon).removeClass() ;
+             $('#' +icon).attr('data_ref', mark_id) ;
+ 	     $('#' +icon).addClass("icon-trash del") ;
+ 	     
              //如果第四碼為 1 代表唯一(sta_000101)，要 hide
              var sta_id = label_right.split('_') ;
  			 if (sta_id[1].charAt(3)== '1') {
@@ -171,7 +179,7 @@
     //消除配對，還原----------------------------------------------------------------------------------
   $(document).on("click", ".del", function(){
 
-    var mark_id = $(this).attr("id")  ;
+    var mark_id = $(this).attr("data_ref")  ;
     var splits = mark_id.split(':') ;
     clear_now() ;
 
@@ -185,6 +193,9 @@
     //清除教師
     //alert (mark_id) ;
     ajax_del_teacher(mark_id) ;
+    //icon 清空
+    $(this).removeClass() ;
+    $('#' +icon).attr('data_ref', "") ;    
  
   });
   
