@@ -203,4 +203,34 @@ function do_statistics() {
 	
  
 }	
+
+//取得群組的名稱
+function get_group_list($teach_group_id = XOOPS_GROUP_ANONYMOUS ) {
+	global  $xoopsDB   ;
+	$sql = "SELECT * FROM " . $xoopsDB->prefix("groups") . " where groupid > '$teach_group_id' order by groupid " ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
+	while($row=$xoopsDB->fetchArray($result)){
+		$id= $row['groupid'] ;
+		$data[$id] = $row['name'] ;		
+	}
+	return $data ;
+		
+}	
+
+
+//取得群組中目前的成員
+function get_group_users_list($teach_group_id = XOOPS_GROUP_ANONYMOUS ) {
+	global  $xoopsDB   ;
+	$sql = "SELECT u.uid, u.name ,g.groupid  FROM " . $xoopsDB->prefix("groups_users_link")  .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid  where g.groupid > '$teach_group_id' order by g.groupid " ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());						
+	while($row=$xoopsDB->fetchArray($result)){
+		$id= $row['groupid'] ;
+		$dt['uid']= $row['uid'] ;
+		$dt['name']= $row['name'];
+		$data[$id][$row['uid']] =$dt ;		
+	}
+	return $data ;
+		
+}
+
 ?>

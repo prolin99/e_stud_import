@@ -34,6 +34,12 @@ $adminmenu[$i]['desc'] ='設定職稱' ;
 $adminmenu[$i]['icon'] = 'images/admin/main.png' ;
 
 $i++ ;
+$adminmenu[$i]['title'] = "群組設定";
+$adminmenu[$i]['link'] = "admin/group.php";
+$adminmenu[$i]['desc'] ='指定群組' ;
+$adminmenu[$i]['icon'] = 'images/admin/identity.png' ;
+
+$i++ ;
 $adminmenu[$i]['title'] = "關於";
 $adminmenu[$i]['link'] = "admin/about.php";
 $adminmenu[$i]['desc'] = '說明';
