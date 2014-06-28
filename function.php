@@ -189,12 +189,14 @@ function do_statistics() {
 		$class_sum[$class_id] +=$row['cc']; 
 
 	}		
+	$i=0; 
 	foreach ($class_sum as $c =>$sum) {
+		$i++ ;
 		$class_table  .= "<tr><td>$c</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n" ;
 	}
 	$class_table ="<table border=1><tr><td>班級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n" ;
 	
-	$main = "<h1>" .date("Y-m-d") ."學生人數統計表</h1>". $grade_table. $class_table  ;
+	$main = "<h1>" .date("Y-m-d") ."學生人數統計表</h1>". $grade_table. $class_table .  "<br />共計 $i 班 \n" ;
 	
 	$sql = " INSERT INTO   "  . $xoopsDB->prefix("es_log") .  
 				" (`module`, `message`)  " .
