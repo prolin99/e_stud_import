@@ -18,9 +18,9 @@ $teacher_list = get_teacher_list($gid) ;
 
 foreach($teacher_list as $uid =>$teacher){
     if ($teacher['class_id']) {
-        $output.=" <label id='teacher_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success' style='display: none;'>{$teacher['name']}</label> " ;
+        $output.=" <span  class='tea' id='tea_{$uid}' ><label id='teacher_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success' style='display: none;'>{$teacher['name']}</label></span> " ;
 	}else {
-        $output.=" <label id='teacher_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>{$teacher['name']}</label> " ;
+        $output.=" <span  class='tea' id='tea_{$uid}' ><label id='teacher_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>{$teacher['name']}</label></span> " ;
     }
 
 }

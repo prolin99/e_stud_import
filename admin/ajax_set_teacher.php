@@ -15,7 +15,7 @@ $_GET['id'] ;
 	$id_array = preg_split('/[_:]/',$_GET['id'] ) ;
        	$uid = $id_array[1] ;
        	$class_id=$id_array[3] ;
-       	echo $uid  .'--'. 	$class_id  ;
+       	//echo $uid  .'--'. 	$class_id  ;
        	
 	if ( ( $uid >0 ) and $class_id ) {
 		$staff =addSlashes($_GET['job']) ;
