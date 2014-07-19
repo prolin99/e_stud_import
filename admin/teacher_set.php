@@ -19,9 +19,32 @@ if ($_POST['act_clear']) {
     	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
     
     	//清空    staff 職稱  級任教師 或 學年主任
-	$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where  ( staff   like '%級任教師' ) or  (staff   like '%學年主任')  "  ;
+	$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where  ( staff  LIKE '%級任%' ) or  (staff   LIKE '%學年主任%' )  "  ;
     	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    
 }	
+
+
+//135 級任升級 ------------------------------------------------------------
+if ($_POST['act_up']) {
+	//清除246
+	$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where ( 
+		( SUBSTR( class_id, 1, 1 )	IN ( 2, 4, 6 ) ) and  
+		(  ( staff  LIKE '%級任%' ) or  (staff   LIKE '%學年主任%' ) )
+		)"  ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    	
+	$sql = "UPDATE  "  . $xoopsDB->prefix("e_classteacher") ." SET `class_id`=''
+			WHERE SUBSTR( class_id, 1, 1 )	IN ( 2, 4, 6 )  " ;
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    		
+	
+	//升級 135 
+	$sql = "UPDATE  "  . $xoopsDB->prefix("e_classteacher") ." SET `class_id`=CONCAT( (SUBSTR( class_id, 1, 1 )+1 ), SUBSTR( class_id, 2, 2 ) )
+			WHERE SUBSTR( class_id, 1, 1 ) 			IN ( 1, 3, 5 )  " ;
+			
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	    
+    
+
+
+}
 
 
 /*-----------function區--------------*/
