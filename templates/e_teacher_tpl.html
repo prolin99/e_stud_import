@@ -26,7 +26,7 @@
       	<div class="span2">
       	<h4>班級列表</h4>
       	</div>
-      	<div class="span2">
+      	<div class="span6">
       	<form  action="teacher_set.php" method="post" >
       	<button type="submit" name='act_clear'  value='刪除'  class="btn btn-danger" onclick='return confirm("真的要清空設定?")' >清空</button>
       	<button type="submit" name='act_up'  value='135升級'  class="btn btn-warning" onclick='return confirm("確定要升級?")' >135升級</button>
@@ -35,8 +35,11 @@
         
         </div>        
  
- 	
-      	<{foreach  key=c_key item=class_id    from= $data.class_list }>
+ 		<!--  年級分開  -->
+      	<{foreach  key=g_key item=g_class_id    from= $data.g_class_list }>
+      		<div class="row-fluid" >
+      		<p> </p>
+      		<{foreach  key=c_key item=class_id    from= $g_class_id }>
       		<{if ($data.class_set[$c_key])}>
       			<div class="groupbox span2" id="class_<{$c_key}>" has_teacher="<{$data.class_set[$c_key]}>" id="class_<{$c_key}>" style="background:#EEE;">
       			<!-- teacher_代號_教師名:class_班級代號  -->
@@ -47,6 +50,8 @@
       		<{else}>
       			<div class="groupbox span2" id="class_<{$c_key}>" has_teacher="0" id="class_<{$c_key}>" style="background:#EEE;"> <span><{$class_id}></span> </div>
 			<{/if}>
+			<{/foreach }>
+			</div> 
       	<{/foreach }>
  
       

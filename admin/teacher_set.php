@@ -66,8 +66,12 @@ if ($_POST['act_up']) {
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	while($data_row=$xoopsDB->fetchArray($result)){
  	 	$class_list[$data_row['class_id']]= $data_row['class_id'] ;
+ 	 	//依年級作分組
+ 	 	$g=substr($data_row['class_id'],0,1) ;
+ 	 	$g_class_list[$g][$data_row['class_id']]= $data_row['class_id'] ;
 	}
 	$data['class_list'] = $class_list ;
+	$data['g_class_list'] = $g_class_list ;
 
 //取得已指定的級任代號
 	$sql =  "  SELECT  *  FROM  " . $xoopsDB->prefix("e_classteacher") .  "    order by class_id  " ;

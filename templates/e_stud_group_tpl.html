@@ -21,11 +21,9 @@
  <h3>指定群組</h3>
   
       <div class="row-fluid" >
-      
-      
    
       <div class="span4" id="tea_div">
-
+		<br />      
       	<{foreach  key=c_key item=teacher    from= $data.teacher_list }>
 
       		   <span class="span2 tea" data_ref="tea_<{$c_key}>_<{$teacher.name}>"  ><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success">
