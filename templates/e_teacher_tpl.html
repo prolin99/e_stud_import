@@ -120,6 +120,14 @@ $(function () {
 
 //指定班級
 function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , dropin_data_old) {
+	/*
+	//cell_pos 班 class_班級代號 id="class_304"
+	//cell_old_data 已排教師 (教師代號) has_teacher="1"
+	//dropin_data_id	tea_代號	id="box_1"
+	//dropin_data	teacher_代號_姓名	data_ref="teacher_1_管理員:class_304"
+	//dropin_data_old	 	//class_班級代號	 has_class="class_304"
+	*/
+	
 	var tea_splits_first = dropin_data.split(':') ;
 	var tea_splits = tea_splits_first[0].split('_') ;
 	var cell_splits = cell_pos.split('_') ;
@@ -133,14 +141,22 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
 
 	
 	if (tea_id_splits[0]=='box') {
+		//原在別班
 		var old_class_id_splits = dropin_data_old.split('_') ;
 		$('#'+dropin_data_old).html(old_class_id_splits[1] ) ;
-		
-	}else 
+
+			
+	}else{ 
 		//如果是右方，則消失
 		$('#'+ dropin_data_id).hide() ;
-	
+	}	
+	//原級任回復
+	if (cell_old_data!='0') 
+			$('#tea_'+ cell_old_data).show() ;
+			
+	//再次指定為可拖動	
     $(".tea").draggable({              	revert: "valid",     		});	
+    
     //寫入
     mark_id = dropin_data_id +':' + cell_pos ;
     ajax_set_teacher(mark_id) ;
@@ -151,6 +167,7 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
 
       var ajax_set_teacher=function( tid ){
       	  //指定教師，寫入
+      	  //tid    tea_1:class_304
              var URLs="ajax_set_teacher.php" ;
     
             $.ajax({

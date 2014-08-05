@@ -18,8 +18,19 @@ $_GET['id'] ;
        	//echo $uid  .'--'. 	$class_id  ;
        	
 	if ( ( $uid >0 ) and $class_id ) {
+		//有指定才做
 		$staff =addSlashes($_GET['job']) ;
-		//檢查是否已在表中
+		
+		
+		//清除目前班級的級任設定
+		$sql = " update   "  . $xoopsDB->prefix("e_classteacher") .  " set staff =''  ,  class_id =''  where (staff =  '$staff' )  and (class_id =  '$class_id'  ) " ;
+   		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+   		
+   		$sql = " update   "  . $xoopsDB->prefix("e_classteacher") .  " set class_id=''  where class_id =  '$class_id'  " ;
+   		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+		
+		
+		//檢查教師是否是否已在表中
 		$sql = " select uid , staff   from    "  . $xoopsDB->prefix("e_classteacher") .  " where uid='$uid'  " ;
 	 
 		$result = $xoopsDB->queryF($sql) ; 
