@@ -27,7 +27,7 @@ function go_update_add_log(){
   	`message` text NOT NULL,
   	`rec_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   	PRIMARY KEY (`id`)
-	) ;  " ;
+	) ENGINE=MyISAM ;  " ;
   $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL,3,  mysql_error());
 }
 
