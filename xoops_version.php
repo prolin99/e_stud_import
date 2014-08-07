@@ -83,6 +83,14 @@ $modversion['config'][$i]['formtype']    = 'group';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default'] = 4 ;					//配合校園網站輕鬆架，預設值
 
+$i++ ;
+//偏好設定
+$modversion['config'][$i]['name'] = 'es_stud_sit_id';
+$modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE4';
+$modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC4';
+$modversion['config'][$i]['formtype']    = 'text';
+$modversion['config'][$i]['valuetype']   = 'int';
+$modversion['config'][$i]['default'] = 35 ;					//匯入未指定座號0，預填為 
 
  
 $i++ ;
@@ -104,4 +112,6 @@ $modversion['config'][$i]['formtype']    = 'textarea';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default'] = "<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>\n<a href='/lifetype/index.php?blogId=__class_id__sitid' target='web' >__sitid.__name </a> " ;  	
  
+
+
 ?>

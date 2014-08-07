@@ -16,6 +16,9 @@
       <div class="row-fluid">
       <div class="span6">
       <span class="label label-success">現在學生數：<{ $data_list.students }> 人，最近建制日期：<{  $data_list.chk_date }></span>
+      <{if ($message) }>
+      <div class="alert alert-error"><{ $message }> </div>
+      <{/if}>
  		<form action ="index.php" enctype='multipart/form-data' method=post>
 		<fieldset>
 		<legend>學生資料檔案匯入</legend>

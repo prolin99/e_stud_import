@@ -20,4 +20,8 @@ define("_MI_ESTUDENTS_CONFIG_DESC2", "以逗號或行分隔， 1 2 5 1 01-教務
 
 define("_MI_ESTUDENTS_CONFIG_TITLE3", "常用匯出樣式");
 define("_MI_ESTUDENTS_CONFIG_DESC3", "分行分隔。<br />__class_id 班級代號 <br />__sitid 座號 <br />__name 學生姓名 <br />__person_id 身份証號 <br />__birthday 生日<br />__stud_id 學生代號 <br />__parent 學生監護人<br /> __sex 性別代碼 ");
+
+define("_MI_ESTUDENTS_CONFIG_TITLE4", "無座號預填入");
+define("_MI_ESTUDENTS_CONFIG_DESC4", "台南市學籍轉入，座號預設值為 0 ，在某些程式會出錯，在此修改預設填入值。");
+
 ?>

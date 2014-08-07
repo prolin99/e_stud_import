@@ -17,6 +17,8 @@ include_once "header.php";
     //取得現在學年
     $c_year = date("Y") -1911 ;
     if  (date("m")<8) $c_year-=1 ;
+    //匯出錯誤訊息
+    $message='' ;
 
 
 //匯入判別
@@ -41,7 +43,7 @@ function import_stud(){
 		
 		//把整資料庫中的資料匯整成記錄
 		do_statistics() ;
-		redirect_header($_SERVER['PHP_SELF'],3, '資料寫入!' );
+		//redirect_header($_SERVER['PHP_SELF'],3, '資料寫入!' );
 	}
 	
 	return $main; 
@@ -50,8 +52,9 @@ function import_stud(){
 
 //xml 格式
 function import_xml($file_up){
-	global $xoopsDB,$c_year;
+	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ;
 	
+	$emp_stud_id_set = $xoopsModuleConfig['es_stud_sit_id']  ;
 
 	
 	//清空學資料庫中學生資料
@@ -92,7 +95,19 @@ function import_xml($file_up){
 
 			}
 			//$main .= "$stud_person_id $stud_name  $stud_year $stud_dom  $stud_class $stud_sit $stud_birthday  <br/>" ;
- 
+ 			//如果無座號(預設35號
+ 			if (intval($stud_sit) == 0) {
+ 				$stud_sit=$emp_stud_id_set ;
+ 				$message .= $stud_class_id . $stud_name ." , 座號指定為 $emp_stud_id_set 號($stud_person_id) <br />" ;
+			}	
+ 			//無入學年，視為一年級
+ 			if (intval($user["入學年"]) == 0) {
+ 				$stud_year =1 ;
+ 				$stud_class_id  = $stud_year*100 + $stud_class ;
+ 				$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ; 				
+ 				$message .= $stud_class_id . $stud_name ."未設定入學年(尚未指定學號所致?)($stud_person_id) <br />" ;
+			}
+			
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") . 
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex ) 			        
 			            VALUES ('' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;	   	
@@ -175,7 +190,7 @@ switch($op){
 	case "import":
 
 	$main=import_stud() ;
-	break;
+	//break;
 }
 
 	//取得目前學生資料總計
@@ -195,6 +210,7 @@ switch($op){
  	$xoopsTpl->assign( "data_list" , $data_list ) ; 
  	$xoopsTpl->assign( "recdata" , $recdata ) ; 
  	$xoopsTpl->assign( "c_year" , $c_year ) ; 
+ 	$xoopsTpl->assign( "message" , $message ) ; 
 include_once 'footer.php';
 
 ?>
