@@ -1,0 +1,17 @@
+<{$bootstrap}>
+<{$jquery}>
+<{$toolbar}>
+<form   method='post' >
+    <fieldset>
+    <legend>尋找學生</legend>
+	姓名(可只輸入部份資料)：<input type="text" name="stud_name"  class="span2"   title="學生姓名" > 
+	<button class="btn btn-primary"   value="search" name="act_search" type="submit">搜尋</button>
+	
+    </fieldset>
+    </form>
+    
+<{if ($data)}>    
+   <{foreach  key=t_key item=stud    from= $data }>
+  <p><{$stud.class_id}>班  (<{$stud.class_sit_num}>)號   <{$stud.name}> </p>
+   <{/foreach}>
+<{/if}>

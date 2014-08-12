@@ -13,8 +13,9 @@ $isAdmin=isAdmin();
 
 
 
-$interface_menu[_MD_MODULE_SMNAME1]="index.php";
-
+$interface_menu['教職員一覽表']="index.php";
+$interface_menu['學生搜尋']="search.php";
+$interface_menu['學生名冊']="students.php";
 
 if($isAdmin){
   $interface_menu[_TO_ADMIN_PAGE]="admin/index.php";
