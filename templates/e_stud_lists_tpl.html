@@ -8,6 +8,7 @@
     <{html_options name=class_id  options=$data.class_id_list  selected=$data.select_class_id  onchange="submit();"  class="span2" }>
     <a class="btn btn-success" href="export_namelist.php?class_id=<{$data.select_class_id}>" title="匯出EXCEL">本班名冊</a>
     <a class="btn btn-primary" href="export_namelist.php?grade=1&class_id=<{$data.select_class_id}>" title="匯出EXCEL">學年名冊</a>
+    <a class="btn btn-info" href="export_parentlist.php?class_id=<{$data.select_class_id}>" title="匯出WORD">家長代表選票</a>
     </fieldset>
     </form>
 <{ if ($data.list)}>

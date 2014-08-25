@@ -24,4 +24,6 @@ define("_MI_ESTUDENTS_CONFIG_DESC3", "分行分隔。<br />__class_id 班級代�
 define("_MI_ESTUDENTS_CONFIG_TITLE4", "無座號預填入");
 define("_MI_ESTUDENTS_CONFIG_DESC4", "台南市學籍轉入，座號預設值為 0 ，在某些程式會出錯，在此修改預設填入值。");
 
+define("_MI_ESTUDENTS_CONFIG_TITLE5", "家長代表選票，最後提醒文字");
+define("_MI_ESTUDENTS_CONFIG_DESC5", "家長代表選票，最後提醒文字");
 ?>

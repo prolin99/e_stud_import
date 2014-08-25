@@ -84,7 +84,7 @@ function import_xml($file_up){
  					$stud_class = $user["班級"] ;
  					$stud_class_id  = $stud_year*100 + $stud_class ;
  					$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
- 
+ 					$stud_dom='' ;
 					$stud_dom =addslashes( $user["監護人"] );
 					
 					$stud_sit = $user["座號"] ;

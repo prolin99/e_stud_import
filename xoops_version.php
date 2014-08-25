@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '1.83';				//模組版次
+$modversion['version']	= '1.84';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -118,6 +118,14 @@ $modversion['config'][$i]['formtype']    = 'textarea';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default'] = "<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>\n<a href='/lifetype/index.php?blogId=__class_id__sitid' target='web' >__sitid.__name </a> " ;  	
  
+$i++ ;
+//偏好設定
+$modversion['config'][$i]['name'] = 'es_stud_parent_doc';
+$modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE5';
+$modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC5';
+$modversion['config'][$i]['formtype']    = 'text';
+$modversion['config'][$i]['valuetype']   = 'text';
+$modversion['config'][$i]['default'] = '可以圈選兩名！' ;			 
 
 
 ?>
