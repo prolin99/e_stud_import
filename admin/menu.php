@@ -28,13 +28,13 @@ $adminmenu[$i]['title'] = "群組設定";
 $adminmenu[$i]['link'] = "admin/group.php";
 $adminmenu[$i]['desc'] ='指定群組' ;
 $adminmenu[$i]['icon'] = 'images/admin/identity.png' ;
-
+/*
 $i++ ;
 $adminmenu[$i]['title'] = "學生名冊";
 $adminmenu[$i]['link'] = "admin/students.php";
 $adminmenu[$i]['desc'] ='學生名冊' ;
 $adminmenu[$i]['icon'] = 'images/admin/list_all.png' ;
-
+*/
 $i++ ;
 $adminmenu[$i]['title'] = "網頁樣式匯出";
 $adminmenu[$i]['link'] = "admin/students_web.php";
