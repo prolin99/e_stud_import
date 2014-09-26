@@ -42,7 +42,7 @@
       <{foreach  key=g_key item=group    from= $data.group_list }>
       <div class="row-fluid">
       	<div class="groupbox span2" data_ref="group_<{$g_key}>"  ><{$group}><br /><br /></div>
-      	<div class="groupbox_list span10" data_ref="group_<{$g_key}>" id="group_<{$g_key}>">
+      	<div class="groupbox span10" data_ref="group_<{$g_key}>" id="group_<{$g_key}>">
       		<{foreach  key=u_key item=user    from= $data.group_users_list[$g_key] }>
       		  <span class="span2" data_ref="tea_<{$u_key}>_<{$user.name}>_group_<{$g_key}>"><label class="label label-success"><{$user.name}><i class="icon-trash icon-white del"></i></label></span>
       		<{/foreach}>
@@ -66,6 +66,7 @@
 <script>
  
 $(function () {
+        //可拖動
         $(".tea").draggable({
                 revert: "valid",
                 drag: function (event, ui) {
@@ -73,6 +74,7 @@ $(function () {
                 }
         });
 
+        //可接收
         $(".groupbox").droppable({
                 drop: function (event, ui) {
                 	var group = $(this).attr("data_ref")  ;
