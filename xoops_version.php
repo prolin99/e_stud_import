@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '1.86';				//模組版次
+$modversion['version']	= '1.87';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -82,6 +82,9 @@ $modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stat_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stat_tpl";
+
+
+
  
 
 $i=1 ;
