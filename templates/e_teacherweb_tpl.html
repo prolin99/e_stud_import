@@ -11,7 +11,11 @@
 	 	  <td><{$tea.staff}></td>
 	      <td><{$tea.name}></td>
 	      <td><{$tea.email_show}></td>
-	      <td><{$tea.url}></td>
+	      <td>
+	      	<{ if ($tea.url)}>
+	      	<a href="<{$tea.url}>" target='_blank'><i class="icon-home"></i>個人網站</a>
+	      	<{/if}>
+	      </td>
 	 </tr>
 	 <{/foreach }>
  	
