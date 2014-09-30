@@ -94,8 +94,10 @@
     
 //可拖拉
 $(function () {
+        var zindex = 1000;
         $(".tea").draggable({
                 revert: "valid",
+                  start: function(event, ui) { $(this).css("z-index", zindex++ ); }
         });
 
         //放入
