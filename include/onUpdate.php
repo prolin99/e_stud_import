@@ -52,4 +52,6 @@ function go_update_add_staff(){
   $xoopsDB->queryF($sql)  ;
  
 }
+
+
 ?>

@@ -201,7 +201,7 @@ switch($op){
 	$data_list=$xoopsDB->fetchArray($result) ;
  
 	//取得記錄檔十筆
-	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  order by rec_time DESC  ";	   	
+	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  where   module='e_stud_import' order by rec_time DESC  ";	   	
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
 	while($row=$xoopsDB->fetchArray($result)){
 		$recdata[]= $row ;

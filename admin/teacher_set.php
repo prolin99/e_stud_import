@@ -73,6 +73,7 @@ if ($_POST['act_up']) {
 	$data['class_list'] = $class_list ;
 	$data['g_class_list'] = $g_class_list ;
 
+	$data['class_list_c'] = es_class_name_list_c()  ;
 //取得已指定的級任代號
 	$sql =  "  SELECT  *  FROM  " . $xoopsDB->prefix("e_classteacher") .  "    order by class_id  " ;
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
@@ -85,6 +86,7 @@ if ($_POST['act_up']) {
 	$data['class_teach'] = $class_teach ;
 	$data['teacher_class'] = $teacher_class ;
 	
+
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign( "data" , $data ) ; 
  

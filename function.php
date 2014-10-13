@@ -10,6 +10,7 @@ if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php")){
 }
 include_once XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php";
 
+include_once  "es_comm_function.php";
 /********************* 自訂函數 *********************/
 
 
