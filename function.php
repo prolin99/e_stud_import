@@ -81,6 +81,7 @@ WHERE g.groupid =4
 group by u.uid
 order by  u.user_occ ,c.class_id  	
 */
+	$class_name_c = es_class_name_list_c('long') ;
  	$sql =  "  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , c.staff , g.groupid ,c.class_id   FROM  " .
  			$xoopsDB->prefix("groups_users_link") .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid " .
  			" left join " . $xoopsDB->prefix("e_classteacher") ." as c on u.uid = c.uid "  .
@@ -96,9 +97,10 @@ order by  u.user_occ ,c.class_id
 			//班級
  			//$job_arr = preg_split('/[-]/' ,$row['user_occ']) ;
  			$job_arr = preg_split('/[-]/' ,$row['staff']) ;
- 			$row['staff'] = $job_arr[1] ;
+ 			$row['staff'] = trim($job_arr[1]) ;
  			if ($row['class_id'])
- 				$row['staff'] .= '-' .$row['class_id'] .'班' ;
+ 				//$row['staff'] .= '-' .$row['class_id'] .'班' ;
+ 				$row['staff'] .= '-' . $class_name_c[$row['class_id']] ;
 
 		}
  	 	$teacher[$row['uid']]= $row ;
@@ -164,6 +166,10 @@ function user_in_group( $uid, $gid, $mode='add') {
 //在學生資料更新前把學生人數做統計，寫入記錄檔
 function do_statistics() {
 	global  $xoopsDB   ;
+
+	//班級名稱
+  	$class_name_list_c=es_class_name_list_c('long')   ;
+
 	//年級人數統計
 	$sql = "SELECT SUBSTR(class_id,1,1) as grade,  sex , count( * ) cc  FROM " . $xoopsDB->prefix("e_student") .
 			"  group by  SUBSTR(class_id,1,1), sex  " ;
@@ -193,7 +199,8 @@ function do_statistics() {
 	$i=0; 
 	foreach ($class_sum as $c =>$sum) {
 		$i++ ;
-		$class_table  .= "<tr><td>$c</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n" ;
+		$class = $class_name_list_c[$c] ;
+		$class_table  .= "<tr><td>$class</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n" ;
 	}
 	$class_table ="<table border=1><tr><td>班級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n" ;
 	

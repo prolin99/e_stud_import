@@ -12,6 +12,28 @@ include_once "header_admin.php";
 
 include_once "header.php";
 
+//設定班名 ------------------------------------------------------------
+if ($_POST['act_class_set']) {
+
+ 	$myts =& MyTextSanitizer::getInstance();
+	$classname_set = $myts->htmlspecialchars($myts->addSlashes($_POST['class_name_set'])) ;
+ 
+
+	$sql = " delete  from  "  . $xoopsDB->prefix("es_log")  . " where module = 'es_classname'   "  ; ;	
+    	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 	
+
+    	if ($classname_set ) {
+    		$sql = " insert into  " . $xoopsDB->prefix("es_log") . "  (  id ,  module , message ,rec_time )
+    			values ( '0' , 'es_classname' ,  '$classname_set' , now()  ) " ;
+    		echo $sql ;	
+     		$result = $xoopsDB->query($sql) or die($sql."<br>". mysql_error()); 	
+    		$ES_ClassName  = preg_split('/[,\s]/' , $classname_set ) ;
+    		$ES_classname_set= $classname_set ;
+    	}
+
+}	
+
+
 //清除全部級任 ------------------------------------------------------------
 if ($_POST['act_clear']) {
 	//$sql = " TRUNCATE   "  . $xoopsDB->prefix("e_classteacher") ;
@@ -89,7 +111,8 @@ if ($_POST['act_up']) {
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign( "data" , $data ) ; 
- 
+$xoopsTpl->assign( "ES_classname_set" , $ES_classname_set ) ;  
+
 include_once 'footer.php';
 
 ?>

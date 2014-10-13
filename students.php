@@ -21,7 +21,11 @@ include_once XOOPS_ROOT_PATH."/header.php";
  
 if (! in_array(   $teach_group_id , $xoopsUser->groups() )  ) 
   	redirect_header(XOOPS_URL,3, "教職員，才能使用！");
-  	
+
+  //班級名稱
+  $data['class_name_list_c']=es_class_name_list_c('long')   ;
+  $tmp_id=key($data['class_name_list_c']) ;
+  /*  	
 //取得班級列表
 	$sql =  "  SELECT `class_id`  FROM " . $xoopsDB->prefix("e_student") .  "  GROUP BY `class_id`  ORDER BY  `class_id`  " ;
 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
@@ -29,7 +33,7 @@ if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
 		$data['class_id_list'][$list_class_id['class_id']]= $list_class_id['class_id'] ;
 		$tmp_id = $list_class_id['class_id'] ;
 	}	
-	
+*/	
 	
 	
 /*-----------執行動作判斷區----------*/

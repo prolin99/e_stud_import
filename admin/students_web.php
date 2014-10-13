@@ -24,9 +24,12 @@ include_once "header.php";
 		$tpl_list_show[] = htmlentities($v) ;
 	}	
   }
-  
+
+$data['class_name_list_c']=es_class_name_list_c('long')   ;
+$tmp_id=key($data['class_name_list_c']) ;
 
 //取得班級列表
+/*
 	$sql =  "  SELECT `class_id`  FROM " . $xoopsDB->prefix("e_student") .  "  GROUP BY `class_id`  ORDER BY  `class_id`  " ;
 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	while($list_class_id=$xoopsDB->fetchArray($result)){
@@ -34,7 +37,7 @@ include_once "header.php";
 		$tmp_id = $list_class_id['class_id'] ;
 		
 	}		
-	
+*/	
 	//$begstr = "<a href='play.php?flv=$class_id/$sitid.flv&name=$stud_name&class=$class_name target='stud' >$sitid.$stud </a> " ; 
 	$string = 'The quick brown fox jumped over the lazy dog.';
 	$patterns = array();

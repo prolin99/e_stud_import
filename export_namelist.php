@@ -22,6 +22,10 @@ if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
 	
 
 /*-----------執行動作判斷區----------*/
+  //班級名稱
+  $class_name_list_c=es_class_name_list_c('long')   ;
+
+
 $grade = intval($_GET['grade'] ) ;
 $class_id = intval($_GET['class_id'] ) ;
 if  ($grade==1) {
@@ -102,7 +106,7 @@ if  ($grade==1) {
 			//$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(34);
  			$col ='A' ;
 			$col_str =$col .$row ;
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['class_id'] ) ;
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $class_name_list_c[$stud['class_id']] ) ;
 			$col++ ;
 			$col_str =$col .$row ;
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['class_sit_num'] ) ;			

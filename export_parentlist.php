@@ -24,7 +24,11 @@ $show_doc = $xoopsModuleConfig['es_stud_parent_doc']  ;
 
 
 /*-----------執行動作判斷區----------*/
-//檢查目前的課表
+  //班級名稱
+  $class_name_list_c=es_class_name_list_c('long')   ;
+
+
+ 
 $class_id = intval($_GET['class_id'] ) ;
 
 if ($class_id >0 ) {
@@ -74,7 +78,7 @@ while($stud=$xoopsDB->fetchArray($result)){
 	$page =0 ;
  
 	//標題處
-	$section->addText( $class_id . '班 家長代表圈選單', $styleFont_h1,$styleParagraph_h1);
+	$section->addText( $class_name_list_c[$class_id] . ' 家長代表圈選單', $styleFont_h1,$styleParagraph_h1);
  
 	//$PHPWord->addTableStyle('myTable', $styleTable, $styleFirstRow); //建立表格樣式
 	$PHPWord->addTableStyle('myTable' ); //建立表格樣式

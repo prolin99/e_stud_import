@@ -18,6 +18,8 @@ include_once XOOPS_ROOT_PATH."/header.php";
   $show=1 ;
   $data['teacher'] = get_teacher_list($teach_group_id , $show) ;
 
+  //班級名稱
+  $data['class_name_list_c']=es_class_name_list_c('long')   ;
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 

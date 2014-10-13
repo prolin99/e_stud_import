@@ -77,6 +77,14 @@
    
       </div>  
       <div class="row-fluid">
+      <p>
+        <form  action="teacher_set.php" method="post" >
+        <span >班級使用名稱:</span>
+        <input type="text" name="class_name_set" class="span5" placeholder="以逗號做分隔，數量可超過現有班數。" title="以逗號做分隔，數量可超過現有班數。" alt="以逗號做分隔，數量可超過現有班數。"   value="<{$ES_classname_set}>">
+        <button type="submit" name='act_class_set'  value='班名'  class="btn btn-success" >班名設定</button>
+
+      </form>
+      </p>
       	<p>
             <span class="label label-info">說明</span>
             拖拉到任教班級，點垃圾桶圖示表示清除。
@@ -119,6 +127,8 @@ $(function () {
         });
    
 });
+
+//轉成使用班級名稱
 function class_name( class_id) {
   var class_name_array= [];
   <{foreach  key=cid item=cname    from= $data.class_list_c }>
@@ -196,7 +206,7 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
            })
         }  
   
-    //消除配對，還原----------------------------------------------------------------------------------
+    //消除配對，刪除級任----------------------------------------------------------------------------------
   $(document).on("click", ".del", function(){
 
     var mark_id = $(this).attr("data_ref")  ;  //teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>
@@ -208,8 +218,8 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
 
   function del_class_teacher(cell , teacher) {
   	var splits = cell.split('_') ;
-  	//班級清空，出現代號
-    $('#'+ cell ).text(splits[1]) ;
+  	//班級清空，出現班級名稱
+    $('#'+ cell ).text( class_name( splits[1] )  ) ;
     
     //把右方教師顯示出來
     var splits = teacher.split('_') ;

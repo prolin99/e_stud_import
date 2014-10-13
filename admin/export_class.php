@@ -15,6 +15,9 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 
 
 /*-----------執行動作判斷區----------*/
+  //班級名稱
+  $class_name_list_c=es_class_name_list_c('long')   ;
+
  //校內教師群組代號
 	$teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
  //教師名冊
@@ -66,11 +69,11 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
        //標題行
       	$objPHPExcel->setActiveSheetIndex(0) 
             ->setCellValue('A' . $row, '時間：' . date("Y-m-d")  );
-       $col ='A' ;
-			//行高
-			$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(34);       
-       //列寬
-      // $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth('10');
+       	$col ='A' ;
+	//行高
+	$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(34);       
+       	//列寬
+      	// $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth('10');
 
       
      //資料區
@@ -83,7 +86,7 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 				
 				$col_str =$col .$row ;
  
-				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $class_id .'班') ;
+				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $class_name_list_c[$class_id]) ;
 				//下行級任
 				$col_str =$col .($row+1) ;
 				$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $class_teach[$class_id]) ;

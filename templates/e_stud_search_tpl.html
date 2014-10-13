@@ -12,7 +12,7 @@
     </form>
     
 <{if ($data)}>    
-   <{foreach  key=t_key item=stud    from= $data }>
-  <p><{$stud.class_id}>班  (<{$stud.class_sit_num}>)號   <{$stud.name}> </p>
+   <{foreach  key=t_key item=stud    from= $data.student }>
+  <p><{$data.class_name_list_c[$stud.class_id]}>   (<{$stud.class_sit_num}>)號   <{$stud.name}> </p>
    <{/foreach}>
 <{/if}>

@@ -22,6 +22,9 @@ include_once XOOPS_ROOT_PATH."/header.php";
 if (! in_array(   $teach_group_id , $xoopsUser->groups() )  ) 
   	redirect_header(XOOPS_URL,3, "教職員，才能使用！");
 
+  //班級名稱
+  $data['class_name_list_c']=es_class_name_list_c('long')   ;
+
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 $myts =& MyTextSanitizer::getInstance();
@@ -40,7 +43,7 @@ if ($act_search=='search' and $stud_name )  {
  			//echo $sql ;
 			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 			while($stud=$xoopsDB->fetchArray($result)){
-				$data[]=$stud ;
+				$data['student'][]=$stud ;
 			}	
 		}	
 	}		
