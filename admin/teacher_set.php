@@ -25,7 +25,7 @@ if ($_POST['act_class_set']) {
     	if ($classname_set ) {
     		$sql = " insert into  " . $xoopsDB->prefix("es_log") . "  (  id ,  module , message ,rec_time )
     			values ( '0' , 'es_classname' ,  '$classname_set' , now()  ) " ;
-    		echo $sql ;	
+    		//echo $sql ;	
      		$result = $xoopsDB->query($sql) or die($sql."<br>". mysql_error()); 	
     		$ES_ClassName  = preg_split('/[,\s]/' , $classname_set ) ;
     		$ES_classname_set= $classname_set ;
