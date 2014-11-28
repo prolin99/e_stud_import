@@ -52,7 +52,7 @@ function import_stud(){
 
 //xml 格式
 function import_xml($file_up){
-	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ;
+	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ,$xoopsTpl; 
 	
 	$emp_stud_id_set = $xoopsModuleConfig['es_stud_sit_id']  ;
 
@@ -99,7 +99,12 @@ function import_xml($file_up){
  			if (intval($stud_sit) == 0) {
  				$stud_sit=$emp_stud_id_set ;
  				$message .= $stud_class_id . $stud_name ." , 座號指定為 $emp_stud_id_set 號($stud_person_id) <br />" ;
-			}	
+			}
+
+ 			if (intval($stud_tn_id) == 0) {
+ 				$message .= $stud_class_id . $stud_name ." , 沒有指定代號(學號)資料<br />" ;
+			}				
+
  			//無入學年，視為一年級
  			if (intval($user["入學年"]) == 0) {
  				$stud_year =1 ;
@@ -118,12 +123,12 @@ function import_xml($file_up){
 		
 	} 	
 	
-
+	//$xoopsTpl->assign( "message" , $message ) ; 
 }
 
 //excel 格式
 function import_excel($file_up,$ver=5) {
-    global $xoopsDB,$c_year;
+    global $xoopsDB,$c_year ,$xoopsTpl ,$message ;
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
@@ -165,12 +170,25 @@ function import_excel($file_up,$ver=5) {
 			}else{
 				$v[$col]= $val ;
 			}
+
+		}
+
+		if ($v[1]){
 			$stud_year = $c_year +1  -  $v[3] ; 	//入學年計算
 			$class_id  =  $stud_year*100 + $v[4] ;	//班級
 			$class_id  =  sprintf("%03d" ,$class_id) ;
- 
-		}
-		if ($v[1]){
+
+ 			//無入學年，視為一年級
+ 			if (intval($v[3]) == 0) {
+ 				$stud_year =1 ;
+ 				$stud_class_id  = $stud_year*100 + $v[4] ;
+ 				$class_id  =  sprintf("%03d" ,$stud_class_id) ; 				
+ 				$message .= $class_id . $v[1] ."未設定入學年({$v[0]}) <br />" ;
+			}
+
+  			if (intval($v[15]) == 0) {
+ 				$message .= $class_id . $v[1] ." , 沒有指定代號(學號)資料<br />" ;
+			}			
  
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") . 
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex ) 			        
@@ -179,6 +197,7 @@ function import_excel($file_up,$ver=5) {
 			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 		}	
 	}
+
 
 }
 
