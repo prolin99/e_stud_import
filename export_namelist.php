@@ -128,11 +128,11 @@ $objPHPExcel->getActiveSheet()->getStyle( 'A1:M'.$row)->applyFromArray($styleThi
 */                   
  
 	header('Content-Type: application/vnd.ms-excel');
-	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xls' );
+	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xlsx' );
 	header('Cache-Control: max-age=0');
 
 	//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	//暫存區內容先清空
 	ob_clean();
 	$objWriter->save('php://output');

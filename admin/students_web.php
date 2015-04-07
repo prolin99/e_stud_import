@@ -49,6 +49,8 @@ $tmp_id=key($data['class_name_list_c']) ;
 	$patterns[5] = '/__stud_id/';
 	$patterns[6] = '/__parent/';
 	$patterns[7] = '/__sex/';
+	$patterns[8] = '/__nam00/';
+	$patterns[9] = '/__paren00/';
 	
 /*	
 __class_id 班級代號
@@ -74,7 +76,8 @@ __sex 性別代碼
 	else 
 		//取出第一個偏好為預設值
 		$tpl_str =$tpl_used[0] ; 
-		
+
+	$sexstr= array(1=>'男' ,2=>'女') ;	
 				
 	if  ( $data['select_class_id']  ) {
 		$c_id = $data['select_class_id'] ;
@@ -91,7 +94,9 @@ __sex 性別代碼
 			$replacements[4] =  $stud['birthday'] ;
 			$replacements[5] =  $stud['stud_id'] ;
 			$replacements[6] =  $stud['parent'] ;
-			$replacements[7] =  $stud['sex'] ;
+			$replacements[7] =  $sexstr[$stud['sex']] ;
+			$replacements[8] =  mb_substr($stud['name'],0,1,"utf-8").'同學' ;
+			$replacements[9] =  mb_substr($stud['parent'] ,0,1,"utf-8").'家長' ;
 
 
 			$begstr = preg_replace($patterns, $replacements, $tpl_str);				
@@ -101,7 +106,7 @@ __sex 性別代碼
 		}		
 	}		
 	
-	$sexstr= array(1=>'男' ,2=>'女') ;
+	
 	
 
  	$main = "<table width = '80%' border=1 align='center'>\n<tr>\n" ;

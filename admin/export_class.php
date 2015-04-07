@@ -105,11 +105,11 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 
  
 	header('Content-Type: application/vnd.ms-excel');
-	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xls' );
+	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xlsx' );
 	header('Cache-Control: max-age=0');
 
-	//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 	//暫存區內容先清空
 	ob_clean();
 	$objWriter->save('php://output');
