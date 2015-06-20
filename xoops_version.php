@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '1.92';				//模組版次
+$modversion['version']	= '1.93';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -34,7 +34,7 @@ $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 $modversion['tables'][1] = "e_student";
 $modversion['tables'][2] = "e_classteacher";
 $modversion['tables'][3] = "es_log";
- 
+
 //---管理介面設定---//
 $modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = "admin/index.php";
@@ -53,39 +53,61 @@ $modversion['templates'] = array();
 $i=1 ;
 $modversion['templates'][$i]['file'] = 'e_teacherweb_tpl.html';
 $modversion['templates'][$i]['description'] = "e_teacherweb_tpl.html";
+$modversion['templates'][$i]['file'] = 'e_teacherweb_tpl_b3.html';
+$modversion['templates'][$i]['description'] = "e_teacherweb_tpl_b3.html";
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_teacher_tpl.html';
 $modversion['templates'][$i]['description'] = "e_teacher_tpl";
+
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'staff_tpl.html';
 $modversion['templates'][$i]['description'] = "staff_tpl";
+
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_students_tpl.html';
 $modversion['templates'][$i]['description'] = "e_students_tpl";
+$modversion['templates'][$i]['file'] = 'e_students_tpl_b3.html';
+$modversion['templates'][$i]['description'] = "e_students_tpl";
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_web_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_web_tpl";
+
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_index_adm_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_index_adm_tpl";
+
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_group_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_group_tpl";
- 
+
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_search_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_search_tpl";
+$modversion['templates'][$i]['file'] = 'e_stud_search_tpl_b3.html';
+$modversion['templates'][$i]['description'] = "e_stud_search_tpl";
+
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_lists_tpl.html';
+$modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
+$modversion['templates'][$i]['file'] = 'e_stud_lists_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
 
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stat_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stat_tpl";
+$modversion['templates'][$i]['file'] = 'e_stat_tpl_b3.html';
+$modversion['templates'][$i]['description'] = "e_stat_tpl";
 
 
 
- 
+
 
 $i=1 ;
 //偏好設定
@@ -103,9 +125,9 @@ $modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE4';
 $modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC4';
 $modversion['config'][$i]['formtype']    = 'text';
 $modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default'] = 35 ;					//匯入未指定座號0，預填為 
+$modversion['config'][$i]['default'] = 35 ;					//匯入未指定座號0，預填為
 
- 
+
 $i++ ;
 //偏好設定
 $modversion['config'][$i]['name'] = 'es_studs_teacher_job';
@@ -113,8 +135,8 @@ $modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE2';
 $modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC2';
 $modversion['config'][$i]['formtype']    = 'textarea';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default'] = "000101-校長 \n115101-教務主任 \n126101-學務主任 \n137101-總務主任\n148101-輔導主任 \n150101-人事主任 \n150102-會計主任 \n170101-幼稚園主任 \n215102-教學組長 \n215103-註冊組長 \n215104-課發組長 \n215105-資訊組長 \n226102-訓育組長 \n226103-體育組長 \n226104-衛生組長 \n237102-出納組長 \n237103-事務組長 \n237104-文書組長   \n248101-輔導組長 \n248102-特教組長 \n248103-資料組長 \n270102-教保組長 \n360001-學年主任 \n360002-級任教師 \n360003-科任教師 \n360004-特教教師 \n360011-實習教師 \n360012-代理教師 \n370003-幼稚園教師 \n370004-教保員 \n450010-護理師 \n450011-幹事 \n450012-營養師 \n450013-心理師 \n450021-工友 \n450022-警衛 \n450023-替代役 \n450024-雇員\n990000-離職人員" ;  	
- 
+$modversion['config'][$i]['default'] = "000101-校長 \n115101-教務主任 \n126101-學務主任 \n137101-總務主任\n148101-輔導主任 \n150101-人事主任 \n150102-會計主任 \n170101-幼稚園主任 \n215102-教學組長 \n215103-註冊組長 \n215104-課發組長 \n215105-資訊組長 \n226102-訓育組長 \n226103-體育組長 \n226104-衛生組長 \n237102-出納組長 \n237103-事務組長 \n237104-文書組長   \n248101-輔導組長 \n248102-特教組長 \n248103-資料組長 \n270102-教保組長 \n360001-學年主任 \n360002-級任教師 \n360003-科任教師 \n360004-特教教師 \n360011-實習教師 \n360012-代理教師 \n370003-幼稚園教師 \n370004-教保員 \n450010-護理師 \n450011-幹事 \n450012-營養師 \n450013-心理師 \n450021-工友 \n450022-警衛 \n450023-替代役 \n450024-雇員\n990000-離職人員" ;
+
 
 $i++ ;
 //偏好設定
@@ -123,8 +145,8 @@ $modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE3';
 $modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC3';
 $modversion['config'][$i]['formtype']    = 'textarea';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default'] = "<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>\n<a href='/lifetype/index.php?blogId=__class_id__sitid' target='web' >__sitid.__name </a> " ;  	
- 
+$modversion['config'][$i]['default'] = "<a href='play.php?flv=__class_id/__sitid.flv&name=__name&class=__class_id' target='web' >__sitid.__name</a>\n<a href='/lifetype/index.php?blogId=__class_id__sitid' target='web' >__sitid.__name </a> " ;
+
 $i++ ;
 //偏好設定
 $modversion['config'][$i]['name'] = 'es_stud_parent_doc';
@@ -132,7 +154,7 @@ $modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_TITLE5';
 $modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC5';
 $modversion['config'][$i]['formtype']    = 'text';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default'] = '可以圈選兩名！' ;			 
+$modversion['config'][$i]['default'] = '可以圈選兩名！' ;
 
 
 ?>

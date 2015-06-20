@@ -24,36 +24,36 @@ $op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 	while($list_class_id=$xoopsDB->fetchArray($result)){
 		$data['class_id_list'][$list_class_id['class_id']]= $list_class_id['class_id'] ;
 		$tmp_id = $list_class_id['class_id'] ;
-		
-	}		
-	
- 
+
+	}
+
+
 //取得該班的資料
-	if  ($_POST['class_id']) 
+	if  ($_POST['class_id'])
 		$data['select_class_id'] = $_POST['class_id']  ;
-	else 
+	else
 		$data['select_class_id'] =$tmp_id   ;
-	
+
 	if  ( $data['select_class_id']  ) {
 		$c_id = $data['select_class_id'] ;
 		$sql =  "  SELECT  *  FROM " . $xoopsDB->prefix("e_student") . "   where class_id='$c_id'   ORDER BY  `class_sit_num`  " ;
- 
+
 		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 		while($stud=$xoopsDB->fetchArray($result)){
 			$students[]=$stud ;
-			
-		}		
- 
-	}		
-	
+
+		}
+
+	}
+
 	$sexstr= array(1=>'男' ,2=>'女') ;
- 
+
 /*-----------秀出結果區--------------*/
 
 
 $xoopsTpl->assign( "data" , $data ) ;
 $xoopsTpl->assign( "sexstr" , $sexstr ) ;
-$xoopsTpl->assign( "students" , $students ) ; 
+$xoopsTpl->assign( "students" , $students ) ;
 include_once 'footer.php';
 
 

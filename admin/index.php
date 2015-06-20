@@ -4,14 +4,12 @@
 // 製作日期：2014-02-16
 // $Id:$
 // ------------------------------------------------------------------------- //
- 
+
 /*-----------引入檔案區--------------*/
 //樣版
 $xoopsOption['template_main'] = "e_stud_index_adm_tpl.html";
-include_once "header_admin.php";
-
 include_once "header.php";
-
+include_once "../function.php";
 /*-----------function區--------------*/
 //
     //取得現在學年
@@ -24,39 +22,39 @@ include_once "header.php";
 //匯入判別
 function import_stud(){
 	if ($_FILES['userdata']['name'] ) {
-		 
+
 		$file_up = XOOPS_ROOT_PATH."/uploads/" .$_FILES['userdata']['name'] ;
-		copy($_FILES['userdata']['tmp_name'] , $file_up );	
+		copy($_FILES['userdata']['tmp_name'] , $file_up );
 		$main="開始匯入" . $file_up .'<br>';
 
 		//副檔名
 		$file_array= preg_split('/[.]/', $_FILES['userdata']['name'] ) ;
 		$ext= strtoupper(array_pop($file_array)) ;
-		if ($ext=='XML')  
+		if ($ext=='XML')
 			import_xml($file_up) ;
-		if ($ext=='XLS') 
-			import_excel($file_up) ;	
-		if ($ext=='XLSX') 
-			import_excel($file_up , 2007) ;			
+		if ($ext=='XLS')
+			import_excel($file_up) ;
+		if ($ext=='XLSX')
+			import_excel($file_up , 2007) ;
 		//刪除上傳的檔。
 		unlink($file_up)  ;
-		
+
 		//把整資料庫中的資料匯整成記錄
 		do_statistics() ;
 		//redirect_header($_SERVER['PHP_SELF'],3, '資料寫入!' );
 	}
-	
-	return $main; 
- 
+
+	return $main;
+
 }
 
 //xml 格式
 function import_xml($file_up){
-	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ,$xoopsTpl; 
-	
+	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ,$xoopsTpl;
+
 	$emp_stud_id_set = $xoopsModuleConfig['es_stud_sit_id']  ;
 
-	
+
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
@@ -65,33 +63,33 @@ function import_xml($file_up){
  	$xmlDoc = new DOMDocument();
  	$xmlDoc->load( $file_up );
 	$x = $xmlDoc->documentElement;
- 
+
 
 	foreach ($x->childNodes AS $y)
-	{ 
+	{
 	 	if ($y->nodeName <>'#text') {
- 
+
 			foreach ($y->childNodes AS $item)  {
 				if ($item->nodeName <>'#text') {
- 
+
 					$user[$item->nodeName] =$item->nodeValue ;
 
 					$stud_person_id = $user[ "身份證字號"] ;
 					$stud_name =  $user["姓名"] ;
 					$stud_sex =  $user["性別"] ;
-					
+
 					$stud_year = $c_year +1  -  $user["入學年"];
  					$stud_class = $user["班級"] ;
  					$stud_class_id  = $stud_year*100 + $stud_class ;
  					$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
  					$stud_dom='' ;
 					$stud_dom =addslashes( $user["監護人"] );
-					
+
 					$stud_sit = $user["座號"] ;
 					$stud_birthday = $user["生日_x0028_西元_x0029_"] ;
 					$stud_tn_id = $user["代號"] ;
-				} 
-				
+				}
+
 
 			}
 			//$main .= "$stud_person_id $stud_name  $stud_year $stud_dom  $stud_class $stud_sit $stud_birthday  <br/>" ;
@@ -103,27 +101,27 @@ function import_xml($file_up){
 
  			if (intval($stud_tn_id) == 0) {
  				$message .= $stud_class_id . $stud_name ." , 沒有指定代號(學號)資料<br />" ;
-			}				
+			}
 
  			//無入學年，視為一年級
  			if (intval($user["入學年"]) == 0) {
  				$stud_year =1 ;
  				$stud_class_id  = $stud_year*100 + $stud_class ;
- 				$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ; 				
+ 				$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
  				$message .= $stud_class_id . $stud_name ."未設定入學年(尚未指定學號所致?)($stud_person_id) <br />" ;
 			}
-			
-			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") . 
-			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex ) 			        
-			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;	   	
- 
+
+			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
+			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
+
 			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
- 
+
 		}
-		
-	} 	
-	
-	//$xoopsTpl->assign( "message" , $message ) ; 
+
+	}
+
+	//$xoopsTpl->assign( "message" , $message ) ;
 }
 
 //excel 格式
@@ -132,20 +130,20 @@ function import_excel($file_up,$ver=5) {
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
-	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
+	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
 
 
 	include_once '../../tadtools/PHPExcel/IOFactory.php';
 	if ($ver ==5)
 		$reader = PHPExcel_IOFactory::createReader('Excel5');
-	else 	
+	else
 		$reader = PHPExcel_IOFactory::createReader('Excel2007');
-	
+
 	$PHPExcel = $reader->load( $file_up ); // 檔案名稱
 	$sheet = $PHPExcel->getSheet(0); // 讀取第一個工作表(編號從 0 開始)
 	$highestRow = $sheet->getHighestRow(); // 取得總列數
- 
+
 	// 一次讀取一列
 	for ($row = 2; $row <= $highestRow; $row++) {
 		$v="";
@@ -154,7 +152,7 @@ function import_excel($file_up,$ver=5) {
 			if ($col==6)
 				//生日
 				$val = PHPExcel_Shared_Date::ExcelToPHPObject( $sheet->getCellByColumnAndRow( $col , $row )->getValue())->format('Y-m-d');
-			else 
+			else
 				$val =  $sheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
 		 /*
 			//格式檢查(這部份有問題
@@ -182,20 +180,20 @@ function import_excel($file_up,$ver=5) {
  			if (intval($v[3]) == 0) {
  				$stud_year =1 ;
  				$stud_class_id  = $stud_year*100 + $v[4] ;
- 				$class_id  =  sprintf("%03d" ,$stud_class_id) ; 				
+ 				$class_id  =  sprintf("%03d" ,$stud_class_id) ;
  				$message .= $class_id . $v[1] ."未設定入學年({$v[0]}) <br />" ;
 			}
 
   			if (intval($v[15]) == 0) {
  				$message .= $class_id . $v[1] ." , 沒有指定代號(學號)資料<br />" ;
-			}			
- 
-			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") . 
-			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex ) 			        
-			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;	   	
- 
+			}
+
+			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
+			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
+
 			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-		}	
+		}
 	}
 
 
@@ -207,7 +205,7 @@ $op = empty($_REQUEST['op'])? "":$_REQUEST['op'];
 
 switch($op){
 	/*---判斷動作請貼在下方---*/
-	
+
 	case "import":
 
 	$main=import_stud() ;
@@ -215,23 +213,23 @@ switch($op){
 }
 
 	//取得目前學生資料總計
-	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;	   	
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
+	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	$data_list=$xoopsDB->fetchArray($result) ;
- 
+
 	//取得記錄檔十筆
-	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  where   module='e_stud_import' order by rec_time DESC  ";	   	
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());	
+	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  where   module='e_stud_import' order by rec_time DESC  ";
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 	while($row=$xoopsDB->fetchArray($result)){
 		$recdata[]= $row ;
 	}
 
 
 /*-----------秀出結果區--------------*/
- 	$xoopsTpl->assign( "data_list" , $data_list ) ; 
- 	$xoopsTpl->assign( "recdata" , $recdata ) ; 
- 	$xoopsTpl->assign( "c_year" , $c_year ) ; 
- 	$xoopsTpl->assign( "message" , $message ) ; 
+ 	$xoopsTpl->assign( "data_list" , $data_list ) ;
+ 	$xoopsTpl->assign( "recdata" , $recdata ) ;
+ 	$xoopsTpl->assign( "c_year" , $c_year ) ;
+ 	$xoopsTpl->assign( "message" , $message ) ;
 include_once 'footer.php';
 
 ?>
