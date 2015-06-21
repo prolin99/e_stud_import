@@ -53,6 +53,7 @@ $modversion['templates'] = array();
 $i=1 ;
 $modversion['templates'][$i]['file'] = 'e_teacherweb_tpl.html';
 $modversion['templates'][$i]['description'] = "e_teacherweb_tpl.html";
+$i=1 ;
 $modversion['templates'][$i]['file'] = 'e_teacherweb_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_teacherweb_tpl_b3.html";
 
@@ -69,6 +70,7 @@ $modversion['templates'][$i]['description'] = "staff_tpl";
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_students_tpl.html';
 $modversion['templates'][$i]['description'] = "e_students_tpl";
+$i=1 ;
 $modversion['templates'][$i]['file'] = 'e_students_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_students_tpl";
 
@@ -90,18 +92,21 @@ $modversion['templates'][$i]['description'] = "e_stud_group_tpl";
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_search_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_search_tpl";
+$i=1 ;
 $modversion['templates'][$i]['file'] = 'e_stud_search_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_stud_search_tpl";
 
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_lists_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
+$i=1 ;
 $modversion['templates'][$i]['file'] = 'e_stud_lists_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
 
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stat_tpl.html';
 $modversion['templates'][$i]['description'] = "e_stat_tpl";
+$i=1 ;
 $modversion['templates'][$i]['file'] = 'e_stat_tpl_b3.html';
 $modversion['templates'][$i]['description'] = "e_stat_tpl";
 

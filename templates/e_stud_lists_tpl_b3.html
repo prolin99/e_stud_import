@@ -1,20 +1,18 @@
-<{$bootstrap}>
-<{$jquery}>
 <{$toolbar}>
     <form   method='post' >
     <fieldset>
     <legend>班級名冊</legend>
     <span>班級：</span>
-    <{html_options name=class_id  options=$data.class_name_list_c  selected=$data.select_class_id  onchange="submit();"  class="span2" }>
+    <{html_options name=class_id  options=$data.class_name_list_c  selected=$data.select_class_id  onchange="submit();"  class="col-md-2" }>
     <a class="btn btn-success" href="export_namelist.php?class_id=<{$data.select_class_id}>" title="匯出EXCEL">本班名冊</a>
     <a class="btn btn-primary" href="export_namelist.php?grade=1&class_id=<{$data.select_class_id}>" title="匯出EXCEL">學年名冊</a>
     <a class="btn btn-info" href="export_parentlist.php?class_id=<{$data.select_class_id}>" title="匯出WORD">家長代表選票</a>
     </fieldset>
     </form>
 <{ if ($data.list)}>
-	<table class="table table-bordered table-hover col-md-5" >
+	<table class="table table-bordered table-hover col-md-4" >
 	<tr>
-   <td class="col-md-1">班級</td><td class="col-md-1">座號</td><td class="col-md-2">姓名</td>
+   <td class="col-md-1">班級</td><td class="col-md-1">座號</td><td class="col-md-10">姓名</td>
    </tr>
    <{foreach  key=t_key item=list    from= $data.list }>
    <tr>

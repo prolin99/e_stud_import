@@ -7,9 +7,11 @@
 
 /*-----------引入檔案區--------------*/
 //樣版
+
 $xoopsOption['template_main'] = "e_stud_index_adm_tpl.html";
 include_once "header.php";
 include_once "../function.php";
+
 /*-----------function區--------------*/
 //
     //取得現在學年
