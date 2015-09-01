@@ -69,7 +69,11 @@ function import_xml($file_up){
 
 	foreach ($x->childNodes AS $y)
 	{
-	 	if ($y->nodeName <>'#text') {
+        //監護人資料先清空，因為有可能缺值
+        $user["監護人"]='' ;
+        $user["父親姓名"]='' ;
+
+	    if ($y->nodeName <>'#text') {
 
 			foreach ($y->childNodes AS $item)  {
 				if ($item->nodeName <>'#text') {
@@ -84,8 +88,12 @@ function import_xml($file_up){
  					$stud_class = $user["班級"] ;
  					$stud_class_id  = $stud_year*100 + $stud_class ;
  					$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+                    $stud_father='' ;
+                    $stud_father =addslashes( $user["父親姓名"] );
  					$stud_dom='' ;
 					$stud_dom =addslashes( $user["監護人"] );
+                    if   ($stud_dom =='' )
+						$stud_dom =  $stud_father ;
 
 					$stud_sit = $user["座號"] ;
 					$stud_birthday = $user["生日_x0028_西元_x0029_"] ;
