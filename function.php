@@ -215,7 +215,7 @@ function do_statistics() {
 }
 
 //取得群組的名稱
-function get_group_list($teach_group_id_list  = [4,5,6,7,8,9] ) {
+function get_group_list($teach_group_id_list  =array(4,5,6,7,8,9) ) {
 	global  $xoopsDB   ;
     $glist = join(',', $teach_group_id_list ) ;
 	//$sql = "SELECT * FROM " . $xoopsDB->prefix("groups") . " where groupid > '$teach_group_id' order by groupid " ;

@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '1.95';				//模組版次
+$modversion['version']	= '1.96';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -130,7 +130,7 @@ $modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_G_LIST';
 $modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DG_LIST';
 $modversion['config'][$i]['formtype']    = 'group_multi';
 $modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['default'] = [4,5,6,7,8,9] ;					//配合校園網站輕鬆架，預設值
+$modversion['config'][$i]['default'] = array(4,5,6,7,8,9)  ;					//配合校園網站輕鬆架，預設值
 
 $i++ ;
 //偏好設定
