@@ -231,7 +231,7 @@ function get_group_list($teach_group_id_list  =array(4,5,6,7,8,9) ) {
 
 
 //取得群組中目前的成員
-function get_group_users_list($teach_group_id_list  = [4,5,6,7,8,9]  ) {
+function get_group_users_list($teach_group_id_list  =array(4,5,6,7,8,9)  ) {
 	global  $xoopsDB   ;
     $glist = join(',', $teach_group_id_list ) ;
 	//$sql = "SELECT u.uid, u.name ,g.groupid  FROM " . $xoopsDB->prefix("groups_users_link")  .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid  where g.groupid > '$teach_group_id' order by g.groupid " ;
