@@ -9,17 +9,17 @@ include_once "header.php";
 include_once XOOPS_ROOT_PATH."/header.php";
 
 include_once "../tadtools/PHPExcel.php";
-require_once '../tadtools/PHPExcel/IOFactory.php';    
+require_once '../tadtools/PHPExcel/IOFactory.php';
 /*-----------function區--------------*/
- if (!$xoopsUser) 
+ if (!$xoopsUser)
   	redirect_header(XOOPS_URL,3, "需要登入，才能使用！");
-  	
+
   //校內教師群組代號
   $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
- 
-if (! in_array(   $teach_group_id , $xoopsUser->groups() )  ) 
+
+if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
   	redirect_header(XOOPS_URL,3, "教職員，才能使用！");
-	
+
 
 /*-----------執行動作判斷區----------*/
   //班級名稱
@@ -31,73 +31,73 @@ $class_id = intval($_GET['class_id'] ) ;
 if  ($grade==1) {
 	$g = substr($class_id ,0,1) ;
 	$sql =  "  SELECT class_id , class_sit_num ,name  FROM " . $xoopsDB->prefix("e_student") . "   where class_id  like '$g%'  ORDER BY  class_id , class_sit_num  " ;
-}else {	
+}else {
 	if ($class_id >0 ) {
 		$sql =  "  SELECT class_id , class_sit_num ,name  FROM " . $xoopsDB->prefix("e_student") . "   where class_id  = '$class_id'  ORDER BY  class_id , class_sit_num  " ;
-	}	else 
+	}	else
 		exit  ;
-}		
+}
 //echo $sql ;
 		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 		while($stud=$xoopsDB->fetchArray($result)){
 			$data[]=$stud ;
-		}		
- 
+		}
+
 
 	//----------------------------------------------------------------------------------
  	$objPHPExcel = new PHPExcel();
 	$objPHPExcel->setActiveSheetIndex(0);  //設定預設顯示的工作表
 	$objActSheet = $objPHPExcel->getActiveSheet(); //指定預設工作表為 $objActSheet
-	$objActSheet->setTitle("班級名冊");  //設定標題	
+	$objActSheet->setTitle("班級名冊");  //設定標題
   	//設定框線
-  	
+
 	$objBorder=$objActSheet->getDefaultStyle()->getBorders();
 	//$objBorder->getBottom()
 	$objBorder->getBottom()
           	->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)
-          	->getColor()->setRGB('000000'); 
+          	->getColor()->setRGB('000000');
 	$objBorder->getLeft()
           	->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)
-          	->getColor()->setRGB('000000'); 
+          	->getColor()->setRGB('000000');
 	$objBorder->getRight()
           	->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)
-          	->getColor()->setRGB('000000'); 
+          	->getColor()->setRGB('000000');
  	$objBorder->getTop()
           	->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)
-          	->getColor()->setRGB('000000');          	
+          	->getColor()->setRGB('000000');
 	$objActSheet->getDefaultRowDimension()->setRowHeight(15);
 
-	
+
 	$row= 0 ;
 
        $col ='A' ;
 		//行高
-		//	$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(34);       
+		//	$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(34);
        //列寬
        // $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth('10');
 
-      
+
      //資料區
      foreach ( $data  as $id => $stud )  {
 		if  ($now_class<>$stud['class_id'] ) {
 			if ($row>1)  $objPHPExcel->getActiveSheet()->setBreak( 'A' . $row, PHPExcel_Worksheet::BREAK_ROW );			//分頁
 			$row++ ;
 			//標題行
-			$objPHPExcel->setActiveSheetIndex(0) 
+			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'.$row , '班級'  );
-			$objPHPExcel->setActiveSheetIndex(0) 
+			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('B'.$row , '座號'  );
-			$objPHPExcel->setActiveSheetIndex(0) 
-				->setCellValue('C'.$row , '姓名'  );   
-				
-			$col ='C' ;	
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('C'.$row , '姓名'  );
+
+			$col ='C' ;
 			for ($i =1 ; $i<=6 ; $i++)  {
 				$col++ ;
 				$col_str =$col .$row ;
-				$objPHPExcel->setActiveSheetIndex(0) 
-					->setCellValue($col_str , $i  );        				
+				$objPHPExcel->setActiveSheetIndex(0)
+					->setCellValue($col_str , $i  );
 			}
-		
+
 				//$row++ ;
 				$now_class=$stud['class_id']  ;
 		}
@@ -109,12 +109,12 @@ if  ($grade==1) {
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $class_name_list_c[$stud['class_id']] ) ;
 			$col++ ;
 			$col_str =$col .$row ;
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['class_sit_num'] ) ;			
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['class_sit_num'] ) ;
 			$col++ ;
 			$col_str =$col .$row ;
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['name'] ) ;			
-		}	
-/*		
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col_str , $stud['name'] ) ;
+		}
+/*
 $styleThinBlackBorderOutline = array(
        'borders' => array (
              'outline' => array (
@@ -125,9 +125,10 @@ $styleThinBlackBorderOutline = array(
       ),
 );
 $objPHPExcel->getActiveSheet()->getStyle( 'A1:M'.$row)->applyFromArray($styleThinBlackBorderOutline);
-*/                   
- 
-	header('Content-Type: application/vnd.ms-excel');
+*/
+
+  //header('Content-Type: application/vnd.ms-excel');
+  header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xlsx' );
 	header('Cache-Control: max-age=0');
 
@@ -136,7 +137,7 @@ $objPHPExcel->getActiveSheet()->getStyle( 'A1:M'.$row)->applyFromArray($styleThi
 	//暫存區內容先清空
 	ob_clean();
 	$objWriter->save('php://output');
-	exit;		
- 
- 
+	exit;
+
+
 ?>

@@ -122,7 +122,8 @@ while($stud=$xoopsDB->fetchArray($result)){
 	}
  	$section->addText( $show_doc );
 
-	header('Content-Type: application/vnd.ms-word');
+  //header('Content-Type: application/vnd.ms-word');
+	header('Content-Type:application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 	header('Content-Disposition: attachment;filename=家長代表選單_' . $class_id .'.docx');
 	header('Cache-Control: max-age=0');
 	$objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
