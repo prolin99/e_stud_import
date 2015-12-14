@@ -29,4 +29,7 @@ define("_MI_ESTUDENTS_CONFIG_DESC5", "家長代表選票，最後提醒文字");
 
 define("_MI_ESTUDENTS_CONFIG_G_LIST", "顯示指定群組");
 define("_MI_ESTUDENTS_CONFIG_DG_LIST", "在群組設定頁時，要出現的群組。多選項");
+
+define("_MI_ESTUDENTS_CONFIG_TITLE6", "教師 EMAIL 公開");
+define("_MI_ESTUDENTS_CONFIG_DESC6", "訪客可以查看教師 EMAIL ");
 ?>
