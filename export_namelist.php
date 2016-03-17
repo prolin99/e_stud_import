@@ -138,6 +138,3 @@ $objPHPExcel->getActiveSheet()->getStyle( 'A1:M'.$row)->applyFromArray($styleThi
 	ob_clean();
 	$objWriter->save('php://output');
 	exit;
-
-
-?>
