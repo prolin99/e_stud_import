@@ -78,14 +78,23 @@ left join  xx_e_classteacher as c on u.uid = c.uid
 WHERE g.groupid =4
 group by u.uid
 order by  u.user_occ ,c.class_id
+
+
+last_login
 */
 
     $class_name_c = es_class_name_list_c('long');
 
+    if ($teach_group_id == XOOPS_GROUP_USERS) //以註冊者顯示時，改以最近登入時間做排序
+        $order_str =  " order by  u.last_login DESC ,   u.name ";
+    else
+        $order_str =  " order by  c.staff , c.class_id , u.name ";
+
     $sql = '  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , c.staff , g.groupid ,c.class_id   FROM  '.
             $xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users').'  AS u ON u.uid = g.uid '.
             ' left join '.$xoopsDB->prefix('e_classteacher').' as c on u.uid = c.uid '.
-            "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  c.staff , c.class_id , u.name ";
+            "  WHERE g.groupid ='$teach_group_id'  group by u.uid   $order_str ";
+
 
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     while ($row = $xoopsDB->fetchArray($result)) {
