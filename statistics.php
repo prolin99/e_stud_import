@@ -24,7 +24,7 @@ if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
 
 	//取得記錄檔
 	$sql=  " select  message   from  " . $xoopsDB->prefix("es_log")  ."  where module='e_stud_import' order by id DESC  LIMIT 0 , 1  ";
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	$row=$xoopsDB->fetchArray($result) ;
 	$data =  $row['message'] ;
 

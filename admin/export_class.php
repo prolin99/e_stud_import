@@ -25,7 +25,7 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 
 //取得班級列表
  	$sql =  "  SELECT  class_id  FROM  " . $xoopsDB->prefix("e_student") .  "    group by class_id order by class_id  " ;
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	while($data_row=$xoopsDB->fetchArray($result)){
  	 	$class_list[$data_row['class_id']]= $data_row['class_id'] ;
  	 	//依年級作分組
@@ -36,7 +36,7 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 
 	//班級人數統計
 	$sql = " SELECT class_id, sex , count( * ) cc FROM " . $xoopsDB->prefix("e_student") . " GROUP BY class_id , sex order by class_id, sex  " ;
-	$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+	$result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error());
 	while($row=$xoopsDB->fetchArray($result)){
 		$class_id= $row['class_id'] ;
 		$sex= $row['sex'] ;
@@ -46,7 +46,7 @@ require_once '../../tadtools/PHPExcel/IOFactory.php';
 
 //取得已指定的級任代號
 	$sql =  "  SELECT  *  FROM  " . $xoopsDB->prefix("e_classteacher") .  "    order by class_id  " ;
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	while($data_row=$xoopsDB->fetchArray($result)){
  	 	$class_teach[$data_row['class_id']]= $teacher[$data_row['uid']]['name'] ;
 	}

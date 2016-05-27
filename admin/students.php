@@ -20,7 +20,7 @@ $op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 
 //取得班級列表
 	$sql =  "  SELECT `class_id`  FROM " . $xoopsDB->prefix("e_student") .  "  GROUP BY `class_id`  ORDER BY  `class_id`  " ;
-	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	while($list_class_id=$xoopsDB->fetchArray($result)){
 		$data['class_id_list'][$list_class_id['class_id']]= $list_class_id['class_id'] ;
 		$tmp_id = $list_class_id['class_id'] ;
@@ -38,7 +38,7 @@ $op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 		$c_id = $data['select_class_id'] ;
 		$sql =  "  SELECT  *  FROM " . $xoopsDB->prefix("e_student") . "   where class_id='$c_id'   ORDER BY  `class_sit_num`  " ;
 
-		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 		while($stud=$xoopsDB->fetchArray($result)){
 			$students[]=$stud ;
 

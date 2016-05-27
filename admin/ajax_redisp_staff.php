@@ -22,7 +22,7 @@ if ($_GET['mode']){
 
 $teacher_list = get_teacher_list($gid) ;
 
-foreach($teacher_list as $uid =>$teacher){
+foreach($teacher_list as $uid => $teacher){
     if ($teacher['staff']) {
         //<!-- 已設職稱  -->
         list($sid,$job) = preg_split('/[-]/',$teacher['staff']) ;

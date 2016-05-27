@@ -5,7 +5,9 @@
 // $Id:$
 // ------------------------------------------------------------------------- //
 /*-----------引入檔案區--------------*/
+
 include_once "header.php";
+
 include_once XOOPS_ROOT_PATH."/header.php";
 
 include_once "../tadtools/PHPExcel.php";
@@ -37,8 +39,10 @@ if  ($grade==1) {
 	}	else
 		exit  ;
 }
+
+
 //echo $sql ;
-		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 		while($stud=$xoopsDB->fetchArray($result)){
 			$data[]=$stud ;
 		}
@@ -137,4 +141,4 @@ $objPHPExcel->getActiveSheet()->getStyle( 'A1:M'.$row)->applyFromArray($styleThi
 	//暫存區內容先清空
 	ob_clean();
 	$objWriter->save('php://output');
-	exit;
+	exit();

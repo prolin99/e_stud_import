@@ -24,7 +24,7 @@ $_GET['id'] ;
  	    if  ($_GET['do']=='del' ){
             //移除職稱
             $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid'  "  ;
-            $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+            $result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error());
 
             if ($staff_id== '990000') //把離職條件去除，再加回校內群組中
                 user_in_group($uid, $teach_group_id  ) ;
@@ -32,7 +32,7 @@ $_GET['id'] ;
 		    //指定職稱
             if ($staff_id== '990000') { //離職人員，無職稱，去群組
                 $sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid'  "  ;
-                $result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+                $result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error());
                 //把校內群組移除
                 user_in_group($uid, $teach_group_id ,'del' ) ;
             }else{
@@ -50,7 +50,7 @@ $_GET['id'] ;
 	     	   			" (`uid`, `class_id` ,staff )  " .
 	     	   			"  VALUES  ( '$uid' , '$class_id' , '$staff'  )   " ; 
 							}	
-	   					$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+	   					$result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error());
               user_in_group($uid, $teach_group_id  ) ;
             }
 

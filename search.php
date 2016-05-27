@@ -40,7 +40,7 @@ if ($act_search == 'search' and $stud_name) {
         if (trim($stud_name2) != '') {
             $sql = '  SELECT class_id , class_sit_num ,name  FROM '.$xoopsDB->prefix('e_student')."   where name like '%$stud_name2%'   ORDER BY  class_id , class_sit_num  ";
             //echo $sql ;
-            $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+            $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
             while ($stud = $xoopsDB->fetchArray($result)) {
                 $data['student'][] = $stud;
             }

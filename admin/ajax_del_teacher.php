@@ -21,12 +21,12 @@ $_GET['id'] ;
 	     	   "  where uid= '$uid'  and class_id= '$class_id'    " ; 
  
  
-     		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error()); 
+     		$result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error()); 
      		
      		// 為級任教師則去除
      		$staff =addSlashes($_GET['job']) ;
      		$sql = " update  "  . $xoopsDB->prefix("e_classteacher") ." set staff='' where uid='$uid' and staff ='$staff'  "  ;
-    		$result = $xoopsDB->queryF($sql) or die($sql."<br>". mysql_error());
+    		$result = $xoopsDB->queryF($sql) or die($sql."<br>". $xoopsDB->error());
      		
      	}else {
      		echo "delete  error  " .   $_GET['id']  . $sql  ;

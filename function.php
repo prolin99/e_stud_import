@@ -27,7 +27,7 @@ function is_safe_chk()
     $sql = '  SELECT count(*) as cc  FROM '.$xoopsDB->prefix('group_permission').
             " where   gperm_itemid =$mod_id and   ( gperm_groupid =".XOOPS_GROUP_ANONYMOUS.'  or   gperm_groupid ='.XOOPS_GROUP_USERS.')  ';
 
-    $result = $xoopsDB->query($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->query($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($date_list = $xoopsDB->fetchArray($result)) {
         $cc = $date_list['cc'];
     }
@@ -78,25 +78,18 @@ left join  xx_e_classteacher as c on u.uid = c.uid
 WHERE g.groupid =4
 group by u.uid
 order by  u.user_occ ,c.class_id
-
-
-last_login
 */
 
-    $class_name_c = es_class_name_list_c('long');
 
-    if ($teach_group_id == XOOPS_GROUP_USERS) //以註冊者顯示時，改以最近登入時間做排序
-        $order_str =  " order by  u.last_login DESC ,   u.name ";
-    else
-        $order_str =  " order by  c.staff , c.class_id , u.name ";
+    $class_name_c = es_class_name_list_c('long');
 
     $sql = '  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , c.staff , g.groupid ,c.class_id   FROM  '.
             $xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users').'  AS u ON u.uid = g.uid '.
             ' left join '.$xoopsDB->prefix('e_classteacher').' as c on u.uid = c.uid '.
-            "  WHERE g.groupid ='$teach_group_id'  group by u.uid   $order_str ";
+            "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  c.staff , c.class_id , u.name ";
 
-
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
+    //echo $sql ;
     while ($row = $xoopsDB->fetchArray($result)) {
         if ($show) {
             if ($email_show or $in_school) {
@@ -114,8 +107,13 @@ last_login
                 //$row['staff'] .= '-' .$row['class_id'] .'班' ;
                 $row['staff'] .= '-'.$class_name_c[$row['class_id']];
             }
+
         }
+        //無真名出現帳號
+        if ($row['name']=='')
+            $row['name']=$row['uname'] ;
         $teacher[$row['uid']] = $row;
+
     }
 
     return $teacher;
@@ -158,7 +156,7 @@ function user_in_group($uid, $gid, $mode = 'add')
         //是否已在群組中
         $sql = 'SELECT * FROM '.$xoopsDB->prefix('groups_users_link').
             " WHERE groupid ='$gid' and uid ='$uid' ";
-        $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+        $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
         $row = $xoopsDB->fetchArray($result);
 
         if (!$row['uid']) {
@@ -166,12 +164,12 @@ function user_in_group($uid, $gid, $mode = 'add')
             $sql = ' INSERT INTO   '.$xoopsDB->prefix('groups_users_link').
                 ' (`uid`, `groupid`)  '.
                 "  VALUES  ( '$uid' , '$gid' )   ";
-            $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+            $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
         }
     } else {
         $sql = ' DELETE FROM  '.$xoopsDB->prefix('groups_users_link').
                         " WHERE groupid ='$gid' and uid ='$uid' ";
-        $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+        $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     }
 }
 
@@ -186,7 +184,7 @@ function do_statistics()
     //年級人數統計
     $sql = 'SELECT SUBSTR(class_id,1,1) as grade,  sex , count( * ) cc  FROM '.$xoopsDB->prefix('e_student').
             '  group by  SUBSTR(class_id,1,1), sex  ';
-    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
         $grade = $row['grade'];
         $sex = $row['sex'];
@@ -201,7 +199,7 @@ function do_statistics()
 
     //班級人數統計
     $sql = ' SELECT class_id, sex , count( * ) cc FROM '.$xoopsDB->prefix('e_student').' GROUP BY class_id , sex order by class_id, sex  ';
-    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
         $class_id = $row['class_id'];
         $sex = $row['sex'];
@@ -221,7 +219,7 @@ function do_statistics()
     $sql = ' INSERT INTO   '.$xoopsDB->prefix('es_log').
                 ' (`module`, `message`)  '.
                 "  VALUES  ( 'e_stud_import' , '$main' )   ";
-    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
 }
 
 //取得群組的名稱
@@ -231,7 +229,7 @@ function get_group_list($teach_group_id_list = array(4, 5, 6, 7, 8, 9))
     $glist = implode(',', $teach_group_id_list);
     //$sql = "SELECT * FROM " . $xoopsDB->prefix("groups") . " where groupid > '$teach_group_id' order by groupid " ;
     $sql = 'SELECT * FROM '.$xoopsDB->prefix('groups')." where groupid in($glist)  order by groupid ";
-    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
         $id = $row['groupid'];
         $data[$id] = $row['name'];
@@ -247,7 +245,7 @@ function get_group_users_list($teach_group_id_list = array(4, 5, 6, 7, 8, 9))
     $glist = implode(',', $teach_group_id_list);
     //$sql = "SELECT u.uid, u.name ,g.groupid  FROM " . $xoopsDB->prefix("groups_users_link")  .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid  where g.groupid > '$teach_group_id' order by g.groupid " ;
     $sql = 'SELECT u.uid, u.name ,g.groupid  FROM '.$xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users')."  AS u ON u.uid = g.uid  where g.groupid in ($glist) order by g.groupid ";
-    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.mysql_error());
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
         $id = $row['groupid'];
         $dt['uid'] = $row['uid'];

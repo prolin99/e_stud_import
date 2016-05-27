@@ -59,7 +59,7 @@ function import_xml($file_up){
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
-	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 
    	//讀入 XML 檔案
  	$xmlDoc = new DOMDocument();
@@ -125,7 +125,11 @@ function import_xml($file_up){
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
 			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
 
-			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+			$result = $xoopsDB->query($sql)  ;
+            if ($xoopsDB->error() ) {
+                 echo  $xoopsDB->error() . $sql ."<br />" ;
+            }
+
 
 		}
 
@@ -140,7 +144,7 @@ function import_excel($file_up,$ver=5) {
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
-	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 
 
 
@@ -202,7 +206,10 @@ function import_excel($file_up,$ver=5) {
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
 			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
 
-			$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+			$result = $xoopsDB->query($sql) ;
+            if ($xoopsDB->error() ) {
+                 echo  $xoopsDB->error() . $sql ."<br />" ;
+            }
 		}
 	}
 
@@ -223,13 +230,13 @@ switch($op){
 }
 
 	//取得目前學生資料總計
-	$sql=  "select count(*) as students ,  chk_date  from  " . $xoopsDB->prefix("e_student")  ;
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	$sql=  "select count(*) as students  from  " . $xoopsDB->prefix("e_student")  ;
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	$data_list=$xoopsDB->fetchArray($result) ;
 
 	//取得記錄檔十筆
 	$sql=  " select id , rec_time   from  " . $xoopsDB->prefix("es_log")  ."  where   module='e_stud_import' order by rec_time DESC  ";
- 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+ 	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	while($row=$xoopsDB->fetchArray($result)){
 		$recdata[]= $row ;
 	}

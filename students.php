@@ -28,7 +28,7 @@ if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
   /*
 //取得班級列表
 	$sql =  "  SELECT `class_id`  FROM " . $xoopsDB->prefix("e_student") .  "  GROUP BY `class_id`  ORDER BY  `class_id`  " ;
-	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	while($list_class_id=$xoopsDB->fetchArray($result)){
 		$data['class_id_list'][$list_class_id['class_id']]= $list_class_id['class_id'] ;
 		$tmp_id = $list_class_id['class_id'] ;
@@ -47,7 +47,7 @@ if ($class_id  )  {
 	 	$data['select_class_id'] = $class_id ;
 		$sql =  "  SELECT class_id , class_sit_num ,name  FROM " . $xoopsDB->prefix("e_student") . "   where class_id='$class_id'  ORDER BY  class_id , class_sit_num  " ;
  		//echo $sql ;
-		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+		$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 		while($stud=$xoopsDB->fetchArray($result)){
 			$data['list'][]=$stud ;
 
