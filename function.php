@@ -244,12 +244,16 @@ function get_group_users_list($teach_group_id_list = array(4, 5, 6, 7, 8, 9))
     global  $xoopsDB;
     $glist = implode(',', $teach_group_id_list);
     //$sql = "SELECT u.uid, u.name ,g.groupid  FROM " . $xoopsDB->prefix("groups_users_link")  .  "  AS g LEFT JOIN  " .  $xoopsDB->prefix("users") .  "  AS u ON u.uid = g.uid  where g.groupid > '$teach_group_id' order by g.groupid " ;
-    $sql = 'SELECT u.uid, u.name ,g.groupid  FROM '.$xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users')."  AS u ON u.uid = g.uid  where g.groupid in ($glist) order by g.groupid ";
+    $sql = 'SELECT u.uid, u.name, u.uname ,g.groupid  FROM '.$xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users')."  AS u ON u.uid = g.uid  where g.groupid in ($glist) order by g.groupid ";
     $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
         $id = $row['groupid'];
         $dt['uid'] = $row['uid'];
-        $dt['name'] = $row['name'];
+        if ($row['name'])
+            $dt['name'] = $row['name'] ;
+        else
+            $dt['name'] = $row['uname'];
+
         $data[$id][$row['uid']] = $dt;
     }
 

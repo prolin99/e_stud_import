@@ -17,7 +17,7 @@
 
       <div class="row-fluid">
       <div class="span6">
-      <span class="label label-success">現在學生數：<{ $data_list.students }> 人，最近建制日期：<{  $data_list.chk_date }></span>
+      <span class="label label-success">現在學生數：<{ $data_list.students }> 人</span>
       <{if ($message) }>
       <div class="alert alert-error"><{ $message }> </div>
       <{/if}>
@@ -37,7 +37,15 @@
 		<strong>相關說明：</strong>
 		<a href='../health_sample.xls' target='_blank' class='btn btn-primary'>EXCEL 範例檔</a><br/>
 		<div>使用 EXCEL 格式匯入，請依範例檔欄位填放資料，不使用的欄位也要保留。代號為學號或判別用的唯一值。</div>
-		 </div>
+		</div>
+
+        <div class="alert alert-info">
+		<strong>資料庫說明：</strong>
+ 		<div>有些學生姓名會使用到全字庫造字，修改如下：<br />
+            xoops_data/data/secure.php  中的 XOOPS_DB_CHARSET 改 utf8mb4 <br />
+        e_student 資料表 name 欄位也需改為 utf8mb4_general_ci </div>
+		</div>
+
       </div>
       <div class="span6">
       <h4>人數統計記錄</h4>
