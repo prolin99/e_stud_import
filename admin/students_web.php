@@ -96,7 +96,7 @@ __sex 性別代碼
 			$replacements[5] =  $stud['stud_id'] ;
 			$replacements[6] =  $stud['parent'] ;
 			$replacements[7] =  $sexstr[$stud['sex']] ;
-            $replacements[8] = sprintf("%02d" , $stud['class_sit_num'] );            
+            $replacements[8] = sprintf("%02d" , $stud['class_sit_num'] );
 			$replacements[9] =  mb_substr($stud['name'],0,1,"utf-8").'同學' ;
 			$replacements[10] =  mb_substr($stud['parent'] ,0,1,"utf-8").'家長' ;
 
@@ -104,26 +104,35 @@ __sex 性別代碼
 			$begstr = preg_replace($patterns, $replacements, $tpl_str);
 				//$begstr =stripslashes($_POST['tpl'] );
 			$table_html[]=stripslashes( "<td>$begstr</td>");
+            $notable_html[]=stripslashes($begstr);
 
 		}
 	}
 
+    //不使用表格呈現
+    if  ($_POST['notable']){
+        $main = "\n" ;
+        $i = 0 ;
+        foreach (	    $notable_html as $k =>$v) {
+                    $main .="$v\n" ;
+        }
+    }else {
+        $main = "<table width = '80%' border=1 align='center'>\n<tr>\n" ;
+     	$i = 0 ;
+     	foreach (	    $table_html as $k =>$v) {
+    		$i++ ;
+            	if (($i % 4 )==0 )  {
+               		$main .= "$v\n</tr>\n<tr>\n" ;
+            	} else
+            		$main .="$v\n" ;
+     	}
+    	if (($i % 4 )<>0 ) {
+    		$main .="</tr>\n" ;
+       	}
+       	$main .= "</table>\n" ;
+    }
 
 
-
- 	$main = "<table width = '80%' border=1 align='center'>\n<tr>\n" ;
- 	$i = 0 ;
- 	foreach (	    $table_html as $k =>$v) {
-		$i++ ;
-        	if (($i % 4 )==0 )  {
-           		$main .= "$v\n</tr>\n<tr>\n" ;
-        	} else
-        		$main .="$v\n" ;
- 	}
-	if (($i % 4 )<>0 ) {
-		$main .="</tr>\n" ;
-   	}
-   	$main .= "</table>\n" ;
 
 /*-----------秀出結果區--------------*/
 
