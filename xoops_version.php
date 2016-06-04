@@ -18,7 +18,7 @@ $modversion['dirname'] = basename(dirname(__FILE__));		//模組目錄名稱
 
 //---模組狀態資訊---//
 //$modversion['status_version'] = '0.8';
-$modversion['release_date'] = '2014-04-01';
+$modversion['release_date'] = '2016-06-04';
 $modversion['module_website_url'] = 'https://github.com/prolin99/e_stud_import';
 $modversion['module_website_name'] = 'prolin';
 $modversion['module_status'] = 'release';
