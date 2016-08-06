@@ -166,7 +166,13 @@ function user_in_group($uid, $gid, $mode = 'add')
                 "  VALUES  ( '$uid' , '$gid' )   ";
             $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
         }
-    } else {
+    } elseif ($mode == 'delall') {   //刪除全部群組，只留註冊者
+
+        $sql = ' DELETE FROM  '.$xoopsDB->prefix('groups_users_link').
+                        " WHERE groupid <> '2'  and uid = '$uid' ";
+        $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
+
+    }else {             //移除 在 $gid 組
         $sql = ' DELETE FROM  '.$xoopsDB->prefix('groups_users_link').
                         " WHERE groupid ='$gid' and uid ='$uid' ";
         $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());

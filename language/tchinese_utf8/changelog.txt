@@ -25,10 +25,13 @@
 
 【更新記錄】
  =================================================
+ 2.1版
+    調整在職稱設定指定為離職人員時，一併把所屬群組身份移除。
+
  2.0版
      支援 php7
      由於有些學生姓名會使用到全字庫造字， xoops_data/data/secure.php  中的 XOOPS_DB_CHARSET 改 utf8mb4
-     e_student 資料表 name 欄位也需改為 utf8mb4_general_ci 	
+     e_student 資料表 name 欄位也需改為 utf8mb4_general_ci
 
  1.99版
     修正範例 EXCEL 連結檔名錯誤
