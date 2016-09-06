@@ -47,6 +47,21 @@ function es_class_name_list_c($mode='short') {
 }
 
 
+function es_get_class_teacher_list()
+{
+    //取得全部級任名冊
+    global  $xoopsDB  ;
+    $sql = '  SELECT  t.uid, t.class_id , u.name  FROM '.$xoopsDB->prefix('e_classteacher').'  t  , '.$xoopsDB->prefix('users').'  u    '.
+                   ' where t.uid= u.uid    ';
+
+    $result = $xoopsDB->query($sql) or die($sql.'<br>'.$xoopsDB->error());
+    while ($data_row = $xoopsDB->fetchArray($result)) {
+        $class_id[$data_row['class_id']] = $data_row['name'];
+    }
+ 
+
+    return $class_id;
+}
 
 
 ?>

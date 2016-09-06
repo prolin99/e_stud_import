@@ -186,6 +186,8 @@ function do_statistics()
 
     //班級名稱
     $class_name_list_c = es_class_name_list_c('long');
+    //級任列表
+    $class_teacher_list = es_get_class_teacher_list() ;
 
     //年級人數統計
     $sql = 'SELECT SUBSTR(class_id,1,1) as grade,  sex , count( * ) cc  FROM '.$xoopsDB->prefix('e_student').
@@ -204,6 +206,11 @@ function do_statistics()
     $grade_table = "<table border=1><tr><td>年級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $grade_table</table>總人數:$all  \n";
 
     //班級人數統計
+    //單月只保留一份
+    $thisMonth = date('Y-m').'-01';
+    $sql = "Delete  from ".$xoopsDB->prefix('es_log'). " where rec_time >= '$thisMonth'  " ;
+    $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
+
     $sql = ' SELECT class_id, sex , count( * ) cc FROM '.$xoopsDB->prefix('e_student').' GROUP BY class_id , sex order by class_id, sex  ';
     $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
     while ($row = $xoopsDB->fetchArray($result)) {
@@ -216,16 +223,21 @@ function do_statistics()
     foreach ($class_sum as $c => $sum) {
         ++$i;
         $class = $class_name_list_c[$c];
-        $class_table  .= "<tr><td>$class</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n";
+        $class_table  .= "<tr><td>$class</td><td>{$class_teacher_list[$class]}</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n";
     }
-    $class_table = "<table border=1><tr><td>班級</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n";
+    $class_table = "<table border=1><tr><td>班級</td><td>級任教師</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n";
 
     $main = '<h1>'.date('Y-m-d').'學生人數統計表</h1>'.$grade_table.$class_table."<br />共計 $i 班 \n";
+
+
 
     $sql = ' INSERT INTO   '.$xoopsDB->prefix('es_log').
                 ' (`module`, `message`)  '.
                 "  VALUES  ( 'e_stud_import' , '$main' )   ";
     $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
+
+
+
 }
 
 //取得群組的名稱

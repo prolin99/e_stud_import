@@ -229,7 +229,7 @@ switch($op){
 	//break;
 }
 
-	//取得目前學生資料總計
+	//取得目前學生總人數
 	$sql=  "select count(*) as students  from  " . $xoopsDB->prefix("e_student")  ;
  	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 	$data_list=$xoopsDB->fetchArray($result) ;
