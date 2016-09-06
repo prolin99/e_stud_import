@@ -223,7 +223,7 @@ function do_statistics()
     foreach ($class_sum as $c => $sum) {
         ++$i;
         $class = $class_name_list_c[$c];
-        $class_table  .= "<tr><td>$class</td><td>{$class_teacher_list[$class]}</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n";
+        $class_table  .= "<tr><td>$class</td><td>" . $class_teacher_list[$c] . "</td><td>{$class_array[$c][1]}</td><td>{$class_array[$c][2]}</td> <td>$sum</td></tr>\n";
     }
     $class_table = "<table border=1><tr><td>班級</td><td>級任教師</td><td>男</td><td>女</td> <td>小計</td></tr>\n $class_table</table> \n";
 
