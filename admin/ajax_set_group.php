@@ -7,25 +7,25 @@
 // ------------------------------------------------------------------------- //
 
 /*-----------引入檔案區--------------*/
-include_once "header_admin.php";
 include_once "header.php";
+include_once "../function.php";
 
 $_GET['id'] ;
 {
 	$id_array = preg_split('/[_]/',$_GET['id'] ) ;
     $uid = $id_array[1] ;
     $group_id=$id_array[4] ;
- 
+
 
 
     if ( ( $uid >0 ) and 	($group_id> XOOPS_GROUP_ANONYMOUS ) ) {
- 	    if  ($_GET['do']=='del' ) 
+ 	    if  ($_GET['do']=='del' )
 			user_in_group($uid, $group_id ,'del') ;
- 		if  ($_GET['do']=='add' ) 
+ 		if  ($_GET['do']=='add' )
 			user_in_group($uid, $group_id  ) ;
-   	
+
 		echo "$uid, $group_id  ok " ;
      }else {
      	echo "insert error  " .   $_GET['id']     ;
      }
-}     	
+}

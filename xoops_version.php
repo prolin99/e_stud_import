@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '2.2';				//模組版次
+$modversion['version']	= '2.3';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -50,12 +50,10 @@ $modversion['onUpdate'] = "include/onUpdate.php";
 
 //---樣板設定---//
 $modversion['templates'] = array();
-$i=1 ;
-$modversion['templates'][$i]['file'] = 'e_teacherweb_tpl.html';
-$modversion['templates'][$i]['description'] = "e_teacherweb_tpl.html";
+
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_teacherweb_tpl_b3.html';
-$modversion['templates'][$i]['description'] = "e_teacherweb_tpl_b3.html";
+$modversion['templates'][$i]['file'] = 'e_teacherweb.tpl';
+$modversion['templates'][$i]['description'] = "e_teacherweb.tpl";
 
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_teacher_tpl.html';
@@ -66,13 +64,7 @@ $i++ ;
 $modversion['templates'][$i]['file'] = 'staff_tpl.html';
 $modversion['templates'][$i]['description'] = "staff_tpl";
 
-
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_students_tpl.html';
-$modversion['templates'][$i]['description'] = "e_students_tpl";
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_students_tpl_b3.html';
-$modversion['templates'][$i]['description'] = "e_students_tpl";
+ 
 
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_stud_web_tpl.html';
@@ -90,25 +82,18 @@ $modversion['templates'][$i]['description'] = "e_stud_group_tpl";
 
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_search_tpl.html';
-$modversion['templates'][$i]['description'] = "e_stud_search_tpl";
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_search_tpl_b3.html';
+$modversion['templates'][$i]['file'] = 'e_stud_search.tpl';
 $modversion['templates'][$i]['description'] = "e_stud_search_tpl";
 
+
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_lists_tpl.html';
-$modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_lists_tpl_b3.html';
+$modversion['templates'][$i]['file'] = 'e_stud_lists.tpl';
 $modversion['templates'][$i]['description'] = "e_stud_lists_tpl";
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_stat_tpl.html';
+$modversion['templates'][$i]['file'] = 'e_stat.tpl';
 $modversion['templates'][$i]['description'] = "e_stat_tpl";
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_stat_tpl_b3.html';
-$modversion['templates'][$i]['description'] = "e_stat_tpl";
+
 
 
 

@@ -8,9 +8,8 @@
 
 //樣版
 $xoopsOption['template_main'] = "e_stud_web_tpl.html";
-include_once "header_admin.php";
-
 include_once "header.php";
+include_once "../function.php";
 
 /*-----------function區--------------*/
 
@@ -143,6 +142,8 @@ $xoopsTpl->assign( "students" , $students ) ;
 $xoopsTpl->assign( "main" , $main ) ;
 $xoopsTpl->assign( "tpl_list" , $tpl_list_show ) ;
 $xoopsTpl->assign( "tpl_str" , stripslashes($tpl_str) ) ;
+$xoopsTpl->assign( "Notable" , $_POST['notable'] ) ;
+
 include_once 'footer.php';
 
 

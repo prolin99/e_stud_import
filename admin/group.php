@@ -8,10 +8,9 @@
 /*-----------引入檔案區--------------*/
 //樣版
 $xoopsOption['template_main'] = "e_stud_group_tpl.html";
-include_once "header_admin.php";
-
+ 
 include_once "header.php";
-
+include_once "../function.php";
 
 /*-----------function區--------------*/
   //取得職稱陣列
@@ -33,7 +32,7 @@ include_once "header.php";
   $teach_group_list = $xoopsModuleConfig['es_studs_group_list']  ;
   $data[group_list] = get_group_list($teach_group_list) ;
 
-  //取得指定 group  內的成員 
+  //取得指定 group  內的成員
   $data[group_users_list] = get_group_users_list($teach_group_list) ;
 
 

@@ -6,16 +6,16 @@
 // ------------------------------------------------------------------------- //
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-include_once XOOPS_ROOT_PATH."/header.php";
+
 
 include_once "../tadtools/PHPWord.php";
 
 /*-----------function區--------------*/
- if (!$xoopsUser)
+if (!$xoopsUser)
   	redirect_header(XOOPS_URL,3, "需要登入，才能使用！");
 
-  //校內教師群組代號
-  $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
+//校內教師群組代號
+$teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
 
 if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
   	redirect_header(XOOPS_URL,3, "教職員，才能使用！");
@@ -24,8 +24,8 @@ $show_doc = $xoopsModuleConfig['es_stud_parent_doc']  ;
 
 
 /*-----------執行動作判斷區----------*/
-  //班級名稱
-  $class_name_list_c=es_class_name_list_c('long')   ;
+//班級名稱
+$class_name_list_c=es_class_name_list_c('long')   ;
 
 
 
@@ -33,14 +33,14 @@ $class_id = intval($_GET['class_id'] ) ;
 
 if ($class_id >0 ) {
 	$sql =  "  SELECT class_id , class_sit_num ,name , parent  FROM " . $xoopsDB->prefix("e_student") . "   where class_id  = '$class_id'  ORDER BY  class_id , class_sit_num  " ;
-
 }else
 	exit  ;
 
 $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
 while($stud=$xoopsDB->fetchArray($result)){
-
-	$data[$stud['class_sit_num']]=$stud ;
+  //空號不影響
+  $class_sit_order++ ;
+	$data[$class_sit_order]=$stud ;
 	//$data[]=$stud ;
 }
 

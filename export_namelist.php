@@ -8,7 +8,6 @@
 
 include_once 'header.php';
 
-include_once XOOPS_ROOT_PATH.'/header.php';
 
 include_once '../tadtools/PHPExcel.php';
 require_once '../tadtools/PHPExcel/IOFactory.php';
@@ -25,8 +24,8 @@ if (!in_array($teach_group_id, $xoopsUser->groups())) {
 }
 
 /*-----------執行動作判斷區----------*/
-  //班級名稱
-  $class_name_list_c = es_class_name_list_c('long');
+//班級名稱
+$class_name_list_c = es_class_name_list_c('long');
 
 $grade = intval($_GET['grade']);
 $class_id = intval($_GET['class_id']);
@@ -42,10 +41,10 @@ if ($grade == 1) {
 }
 
 //echo $sql ;
-        $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
         while ($stud = $xoopsDB->fetchArray($result)) {
             $data[] = $stud;
-        }
+    }
 
     //----------------------------------------------------------------------------------
     $objPHPExcel = new PHPExcel();

@@ -4,9 +4,18 @@
 // 製作日期：2014-02-16
 // $Id:$
 // ------------------------------------------------------------------------- //
+$adminmenu = array();
+$icon_dir=substr(XOOPS_VERSION,6,3)=='2.6'?"":"images/";
+
 $i=0 ;
+$adminmenu[$i]['title'] = _MI_TAD_ADMIN_HOME ;
+$adminmenu[$i]['link'] = 'admin/index.php' ;
+$adminmenu[$i]['desc'] = _MI_TAD_ADMIN_HOME_DESC ;
+$adminmenu[$i]['icon'] = 'images/admin/home.png' ;
+
+$i++ ;
 $adminmenu[$i]['title'] ='匯入學生名冊';
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = "admin/main.php";
 $adminmenu[$i]['desc'] = '匯入學生名冊' ;
 $adminmenu[$i]['icon'] = 'images/admin/home.png' ;
 

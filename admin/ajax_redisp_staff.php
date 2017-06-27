@@ -6,8 +6,8 @@
  * Time: 下午 9:25
  */
 /*-----------引入檔案區--------------*/
-include_once "header_admin.php";
 include_once "header.php";
+include_once "../function.php";
 
 $_GET['mode'] = !$_GET['mode'] ;
 

@@ -1,3 +1,4 @@
+
 <{$toolbar}>
 
  <h3>教職員電子郵件帳號、網頁一覽表</h3>
@@ -11,7 +12,7 @@
 	      <td><{$tea.email_show}></td>
 	      <td>
 	      	<{ if ($tea.url)}>
-	      	<a href="<{$tea.url}>" target='_blank'><i class="icon-home"></i>個人網站</a>
+	      	<a href="<{$tea.url}>" target='_blank'><span class="glyphicon glyphicon-home" aria-hidden="true"></span>個人網站</a>
 	      	<{/if}>
 	      </td>
 	 </tr>
