@@ -12,11 +12,11 @@
     <a class="btn btn-info " href="export_parentlist.php?class_id=<{$data.select_class_id}>" title="匯出WORD">家長代表選票</a>
     </div>
     </form>
-    
+
 <{ if ($data.list)}>
 	<table class="table table-bordered table-hover col-md-4" >
 	<tr>
-   <td class="col-md-1">班級</td><td class="col-md-1">座號</td><td class="col-md-10">姓名</td>
+   <td class="col-md-2">班級</td><td class="col-md-1">座號</td><td class="col-md-8">姓名</td>
    </tr>
    <{foreach  key=t_key item=list    from= $data.list }>
    <tr>
