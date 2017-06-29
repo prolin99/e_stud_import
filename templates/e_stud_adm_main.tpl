@@ -45,7 +45,7 @@
       <div class="col-md-6">
       <h4>人數統計記錄</h4>
       	<{foreach  key=key item=rec   from= $recdata }>
-      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" ><{$rec.rec_time }></a><i class="icon-remove del" title="刪除"  data_ref="<{$rec.id}>" ></i></span>
+      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" ><{$rec.rec_time }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
       	<{/foreach}>
       </div>
       </div>
