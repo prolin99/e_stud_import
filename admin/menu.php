@@ -17,7 +17,7 @@ $i++ ;
 $adminmenu[$i]['title'] ='匯入學生名冊';
 $adminmenu[$i]['link'] = "admin/main.php";
 $adminmenu[$i]['desc'] = '匯入學生名冊' ;
-$adminmenu[$i]['icon'] = 'images/admin/home.png' ;
+$adminmenu[$i]['icon'] = 'images/admin/list_all.png' ;
 
 
 $i++ ;

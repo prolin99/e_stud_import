@@ -1,26 +1,22 @@
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
-<link rel="stylesheet" href="<{$xoops_url}>/modules/tadtools/jquery/themes/base/jquery-ui.css">
+
+<link href="<{$xoops_url}>/modules/tadtools/css/font-awesome/css/font-awesome.css" rel="stylesheet">
 <script src="<{$xoops_url}>/modules/tadtools/jquery/ui/jquery-ui.js"></script>
 <style>
 .groupbox {
-
     border: 1px dotted gray;
     background-color: #EEE;
-
 }
 .tea {
-
     background-color: #BCF5A9;
 }
-
 </style>
-      <div class="row-fluid">
+
+<div class="container-fluid">
+      <div class="row">
       <h3>級任設定(配對)</h3>
         <form  action="teacher_set.php" method="post" >
         <span >班名:</span>
-        <input type="text" name="class_name_set" class="span4" placeholder="以逗號做分隔，數量可超過現有班數。" title="以逗號做分隔，數量可超過現有班數。" alt="以逗號做分隔，數量可超過現有班數。"   value="<{$ES_classname_set}>">
+        <input type="text" name="class_name_set" class="col-md-4" placeholder="以逗號做分隔，數量可超過現有班數。" title="以逗號做分隔，數量可超過現有班數。" alt="以逗號做分隔，數量可超過現有班數。"   value="<{$ES_classname_set}>">
         <button type="submit" name='act_class_set'  value='班名'  class="btn btn-primary" >班名設定</button>
 
         <button type="submit" name='act_clear'  value='刪除'  class="btn btn-danger"  title="全部清除已設定的級任資料"  onclick='return confirm("真的要清空設定?")' >級任清空</button>
@@ -28,7 +24,7 @@
         <a class="btn btn-success" href="export_class.php" title="匯出EXCEL">班級總表</a>
         </form>
 
-      <div class="span9" id="class_div">
+      <div class="col-md-9" id="class_div">
 
 
       	<h4>班級列表</h4>
@@ -36,18 +32,18 @@
 
  		<!--  年級分開  -->
       	<{foreach  key=g_key item=g_class_id    from= $data.g_class_list }>
-      		<div class="row-fluid" >
+      		<div class="row" >
       		<p> </p>
       		<{foreach  key=c_key item=class_id    from= $g_class_id }>
       		<{if ($data.class_set[$c_key])}>
-      			<div class="groupbox span2" id="class_<{$c_key}>" has_teacher="<{$data.class_set[$c_key]}>" id="class_<{$c_key}>" style="background:#EEE;">
+      			<div class="groupbox col-md-2" id="class_<{$c_key}>" has_teacher="<{$data.class_set[$c_key]}>" id="class_<{$c_key}>" style="background:#EEE;">
       			<!-- teacher_代號_教師名:class_班級代號  -->
       			 <span class="tea" id="box_<{$data.class_set[$c_key]}>"  has_class="class_<{$class_id}>" data_ref="teacher_<{$data.class_set[$c_key]}>_<{ $data.class_teach[$c_key]}>:class_<{$class_id}>" >
-      			 <{$data.class_list_c[$c_key]}>_<{ $data.class_teach[$c_key]}><i class="icon-trash   del" id="i_<{$class_id}>" data_ref="teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>" ></i>
-      	         </span>
+      			 <{$data.class_list_c[$c_key]}>_<{ $data.class_teach[$c_key]}><span class="glyphicon glyphicon-trash   del" id="i_<{$class_id}>" data_ref="teacher_<{$data.class_set[$c_key]}>:class_<{$class_id}>" ></span>
+           </span>
       			</div>
       		<{else}>
-      			<div class="groupbox span2" id="class_<{$c_key}>" has_teacher="0" id="class_<{$c_key}>" style="background:#EEE;"> <span><{$data.class_list_c[$c_key]}></span> </div>
+      			<div class="groupbox col-md-2" id="class_<{$c_key}>" has_teacher="0" id="class_<{$c_key}>" style="background:#EEE;"> <span><{$data.class_list_c[$c_key]}></span> </div>
 			<{/if}>
 			<{/foreach }>
 			</div>
@@ -56,31 +52,31 @@
 
       </div>
 
-      <div class="span2" id="teacher_div">
+      <div class="col-md-2" id="teacher_div">
       <h4>教師列表</h4>
 
 	<{foreach  key=t_key item=teacher_list    from= $data.teacher }>
 	<{if ($data.teacher_class[$t_key])}>
  	<span  class="tea" id="tea_<{$t_key}>" data_ref="teacher_<{$t_key}>_<{$teacher_list.name}>" style='display: none;'>
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success" ><{$teacher_list.name}></label>
-	</span>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success " ><{$teacher_list.name}></label>
+</span>
 	<{else}>
  	<span  class="tea" id="tea_<{$t_key}>" data_ref="teacher_<{$t_key}>_<{$teacher_list.name}>" >
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success"><{$teacher_list.name}></label>
-	</span>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="label label-success "><{$teacher_list.name}></label>
+</span>
 	<{/if}>
 	<{/foreach }>
           <p> <button  id='show_register' class="btn btn-primary" smode="0" >校內人員(切換)</button></p>
       </div>
 
       </div>
-      <div class="row-fluid">
+      <div class="row">
       	<p>
             <span class="label label-info">說明</span>
             拖拉到任教班級，點垃圾桶圖示表示清除。
         </p>
       </div>
-
+</div>
 
    <SCRIPT type="text/javascript">
     var label_tea='' ;
@@ -95,7 +91,7 @@ $(function () {
         var zindex = 1000;
         $(".tea").draggable({
                 revert: "valid",
-                  start: function(event, ui) { $(this).css("z-index", zindex++ ); }
+                start: function(event, ui) { $(this).css("z-index", zindex++ ); }
         });
 
         //放入
@@ -106,11 +102,11 @@ $(function () {
                 	var cell_old_data = $(this).attr("has_teacher")  ;	//已排教師 (教師代號)
 
                 	//拖拉進來的
-                    	var dropin_data_id = ui.draggable.attr('id') ;			//tea_代號
-                    	var dropin_data = ui.draggable.attr('data_ref') ;		//teacher_代號_姓名
-                    	var dropin_data_old = ui.draggable.attr('has_class') ;	//class_班級代號
-                    	if (cell_pos != dropin_data_old)
-                    		cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , dropin_data_old) ;
+                	var dropin_data_id = ui.draggable.attr('id') ;			//tea_代號
+                	var dropin_data = ui.draggable.attr('data_ref') ;		//teacher_代號_姓名
+                	var dropin_data_old = ui.draggable.attr('has_class') ;	//class_班級代號
+                	if (cell_pos != dropin_data_old)
+                		cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , dropin_data_old) ;
 
                 }
 
@@ -145,7 +141,7 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
 
 	var cell_html = '<span class="tea" id="box_'+ tea_splits[1]  +'"  has_class="'+ cell_pos + '" data_ref="teacher_'+  tea_splits[1] + '_' + tea_splits[2] + ':'+ cell_splits  + '" >'+
 				class_name(cell_splits[1]) +'_'+ tea_splits[2]+
-				'<i class="icon-trash  del"  data_ref="teacher_'+  tea_splits[1] + ':'+ cell_splits  + '"  onclick="del_class_teacher(\''+ cell_pos +'\'  , \'' + dropin_data_id + '\');"></i></span>' ;
+				'<span class="glyphicon glyphicon-trash  del"  data_ref="teacher_'+  tea_splits[1] + ':'+ cell_splits  + '"  onclick="del_class_teacher(\''+ cell_pos +'\'  , \'' + dropin_data_id + '\');"></span></span>' ;
 	$('#'+cell_pos) .html(cell_html) ;
 	$('#'+cell_pos) .attr('has_teacher' , tea_splits[1] ) ;
 
@@ -165,8 +161,8 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
 			$('#tea_'+ cell_old_data).show() ;
 
 	//再次指定為可拖動
-    $(".tea").draggable({              	revert: "valid",     		});
-
+    $(".tea").draggable({     	revert: "valid"   });
+    $(".tea").css("z-index", 1999 );
     //寫入
     mark_id = dropin_data_id +':' + cell_pos ;
     ajax_set_teacher(mark_id) ;
@@ -261,7 +257,8 @@ function cell_set(cell_pos , cell_old_data , dropin_data_id , dropin_data , drop
                 $("#teacher_div").html(msg) ;
                 $(".tea").draggable({
                 	revert: "valid",
-        		});
+        		    });
+                $(".tea").css("z-index", 1999 );
             },
 
             error:function(xhr, ajaxOptions, thrownError){

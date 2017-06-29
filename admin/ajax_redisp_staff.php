@@ -26,13 +26,13 @@ foreach($teacher_list as $uid => $teacher){
     if ($teacher['staff']) {
         //<!-- 已設職稱  -->
         list($sid,$job) = preg_split('/[-]/',$teacher['staff']) ;
-        $output.=" <span class='span3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-inverse'>" ;
+        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-default'>" ;
         $output.="{$teacher['name']}_$job <span class='del' id='sta_$sid:tea_$uid'></span></label> ";
     	// $output.=" <i class='icon-trash icon-white'></i></span></label> " ;
-        $output.="   <i id='i_{$uid}' class='icon-trash del' data_ref='sta_{$sid}:tea_{$uid}'></i> "  ;
+        $output.="   <span id='i_{$uid}' class='glyphicon glyphicon-trash del' data_ref='sta_{$sid}:tea_{$uid}'></span> "  ;
         $output.=" </span>" ;
     }else {
-        $output.=" <span class='span3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>" ;
+        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>" ;
         $output.="{$teacher['name']}" ;
         $output.="</label><i id='i_{$uid}' ></i>" ;
         $output.=" </span>" ;
@@ -41,5 +41,5 @@ foreach($teacher_list as $uid => $teacher){
 
 }
 
-echo " <div class='row-fluid'>
-              <div class='span3'><h4>教師列表</h4></div>$output_b</div>\n $output" ;
+echo " <div class='row'>
+              <div class='col-md-3'><h4>教師列表</h4></div>$output_b</div>\n $output" ;

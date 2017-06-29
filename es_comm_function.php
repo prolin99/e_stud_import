@@ -6,7 +6,7 @@
 // ------------------------------------------------------------------------- //
 
 
-//取得班級使用名稱
+//取得各月人數統計
 $sql=  " select id , rec_time ,message   from  " . $xoopsDB->prefix("es_log")  ."  where   module = 'es_classname' order by rec_time DESC  LIMIT 0 , 1 ";
 $result = $xoopsDB->query($sql) ;
 while($row=$xoopsDB->fetchArray($result)){
@@ -16,6 +16,7 @@ if ( $ES_classname_set)
 	$ES_ClassName  = preg_split('/[,\s]/' , $ES_classname_set ) ;
 
 
+//取得班級使用名稱
 function es_class_name_c($class_id , $mode='short' ) {
 	global $ES_ClassName ;
 	$grade= array (1=>'一' ,2=>'二' , 3=>'三' , 4=>'四' , 5=>'五' , 6=>'六' , 7=>'七' , 8=>'八' , 9=>'九'   ) ;

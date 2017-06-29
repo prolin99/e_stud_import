@@ -8,7 +8,7 @@
 /*-----------引入檔案區--------------*/
 
 //樣版
-$xoopsOption['template_main'] = "e_teacher_tpl.html";
+$xoopsOption['template_main'] = "e_s_adm_teacher.tpl";
 include_once "header.php";
 include_once "../function.php";
 

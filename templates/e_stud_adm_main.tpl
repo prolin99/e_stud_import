@@ -1,9 +1,4 @@
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
-<link rel="stylesheet" href="<{$xoops_url}>/modules/tadtools/jquery/themes/base/jquery-ui.css">
-<script src="<{$xoops_url}>/modules/tadtools/jquery/ui/jquery-ui.js"></script>
-
+<link href="<{$xoops_url}>/modules/tadtools/css/font-awesome/css/font-awesome.css" rel="stylesheet">
   <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/css/iconize.css' />
   <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/lib/jquery.mousewheel-3.0.6.pack.js'></script>
   <script type='text/javascript' language='javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js?v=2.1.4'></script>
@@ -13,13 +8,13 @@
   <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7' />
   <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7'></script>
   <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5'></script>
+<div class="container-fluid">
 
-
-      <div class="row-fluid">
-      <div class="span6">
+      <div class="row">
+      <div class="col-md-6">
       <span class="label label-success">現在學生數：<{ $data_list.students }> 人</span>
       <{if ($message) }>
-      <div class="alert alert-error"><{ $message }> </div>
+      <div class="alert alert-danger"><{ $message }> </div>
       <{/if}>
  		<form action ="main.php" enctype='multipart/form-data' method=post>
 		<fieldset>
@@ -47,14 +42,14 @@
 		</div>
 
       </div>
-      <div class="span6">
+      <div class="col-md-6">
       <h4>人數統計記錄</h4>
       	<{foreach  key=key item=rec   from= $recdata }>
-      	<span class="span3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" ><{$rec.rec_time }></a><i class="icon-remove del" title="刪除"  data_ref="<{$rec.id}>" ></i></span>
+      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" ><{$rec.rec_time }></a><i class="icon-remove del" title="刪除"  data_ref="<{$rec.id}>" ></i></span>
       	<{/foreach}>
       </div>
       </div>
-
+</div>
   <script type='text/javascript'>
     $(document).ready(function(){
       $(".viewlog_fancy").fancybox({

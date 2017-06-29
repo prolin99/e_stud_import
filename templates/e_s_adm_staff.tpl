@@ -1,26 +1,22 @@
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
-<link rel="stylesheet" href="<{$xoops_url}>/modules/tadtools/jquery/themes/base/jquery-ui.css">
-<script src="<{$xoops_url}>/modules/tadtools/jquery/ui/jquery-ui.js"></script>
 
-      <div class="row-fluid" >
+<div class="container-fluid">
+      <div class="row" >
       <h3>職稱設定(配對)</h3>
-      <div class="span8" id="tea_div">
-          <div class="row-fluid">
-              <div class="span3"><h4>教師列表</h4></div>
-              <div class="span3"><button  id='show_register' class="btn btn-primary" smode="0" >校內人員(切換)</button></div>
+      <div class="col-md-8" id="tea_div">
+          <div class="row">
+              <div class="col-md-3"><h4>教師列表</h4></div>
+              <div class="col-md-3"><button  id='show_register' class="btn btn-primary" smode="0" >校內人員(切換)</button></div>
           </div>
       	<{foreach  key=c_key item=teacher    from= $data.teacher_list }>
        	       <{if ($data.user_staff_id[$c_key])}>
       	       		<!-- 已設職稱  -->
-      	           <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-inverse">
+      	           <span class="col-md-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-default">
       	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}></label>
-      	           <i id="i_<{$c_key}>" class="icon-trash del" data_ref="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>"></i>
+      	           <span id="i_<{$c_key}>" class="glyphicon glyphicon-trash del" data_ref="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>"></span>
       	           </span>
       	       <{else}>
-      		   <span class="span3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label>
-                    <i id="i_<{$c_key}>" ></i></span>
+      		   <span class="col-md-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="label label-success"><{$teacher.name}></label>
+                    <span id="i_<{$c_key}>" ></span></span>
       		<{/if}>
       	<{/foreach }>
 
@@ -28,7 +24,7 @@
       </div>
 
 
-      <div class="span3" id="staff_div">
+      <div class="col-md-3" id="staff_div">
       <h4>職稱</h4>
 	<{foreach  key=t_key item=staff_list    from= $data.staff }>
 	<{if ($data.staff_user_id[$t_key])}>
@@ -41,7 +37,7 @@
       </div>
 
       </div>
-      <div class="row-fluid">
+      <div class="row">
       	<p>
             <span class="label label-info">說明</span><br/>
             點選雙邊進行設定，選擇時呈黃色，設定完成為黑色，唯一位的職稱會隱藏。<br/>垃圾桶圖示會還原重新設定。
@@ -50,7 +46,7 @@
             <br/>離職人員，會移除校內教師的群組權限，及之後的群組權限 。但是否還有其他權限，請查看群組設定。
         </p>
       </div>
-
+</div>
 
     <script>
     var label_right='' ;
@@ -133,15 +129,15 @@
              job = $('#'+label_right).attr("name_title")  ;
              $('#'+label_left).removeClass() ;
              $('#'+label_left).html(class_id +'_'+ name) ;	//姓名+ 職稱
-             $('#'+label_left).addClass('label label-inverse') ;
-             //$('#'+label_right).addClass('label label-inverse') ;
+             $('#'+label_left).addClass('label label-default') ;
+             //$('#'+label_right).addClass('label label-default') ;
 
              //圖示的內容放置
              var splits = label_left.split('_') ;
              var icon = 'i_'+ splits[1] ;
              $('#' +icon).removeClass() ;
              $('#' +icon).attr('data_ref', mark_id) ;
- 	     $('#' +icon).addClass("icon-trash del") ;
+ 	     $('#' +icon).addClass("glyphicon glyphicon-trash del") ;
 
              //如果第四碼為 1 代表唯一(sta_000101)，要 hide
              var sta_id = label_right.split('_') ;

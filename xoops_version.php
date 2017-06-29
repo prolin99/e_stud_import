@@ -50,35 +50,35 @@ $modversion['onUpdate'] = "include/onUpdate.php";
 
 //---樣板設定---//
 $modversion['templates'] = array();
-
+$i=0 ;
 $i++ ;
 $modversion['templates'][$i]['file'] = 'e_teacherweb.tpl';
 $modversion['templates'][$i]['description'] = "e_teacherweb.tpl";
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_teacher_tpl.html';
-$modversion['templates'][$i]['description'] = "e_teacher_tpl";
+$modversion['templates'][$i]['file'] = 'e_s_adm_teacher.tpl';
+$modversion['templates'][$i]['description'] = "e_s_adm_teacher.tpl";
 
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'staff_tpl.html';
-$modversion['templates'][$i]['description'] = "staff_tpl";
+$modversion['templates'][$i]['file'] = 'e_s_adm_staff.tpl';
+$modversion['templates'][$i]['description'] = "e_s_adm_staff.tpl";
 
- 
-
-$i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_web_tpl.html';
-$modversion['templates'][$i]['description'] = "e_stud_web_tpl";
 
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_index_adm_tpl.html';
-$modversion['templates'][$i]['description'] = "e_stud_index_adm_tpl";
+$modversion['templates'][$i]['file'] = 'e_s_adm_studweb.tpl';
+$modversion['templates'][$i]['description'] = "e_s_adm_studweb.tpl";
 
 
 $i++ ;
-$modversion['templates'][$i]['file'] = 'e_stud_group_tpl.html';
-$modversion['templates'][$i]['description'] = "e_stud_group_tpl";
+$modversion['templates'][$i]['file'] = 'e_stud_adm_main.tpl';
+$modversion['templates'][$i]['description'] = "e_stud_adm_main.tpl";
+
+
+$i++ ;
+$modversion['templates'][$i]['file'] = 'e_s_adm_group.tpl';
+$modversion['templates'][$i]['description'] = "e_s_adm_group.tpl";
 
 
 $i++ ;

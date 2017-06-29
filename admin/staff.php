@@ -7,7 +7,7 @@
 
 /*-----------引入檔案區--------------*/
 //樣版
-$xoopsOption['template_main'] = "staff_tpl.html";
+$xoopsOption['template_main'] = "e_s_adm_staff.tpl";
 include_once "header.php";
 include_once "../function.php";
 

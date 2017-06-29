@@ -8,7 +8,7 @@
 /*-----------引入檔案區--------------*/
 //樣版
 
-$xoopsOption['template_main'] = "e_stud_index_adm_tpl.html";
+$xoopsOption['template_main'] = "e_stud_adm_main.tpl";
 include_once "header.php";
 include_once "../function.php";
 
