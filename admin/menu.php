@@ -37,6 +37,12 @@ $adminmenu[$i]['title'] = "群組設定";
 $adminmenu[$i]['link'] = "admin/group.php";
 $adminmenu[$i]['desc'] ='指定群組' ;
 $adminmenu[$i]['icon'] = 'images/admin/identity.png' ;
+
+$i++ ;
+$adminmenu[$i]['title'] = "帳號順序";
+$adminmenu[$i]['link'] = "admin/newteacher.php";
+$adminmenu[$i]['desc'] ='最進新增的教師帳號' ;
+$adminmenu[$i]['icon'] = 'images/admin/orderlist.png' ;
 /*
 $i++ ;
 $adminmenu[$i]['title'] = "學生名冊";

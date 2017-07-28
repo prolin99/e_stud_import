@@ -67,7 +67,7 @@ function get_staff_list()
 }
 
 //取得教師名冊， 群組代碼， 顯示模式(0:只取資料， 1:轉換EMAIL、職稱)
-function get_teacher_list($teach_group_id, $show = 0, $email_show = 0, $in_school = 0)
+function get_teacher_list($teach_group_id, $show = 0, $email_show = 0, $in_school = 0 , $order_mode ='staff')
 {
     global  $xoopsDB,$xoopsModuleConfig ,$xoopsUser;
 /*
@@ -86,7 +86,11 @@ order by  u.user_occ ,c.class_id
     $sql = '  SELECT  u.uid, u.name , u.uname ,u.email ,u.user_viewemail , u.url , c.staff , g.groupid ,c.class_id   FROM  '.
             $xoopsDB->prefix('groups_users_link').'  AS g LEFT JOIN  '.$xoopsDB->prefix('users').'  AS u ON u.uid = g.uid '.
             ' left join '.$xoopsDB->prefix('e_classteacher').' as c on u.uid = c.uid '.
-            "  WHERE g.groupid ='$teach_group_id'  group by u.uid   order by  c.staff , c.class_id , u.name ";
+            "  WHERE g.groupid ='$teach_group_id'  group by u.uid  " ;
+    if (order_mode == 'staff')
+      $sql .= " order by  c.staff , c.class_id , u.name ";
+    else
+      $sql .= " order by   u.uid DESC  ";
 
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
     //echo $sql ;
@@ -96,6 +100,7 @@ order by  u.user_occ ,c.class_id
                 //email
                 if ($row['email'] and ($row['user_viewemail'] or $in_school)) {        //EMAIL 顯示做保護
                     $row['email_show'] = email_protect($row['email']);
+                    $row['email_account'] = strstr($row['email'] ,'@' ,true) ;
                 }
             }
 
