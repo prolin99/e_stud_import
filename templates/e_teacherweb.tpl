@@ -3,9 +3,13 @@
 
  <h3>教職員電子郵件帳號、網頁一覽表</h3>
     <table class="table  table-striped table-hover">
-    <tr><th>次序<{$i++}></th><th>職務</th><th>姓名</th><th>郵件</th><th>網頁</th></tr>
+    <caption>教職員電子郵件帳號、網頁一覽表</caption>
+    <thead>
+    <tr><th scope="col">次序<{$i++}></th><th scope="col">職務</th><th scope="col">姓名</th><th scope="col">郵件</th><th scope="col">網頁</th></tr>
+  </thead>
+   <tbody>
 	 <{foreach  key=key item=tea   from= $data.teacher }>
-	 <tr>
+	 <tr scope="row">
 	 	<td><{$i++}></td>
 	 	  <td><{$tea.staff}></td>
 	      <td><{$tea.name}></td>
@@ -17,5 +21,5 @@
 	      </td>
 	 </tr>
 	 <{/foreach }>
-
+   </tbody>
     </table>
