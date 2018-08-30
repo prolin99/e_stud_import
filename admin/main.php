@@ -19,7 +19,7 @@ include_once "../function.php";
     if  (date("m")<8) $c_year-=1 ;
     //匯出錯誤訊息
     $message='' ;
-
+stud_dn_list() ;
 
 //匯入判別
 function import_stud(){
@@ -50,12 +50,25 @@ function import_stud(){
 
 }
 
+//要降轉的學生 ，傳出 身份証=降年度
+function stud_dn_list(){
+    global $xoopsModuleConfig ;
+
+    $stud_dn = $xoopsModuleConfig['es_stud_stud_dn']  ;
+    $list=preg_split('/[-\n]/' , $stud_dn) ;
+    for ($i=0; $i<=count($list); $i=$i+3)
+        if ($list[$i])
+            $stud_dn_list[$list[$i]]=$list[$i+2];
+
+    return $stud_dn_list ;
+}
 //xml 格式
 function import_xml($file_up){
 	global $xoopsDB,$c_year , $message ,$xoopsModuleConfig  ,$xoopsTpl;
 
 	$emp_stud_id_set = $xoopsModuleConfig['es_stud_sit_id']  ;
 
+    $dn_list = stud_dn_list() ;
 
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
@@ -85,6 +98,9 @@ function import_xml($file_up){
 					$stud_sex =  $user["性別"] ;
 
 					$stud_year = $c_year +1  -  $user["入學年"];
+
+
+
  					$stud_class = $user["班級"] ;
  					$stud_class_id  = $stud_year*100 + $stud_class ;
  					$stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
@@ -121,6 +137,14 @@ function import_xml($file_up){
  				$message .= $stud_class_id . $stud_name ."未設定入學年(尚未指定學號所致?)($stud_person_id) <br />" ;
 			}
 
+            //降年度
+            if ($dn_list[$stud_person_id]>0 ){
+                $stud_year = $stud_year - $dn_list[$stud_person_id] ;
+                $message .= $stud_class_id . $stud_name ." ,降級 {$dn_list[$stud_person_id]} 年 ($stud_person_id)  <br />" ;
+                $stud_class_id  = $stud_year*100 + $stud_class ;
+                $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+            }
+
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
 			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
@@ -142,6 +166,8 @@ function import_xml($file_up){
 function import_excel($file_up,$ver=5) {
     global $xoopsDB,$c_year ,$xoopsTpl ,$message ;
 
+    $dn_list = stud_dn_list() ;
+    
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
@@ -201,6 +227,14 @@ function import_excel($file_up,$ver=5) {
   			if (intval($v[15]) == 0) {
  				$message .= $class_id . $v[1] ." , 沒有指定代號(學號)資料<br />" ;
 			}
+
+            //降年度
+            if ($dn_list[$stud_person_id]>0 ){
+                $stud_year = $stud_year - $dn_list[$stud_person_id] ;
+                $message .= $stud_class_id . $stud_name ." ,降級 {$dn_list[$stud_person_id]} 年 ($stud_person_id)  <br />" ;
+                $stud_class_id  = $stud_year*100 + $stud_class ;
+                $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+            }
 
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )

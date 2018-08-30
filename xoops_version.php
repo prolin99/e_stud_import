@@ -7,7 +7,7 @@
 
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
-$modversion['version']	= '2.4';				//模組版次
+$modversion['version']	= '2.5';				//模組版次
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
 $modversion['credits']	= _MI_ESTUDENTS_CREDITS;		//模組授權者
@@ -168,5 +168,13 @@ $modversion['config'][$i]['formtype']    = 'text';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default'] = '可以圈選兩名！' ;
 
+$i++ ;
+//偏好設定
+$modversion['config'][$i]['name'] = 'es_stud_stud_dn';
+$modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_stud_down';
+$modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_DESC_stud_down';
+$modversion['config'][$i]['formtype']    = 'textarea';
+$modversion['config'][$i]['valuetype']   = 'text';
+$modversion['config'][$i]['default'] = '' ;
 
 ?>
