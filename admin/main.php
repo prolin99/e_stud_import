@@ -19,7 +19,19 @@ include_once "../function.php";
     if  (date("m")<8) $c_year-=1 ;
     //匯出錯誤訊息
     $message='' ;
-stud_dn_list() ;
+
+//更新特定班學生偏好
+function udList_set(){
+    global $xoopsDB ;
+    if ($_POST['updnlist']){
+        $myts =& MyTextSanitizer::getInstance();
+    	$list = $myts->htmlspecialchars($myts->addSlashes($_POST['updnlist'])) ;
+
+        $sql=  " update   " . $xoopsDB->prefix("config") ." set conf_value='{$list}' where conf_name='es_stud_stud_dn'  "  ;
+        $result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
+        redirect_header($_SERVER['PHP_SELF']) ;
+    }
+}
 
 //匯入判別
 function import_stud(){
@@ -50,7 +62,7 @@ function import_stud(){
 
 }
 
-//要降轉的學生 ，傳出 身份証=降年度
+//要降轉的學生 ，傳出 身份証=降昇、指定班
 function stud_dn_list(){
     global $xoopsModuleConfig ;
 
@@ -58,7 +70,7 @@ function stud_dn_list(){
     $list=preg_split('/[-\n]/' , $stud_dn) ;
     for ($i=0; $i<=count($list); $i=$i+3)
         if ($list[$i])
-            $stud_dn_list[$list[$i]]=$list[$i+2];
+            $stud_dn_list[trim($list[$i])]=strtoupper(trim($list[$i+2]));
 
     return $stud_dn_list ;
 }
@@ -137,12 +149,18 @@ function import_xml($file_up){
  				$message .= $stud_class_id . $stud_name ."未設定入學年(尚未指定學號所致?)($stud_person_id) <br />" ;
 			}
 
-            //降年度
-            if ($dn_list[$stud_person_id]>0 ){
-                $stud_year = $stud_year - $dn_list[$stud_person_id] ;
-                $message .= $stud_class_id . $stud_name ." ,降級 {$dn_list[$stud_person_id]} 年 ($stud_person_id)  <br />" ;
+            //昇降年度、指定班
+            if ($dn_list[$stud_person_id] ){
+                if (substr($dn_list[$stud_person_id],0,1)=='D')
+                    $stud_year = $stud_year - substr($dn_list[$stud_person_id],1) ;
+                if (substr($dn_list[$stud_person_id],0,1)=='U')
+                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1) ;
+
                 $stud_class_id  = $stud_year*100 + $stud_class ;
                 $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+                if ($dn_list[$stud_person_id] > 100)
+                    $stud_class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
+                $message .=  $stud_name ." ,指定為 {$stud_class_id} 班 ($stud_person_id)  <br />" ;
             }
 
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
@@ -167,7 +185,7 @@ function import_excel($file_up,$ver=5) {
     global $xoopsDB,$c_year ,$xoopsTpl ,$message ;
 
     $dn_list = stud_dn_list() ;
-    
+
 	//清空學資料庫中學生資料
 	$sql= "TRUNCATE TABLE   " . $xoopsDB->prefix("e_student")  ;
 	$result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());
@@ -228,13 +246,20 @@ function import_excel($file_up,$ver=5) {
  				$message .= $class_id . $v[1] ." , 沒有指定代號(學號)資料<br />" ;
 			}
 
-            //降年度
-            if ($dn_list[$stud_person_id]>0 ){
-                $stud_year = $stud_year - $dn_list[$stud_person_id] ;
-                $message .= $stud_class_id . $stud_name ." ,降級 {$dn_list[$stud_person_id]} 年 ($stud_person_id)  <br />" ;
-                $stud_class_id  = $stud_year*100 + $stud_class ;
-                $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
+            //昇降年度、指定班
+            if ($dn_list[$stud_person_id] ){
+                if (substr($dn_list[$stud_person_id],0,1)=='D')
+                    $stud_year = $stud_year - substr($dn_list[$stud_person_id],1) ;
+                if (substr($dn_list[$stud_person_id],0,1)=='U')
+                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1) ;
+
+                $stud_class_id  = $stud_year*100 +  $v[4] ;
+                $class_id  =  sprintf("%03d" ,$stud_class_id) ;
+                if ($dn_list[$stud_person_id] > 100)
+                    $class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
+                $message .=  $stud_name ." ,指定為 {$class_id} 班 ($stud_person_id)  <br />" ;
             }
+
 
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
@@ -258,9 +283,12 @@ switch($op){
 	/*---判斷動作請貼在下方---*/
 
 	case "import":
+    	$main=import_stud() ;
+	break;
 
-	$main=import_stud() ;
-	//break;
+    case "UpDnListSet":
+    	$main=udList_set() ;
+	break;
 }
 
 	//取得目前學生總人數
@@ -281,6 +309,7 @@ switch($op){
  	$xoopsTpl->assign( "recdata" , $recdata ) ;
  	$xoopsTpl->assign( "c_year" , $c_year ) ;
  	$xoopsTpl->assign( "message" , $message ) ;
+    $xoopsTpl->assign( "es_stud_stud_dn" , $xoopsModuleConfig['es_stud_stud_dn'])  ;
 include_once 'footer.php';
 
 ?>

@@ -34,6 +34,6 @@ define("_MI_ESTUDENTS_CONFIG_DG_LIST", "在群組設定頁時，要出現的群�
 define("_MI_ESTUDENTS_CONFIG_TITLE6", "教師 EMAIL 公開");
 define("_MI_ESTUDENTS_CONFIG_DESC6", "訪客可以查看教師 EMAIL ");
 
-define("_MI_ESTUDENTS_CONFIG_stud_down", "降轉學生名單");
-define("_MI_ESTUDENTS_CONFIG_DESC_stud_down", "逗號或分行分隔，格式為 身份字號-姓名-降轉年數，例 R123456789-王小明-1");
+define("_MI_ESTUDENTS_CONFIG_stud_down", "降昇、特定班級學生名單");
+define("_MI_ESTUDENTS_CONFIG_DESC_stud_down", "多人分行分隔，格式為 身份字號-姓名-降(D1)昇(U1)年數或班級(310三個數字表3年10班)，例 R123456789-王小明-D1");
 ?>

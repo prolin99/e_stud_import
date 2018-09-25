@@ -28,6 +28,18 @@
 		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！)
 		</fieldset>
 		</form>
+
+        <form action ="main.php" enctype='multipart/form-data' method=post>
+		<fieldset>
+		<legend>降昇年級、特定班學生名單</legend>
+        一人一行，<br/>格式：身份証號-姓名-降(D)昇(A)年數or班級代號(三位數307表3年7班)，例<br/>R123456789-葉大雄-D1<br/>F123456789-王聰明-A1<br/>R221133441-陳小小-307<br/>
+        <textarea name="updnlist" class="form-control"  rows="5" placeholder="以-做分隔，身份証號-姓名-降昇年數or班級代號" title="以-做分隔，身份証號-姓名-降昇年數or班級代號" alt="以-做分隔，身份証號-姓名-降昇年數or班級代號" ><{$es_stud_stud_dn}></textarea>
+		<input type='hidden' name='op' value='UpDnListSet'> <br /> <br />
+		<button type='submit'  name='do_key' class='btn btn-primary'>設定名單</button>（名單更新後，需重匯學生資料檔）
+		</fieldset>
+		</form>
+
+
 		<div class="alert alert-info">
 		<strong>相關說明：</strong>
 		<a href='../health_sample.xls' target='_blank' class='btn btn-primary'>EXCEL 範例檔</a><br/>
@@ -45,7 +57,7 @@
       <div class="col-md-6">
       <h4>人數統計記錄</h4>
       	<{foreach  key=key item=rec   from= $recdata }>
-      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:10 }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
+      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:13 }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
       	<{/foreach}>
       </div>
       </div>
