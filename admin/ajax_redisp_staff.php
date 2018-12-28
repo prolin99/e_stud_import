@@ -29,7 +29,7 @@ foreach($teacher_list as $uid => $teacher){
         $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-default'>" ;
         $output.="{$teacher['name']}_$job <span class='del' id='sta_$sid:tea_$uid'></span></label> ";
     	// $output.=" <i class='icon-trash icon-white'></i></span></label> " ;
-        $output.="   <span id='i_{$uid}' class='glyphicon glyphicon-trash del' data_ref='sta_{$sid}:tea_{$uid}'></span> "  ;
+        $output.="   <span id='i_{$uid}' class='fa fa-trash del' data_ref='sta_{$sid}:tea_{$uid}'></span> "  ;
         $output.=" </span>" ;
     }else {
         $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>" ;
