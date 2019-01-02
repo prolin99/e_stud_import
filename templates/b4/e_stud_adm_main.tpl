@@ -1,13 +1,7 @@
-<link href="<{$xoops_url}>/modules/tadtools/css/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/css/iconize.css' />
-  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/lib/jquery.mousewheel-3.0.6.pack.js'></script>
+
   <script type='text/javascript' language='javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js?v=2.1.4'></script>
   <link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css?v=2.1.4' type='text/css' media='screen' />
-  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5' />
-  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5'></script>
-  <link rel='stylesheet' type='text/css' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7' />
-  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7'></script>
-  <script type='text/javascript' src='<{$xoops_url}>/modules/tadtools/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5'></script>
+
 <div class="container-fluid">
 
       <div class="row">
@@ -16,7 +10,7 @@
       <{if ($message) }>
       <div class="alert alert-danger"><{ $message }> </div>
       <{/if}>
- 		<form action ="main.php" enctype='multipart/form-data' method=post>
+ 		<form action ="main.php" enctype='multipart/form-data' method=post >
 		<fieldset>
 		<legend>學生資料檔案匯入</legend>
 		<label>現在學年度：<{$c_year}> </label> </br>
@@ -29,7 +23,7 @@
 		</fieldset>
 		</form>
 
-        <form action ="main.php" enctype='multipart/form-data' method=post>
+        <form action ="main.php" enctype='multipart/form-data' method=post class="alert alert-info">
 		<fieldset>
 		<legend>降昇年級、特定班學生名單</legend>
         一人一行，<br/>格式：身份証號-姓名-降(D)昇(A)年數or班級代號(三位數307表3年7班)，例<br/>R123456789-葉大雄-D1<br/>F123456789-王聰明-A1<br/>R221133441-陳小小-307<br/>
@@ -57,7 +51,7 @@
       <div class="col-6">
       <h4>人數統計記錄</h4>
       	<{foreach  key=key item=rec   from= $recdata }>
-      	<span class="col-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:13 }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
+      	<span class="col-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:13 }></a><span class="fa fa-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
       	<{/foreach}>
       </div>
       </div>

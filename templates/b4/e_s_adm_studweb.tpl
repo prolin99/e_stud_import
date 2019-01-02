@@ -7,7 +7,7 @@
     <{html_options name=class_id  options=$data.class_name_list_c  selected=$data.select_class_id  onchange="submit();"  class="col-2" }><br />
     </div>
     <div class="row">
-      <span class="col-1">個人樣版：</span>
+      <span class="col-2">個人樣版：</span>
 	    <input type="text" name="tpl"  class="col-8" value="<{$tpl_str}>"  title="修改後，還要按下更新鍵" >
     </div>
 <div class="row">
