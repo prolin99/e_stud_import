@@ -163,6 +163,11 @@ function import_xml($file_up){
                 $message .=  $stud_name ." ,指定為 {$stud_class_id} 班 ($stud_person_id)  <br />" ;
             }
 
+            if ( $xoopsModuleConfig['es_stud_deny_personid']){
+                $stud_person_id='' ;
+                $stud_birthday='' ;
+            }
+
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
 			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
@@ -260,6 +265,10 @@ function import_excel($file_up,$ver=5) {
                 $message .=  $stud_name ." ,指定為 {$class_id} 班 ($stud_person_id)  <br />" ;
             }
 
+            if ( $xoopsModuleConfig['es_stud_deny_personid']){
+                $v[0]='' ;
+                $v[6]='' ;
+            }
 
 			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )

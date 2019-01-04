@@ -36,4 +36,7 @@ define("_MI_ESTUDENTS_CONFIG_DESC6", "訪客可以查看教師 EMAIL ");
 
 define("_MI_ESTUDENTS_CONFIG_stud_down", "降昇、特定班級學生名單");
 define("_MI_ESTUDENTS_CONFIG_DESC_stud_down", "多人分行分隔，格式為 身份字號-姓名-降(D1)昇(U1)年數或班級(310三個數字表3年10班)，例 R123456789-王小明-D1");
+
+define("_MI_ESTUDENTS_CONFIG_T_PERSON", "不保留身份証號、生日");
+define("_MI_ESTUDENTS_CONFIG_D_PERSON", "保留最少資料，除非其它模組會用到，建議設定為不保留。");
 ?>

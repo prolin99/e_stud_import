@@ -177,4 +177,13 @@ $modversion['config'][$i]['formtype']    = 'textarea';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default'] = '' ;
 
+
+$i++ ;
+//偏好設定
+$modversion['config'][$i]['name'] = 'es_stud_deny_personid';
+$modversion['config'][$i]['title']   = '_MI_ESTUDENTS_CONFIG_T_PERSON';
+$modversion['config'][$i]['description'] = '_MI_ESTUDENTS_CONFIG_D_PERSON';
+$modversion['config'][$i]['formtype']    = 'yesno';
+$modversion['config'][$i]['valuetype']   = 'int';
+$modversion['config'][$i]['default'] = 1 ;
 ?>
