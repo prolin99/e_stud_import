@@ -152,11 +152,13 @@ fieldset p { margin-bottom: .5em;}
 /* align */
 
 /* label */
-/*
 
-.label{font-size: 16px; color: #2F5376; font-weight: bold;}
 
-*/
+.label{
+line-height: 24px;　　　          　/* 設定文字行距 */
+ }
+
+
 
 /* label */
 

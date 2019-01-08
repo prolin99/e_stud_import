@@ -50,7 +50,7 @@
       <div class="col-md-6">
       <h4>人數統計記錄</h4>
       	<{foreach  key=key item=rec   from= $recdata }>
-      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:13 }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
+      	<span class="col-md-3"><a href="statistics.php?id=<{$rec.id}>"    class="viewlog_fancy" title="<{$rec.rec_time}>" ><{$rec.rec_time|truncate:7:"" }></a><span class="glyphicon glyphicon-trash del" title="刪除"  data_ref="<{$rec.id}>" ></span></span>
       	<{/foreach}>
       </div>
       </div>
