@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Es_stud_sign;
+namespace XoopsModules\E_stud_import;
 
 /*
  * You may not change or alter any portion of this comment or credits

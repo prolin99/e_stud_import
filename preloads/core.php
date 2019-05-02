@@ -18,7 +18,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access.');
 /**
  * Class 物件名稱CorePreload
  */
-class Es_stud_signCorePreload extends XoopsPreloadItem
+class E_stud_importCorePreload extends XoopsPreloadItem
 {
     // to add PSR-4 autoloader
 
