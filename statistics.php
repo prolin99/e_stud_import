@@ -4,10 +4,10 @@
 // 製作日期：2014-02-16
 // $Id:$
 // ------------------------------------------------------------------------- //
-
+use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] = set_bootstrap("e_stat.tpl");
+$xoopsOption['template_main'] = "e_stat.tpl";
 
 include_once XOOPS_ROOT_PATH."/header.php";
 
@@ -30,9 +30,9 @@ if (! in_array(   $teach_group_id , $xoopsUser->groups() )  )
 
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
-$xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
-$xoopsTpl->assign( "jquery" , get_jquery(true)) ;
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('bootstrap', Utility::get_bootstrap());
+$xoopsTpl->assign('jquery', Utility::get_jquery(true));
 $xoopsTpl->assign( "data" , $data ) ;
 
 

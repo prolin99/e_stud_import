@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container-fluid">
 
       <h3>職稱設定(配對)</h3>
       <div class="row" >
@@ -88,7 +88,7 @@
 
     //左方部份的點選
     $(document).on("click", "#tea_div label" ,  function(){
- 
+
     	if ($(this).attr("class") == "badge badge-success" |  $(this).attr("class") == "label label-success"  ){
     	   //可選
     	  	$(this).removeClass() ;

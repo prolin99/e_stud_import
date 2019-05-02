@@ -4,9 +4,11 @@
 // 製作日期：2014-04-20
 // $Id:$
 // ------------------------------------------------------------------------- //
+use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
+
 include_once 'header.php';
-$xoopsOption['template_main'] = set_bootstrap('e_stud_search.tpl');
+$xoopsOption['template_main'] = 'e_stud_search.tpl';
 
 include_once XOOPS_ROOT_PATH.'/header.php';
 
@@ -49,9 +51,9 @@ if ($act_search == 'search' and $stud_name) {
 }
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign('bootstrap', get_bootstrap());
-$xoopsTpl->assign('jquery', get_jquery(true));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('bootstrap', Utility::get_bootstrap());
+$xoopsTpl->assign('jquery', Utility::get_jquery(true));
 $xoopsTpl->assign('data', $data);
 
 include_once XOOPS_ROOT_PATH.'/footer.php';

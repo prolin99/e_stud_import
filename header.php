@@ -1,4 +1,5 @@
 <?php
+use XoopsModules\Tadtools\Utility;
 //載入XOOPS主設定檔（必要）
 include_once "../../mainfile.php";
 //載入自訂的共同函數檔
