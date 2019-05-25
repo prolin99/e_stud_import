@@ -164,13 +164,17 @@ function import_xml($file_up){
             }
 
             if ( $xoopsModuleConfig['es_stud_deny_personid']){
-                $stud_person_id='' ;
-                $stud_birthday='' ;
-            }
+                //$stud_person_id='null' ;
+                //$stud_birthday='null' ;
+                $sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+                       "  (`id`, `stud_id`, `name`, `person_id`, `birthday`,  `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
+                        VALUES ('0' , '$stud_tn_id' , '$stud_name' , '' , null,   '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
 
-			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+            }else{
+	            $sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
 			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
 			            VALUES ('0' , '$stud_tn_id' , '$stud_name' , '$stud_person_id' , '$stud_birthday' , '$stud_class_id' , '$stud_sit' , '$stud_dom' , now() , '$stud_tn_id'  ,'$stud_sex' ) " ;
+            }
 
 			$result = $xoopsDB->query($sql)  ;
             if ($xoopsDB->error() ) {
@@ -268,11 +272,15 @@ function import_excel($file_up,$ver=5) {
             if ( $xoopsModuleConfig['es_stud_deny_personid']){
                 $v[0]='' ;
                 $v[6]='' ;
+                $sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+    			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
+    			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , null , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
+            }else{
+                $sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
+    			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
+    			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
             }
 
-			$sql=  "INSERT INTO " . $xoopsDB->prefix("e_student") .
-			           "  (`id`, `stud_id`, `name`, `person_id`, `birthday`, `class_id`, `class_sit_num`, `parent`, `chk_date`, `tn_id` ,sex )
-			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
 
 			$result = $xoopsDB->query($sql) ;
             if ($xoopsDB->error() ) {
