@@ -213,7 +213,7 @@ function import_excel($file_up,$ver=5) {
 
 	// 一次讀取一列
 	for ($row = 2; $row <= $highestRow; $row++) {
-		$v="";
+		$v=array();
 		//讀取一列中的每一格
 		for ($col = 0; $col <= 15; $col++) {
 			if ($col==6)
@@ -221,6 +221,7 @@ function import_excel($file_up,$ver=5) {
 				$val = PHPExcel_Shared_Date::ExcelToPHPObject( $sheet->getCellByColumnAndRow( $col , $row )->getValue())->format('Y-m-d');
 			else
 				$val =  $sheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+
 		 /*
 			//格式檢查(這部份有問題
 			if( PHPExcel_Shared_Date::isDateTime( $sheet->getCellByColumnAndRow($col , $row ) )){
@@ -230,6 +231,7 @@ function import_excel($file_up,$ver=5) {
 				$val =  $sheet->getCellByColumnAndRow($col, $row)->getValue() ;
 			}
  		*/
+
 			if(!get_magic_quotes_runtime()) {
 				$v[$col]=addSlashes($val);
 			}else{
@@ -240,6 +242,7 @@ function import_excel($file_up,$ver=5) {
 
 		if ($v[1]){
 			$stud_year = $c_year +1  -  $v[3] ; 	//入學年計算
+
 			$class_id  =  $stud_year*100 + $v[4] ;	//班級
 			$class_id  =  sprintf("%03d" ,$class_id) ;
 
@@ -281,7 +284,7 @@ function import_excel($file_up,$ver=5) {
     			            VALUES ('0' , '{$v[15]}' , '{$v[1]}' , '{$v[0]}' , '{$v[6]}' , '$class_id' , '{$v[5]}' , '{$v[10]}' , now() , '{$v[15]}'  ,'{$v[2]}' ) " ;
             }
 
-
+            //echo "$sql <br>" ;
 			$result = $xoopsDB->query($sql) ;
             if ($xoopsDB->error() ) {
                  echo  $xoopsDB->error() . $sql ."<br />" ;
