@@ -15,7 +15,7 @@
 		<label>現在學年度：<{$c_year}> </label>
 
  		<label>上傳 XML檔案 or XLSX (excel2007)檔案:</label>
-		<input type=file name=userdata>
+		<input type=file name=userdata accept=".xml,.xlsx">
 
 		<input type='hidden' name='op' value='import'> <br /> <br />
 		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！)
