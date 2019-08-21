@@ -15,8 +15,8 @@
 		<legend>學生資料檔案匯入</legend>
 		<label>現在學年度：<{$c_year}> </label> </br>
 
- 		<label>上傳 XML檔案 or EXCEL檔案:</label>
-		<input type=file name=userdata>
+ 		<label>上傳 XML檔案 or XLSX (excel2007)檔案:</label>
+		<input type=file name=userdata accept=".xml,.xlsx" >
 
 		<input type='hidden' name='op' value='import'> <br /> <br />
 		<button type='submit'  name='do_key' class='btn btn-primary'>同步</button>(名冊資料庫會先全部清除！)
@@ -36,7 +36,7 @@
 
 		<div class="alert alert-info">
 		<strong>相關說明：</strong>
-		<a href='../health_sample.xls' target='_blank' class='btn btn-primary'>EXCEL 範例檔</a><br/>
+		<a href='../health_sample.xlsx' target='_blank' class='btn btn-primary'>EXCEL 範例檔</a><br/>
 		<div>使用 EXCEL 格式匯入，請依範例檔欄位填放資料，不使用的欄位也要保留。代號為學號或判別用的唯一值。</div>
 		</div>
 

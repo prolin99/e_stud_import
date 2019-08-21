@@ -46,8 +46,8 @@ function import_stud(){
 		$ext= strtoupper(array_pop($file_array)) ;
 		if ($ext=='XML')
 			import_xml($file_up) ;
-		if ($ext=='XLS')
-			import_excel($file_up) ;
+		//if ($ext=='XLS')
+		//	import_excel($file_up) ;
 		if ($ext=='XLSX')
 			import_excel($file_up , 2007) ;
 		//刪除上傳的檔。
@@ -190,7 +190,7 @@ function import_xml($file_up){
 }
 
 //excel 格式
-function import_excel($file_up,$ver=5) {
+function import_excel($file_up,$ver=2007) {
     global $xoopsDB,$c_year ,$xoopsTpl ,$message ;
 
     $dn_list = stud_dn_list() ;
@@ -202,10 +202,12 @@ function import_excel($file_up,$ver=5) {
 
 
 	include_once '../../tadtools/PHPExcel/IOFactory.php';
+    /*
 	if ($ver ==5)
 		$reader = PHPExcel_IOFactory::createReader('Excel5');
 	else
-		$reader = PHPExcel_IOFactory::createReader('Excel2007');
+    */
+	$reader = PHPExcel_IOFactory::createReader('Excel2007');
 
 	$PHPExcel = $reader->load( $file_up ); // 檔案名稱
 	$sheet = $PHPExcel->getSheet(0); // 讀取第一個工作表(編號從 0 開始)
