@@ -210,7 +210,7 @@ function do_statistics()
     //班級人數統計
     //單月只保留一份
     $thisMonth = date('Y-m').'-01';
-    $sql = "Delete  from ".$xoopsDB->prefix('es_log'). " where rec_time >= '$thisMonth'  " ;
+    $sql = "Delete  from ".$xoopsDB->prefix('es_log'). " where rec_time >= '$thisMonth'   and module='e_stud_import'  " ;
     $result = $xoopsDB->queryF($sql) or die($sql.'<br>'.$xoopsDB->error());
 
     $sql = ' SELECT class_id, sex , count( * ) cc FROM '.$xoopsDB->prefix('e_student').' GROUP BY class_id , sex order by class_id, sex  ';
