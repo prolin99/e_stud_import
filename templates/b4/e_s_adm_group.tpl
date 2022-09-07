@@ -22,7 +22,7 @@
 		<br />
       	<{foreach  key=c_key item=teacher    from= $data.teacher_list }>
 
-      		   <span class="col-2 tea" data_ref="tea_<{$c_key}>_<{$teacher.name}>"   ><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-success">
+      		   <span class="col-2 tea" data_ref="tea_<{$c_key}>_<{$teacher.name}>"   ><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-success bg-success">
       		   <{$teacher.name}></label><span id="i_<{$c_key}>" ></span></span>
 
       	<{/foreach }>
@@ -40,7 +40,7 @@
       	<div class="groupbox col-2" data_ref="group_<{$g_key}>"  title="拖放到此"  ><{$group}>(放在這)<br /><br /></div>
       	<div class="col-10" data_ref="group_<{$g_key}>" id="group_<{$g_key}>">
       		<{foreach  key=u_key item=user    from= $data.group_users_list[$g_key] }>
-      		  <span class="col-2" data_ref="tea_<{$u_key}>_<{$user.name}>_group_<{$g_key}>"><label class="badge badge-success"><{$user.name}><span class="fa fa-trash  del" title="移除"></span></label></span>
+      		  <span class="col-2" data_ref="tea_<{$u_key}>_<{$user.name}>_group_<{$g_key}>"><label class="badge badge-success bg-success"><{$user.name}><span class="fa fa-trash  del" title="移除"></span></label></span>
       		<{/foreach}>
       	</div>
       </div>
@@ -53,7 +53,7 @@
 
       <div class="row">
       	<p>
-            <span class="badge badge-info">說明</span><br/>
+            <span class="badge badge-info bg-info">說明</span><br/>
            把人員拖曳到各群組名稱上，就會加入該群組。垃圾桶圖示表示移出該群組。<br/>
            只出現校內教職員後的群組名稱。重複拖曳到同一群組，會出現多次姓名，但不影響資料的正確。
         </p>
@@ -88,7 +88,7 @@ $(function () {
 function set_group(user_data ,group_box) {
 	// user_data  tea_1_管理員
 	var splits = user_data.split('_') ;
-	var user = '<span class="col-2" data_ref="'+ user_data + '_' +group_box +'"><label class="badge badge-success">'+ splits[2]+ '<span class="fa fa-trash  del" title="移除"></span></label></span>' ;
+	var user = '<span class="col-2" data_ref="'+ user_data + '_' +group_box +'"><label class="badge badge-success bg-success">'+ splits[2]+ '<span class="fa fa-trash  del" title="移除"></span></label></span>' ;
     $('#' + group_box ).append(user) ;
     ajax_teacher_group(user_data +'_'+group_box , 'add') ;
 

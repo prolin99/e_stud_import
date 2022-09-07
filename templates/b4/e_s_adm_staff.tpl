@@ -11,12 +11,12 @@
       	<{foreach  key=c_key item=teacher    from= $data.teacher_list }>
        	       <{if ($data.user_staff_id[$c_key])}>
       	       		<!-- 已設職稱  -->
-      	           <span class="col-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-default">
+      	           <span class="col-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-default bg-secondary">
       	           <{$teacher.name}>_<{ $data.user_staff_job[$c_key]}></label>
       	           <span id="i_<{$c_key}>" class="fa fa-trash  del" data_ref="sta_<{$data.user_staff_id[$c_key]}>:tea_<{$c_key}>"></span>
       	           </span>
       	       <{else}>
-      		   <span class="col-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-success"><{$teacher.name}></label>
+      		   <span class="col-3"><label  id="tea_<{$c_key}>" title='<{$teacher.name}>(<{$teacher.uname}>)' name_title='<{$teacher.name}>' class="badge badge-success bg-success"><{$teacher.name}></label>
                     <span id="i_<{$c_key}>" ></span></span>
       		<{/if}>
       	<{/foreach }>
@@ -29,9 +29,9 @@
       <h4>職稱</h4>
 	<{foreach  key=t_key item=staff_list    from= $data.staff }>
 	<{if ($data.staff_user_id[$t_key])}>
-	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="badge badge-success" style="display: none;"><{$staff_list}></label>
+	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="badge badge-success bg-success" style="display: none;"><{$staff_list}></label>
 	<{else}>
-	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="badge badge-success"><{$staff_list}></label>
+	<label id="sta_<{$t_key}>" title='<{$t_key}>_<{$staff_list}>' name_title='<{$staff_list}>' class="badge badge-success bg-success"><{$staff_list}></label>
 	<{/if}>
 	<{/foreach }>
 
@@ -40,7 +40,7 @@
       </div>
       <div class="row">
       	<p>
-            <span class="badge badge-info">說明</span><br/>
+            <span class="badge badge-info bg-info">說明</span><br/>
             點選雙邊進行設定，選擇時呈黃色，設定完成為黑色，唯一位的職稱會隱藏。<br/>垃圾桶圖示會還原重新設定。
             <br/>職稱會配合群組的指定，請看偏好中--職稱設定說明。
             <br/>找不到教師名稱，可切換校內群組鍵，查看非在校人員，再設職稱。
@@ -60,24 +60,24 @@
     //右方部份的點選(綠-未選，黃-正在選，黑-已設定不能選)
     $(document).on("click", "#staff_div  label" ,  function(){
 
-    	if ($(this).attr("class") == "badge badge-success" ){
+    	if ($(this).attr("class") == "badge badge-success bg-success" ){
     	   //可選
     	  	$(this).removeClass() ;
-        	$(this).addClass('badge badge-warning') ;
+        	$(this).addClass('badge badge-warning bg-warning') ;
 			label_right= $(this).attr("id")  ;
         	name =  $(this).attr("name_title")  ;
         	if (o_label_right!=''){
         	   	//換選，先前的還原
         		$('#'+o_label_right).removeClass() ;
-        		$('#'+o_label_right).addClass('badge badge-success') ;
+        		$('#'+o_label_right).addClass('badge badge-success bg-success') ;
         	}
         	o_label_right = $(this).attr("id")  ;
 		    link() ;
 	    }else {
-    		if ($(this).attr("class") == "badge badge-warning" ){
+    		if ($(this).attr("class") == "badge badge-warning bg-warning" ){
     			//不再選
     			$(this).removeClass() ;
-    			$(this).addClass('badge badge-success') ;
+    			$(this).addClass('badge badge-success bg-success') ;
     			label_right= '' ;
     			o_label_right ='' ;
             	name = '' ;
@@ -89,24 +89,24 @@
     //左方部份的點選
     $(document).on("click", "#tea_div label" ,  function(){
 
-    	if ($(this).attr("class") == "badge badge-success" |  $(this).attr("class") == "label label-success"  ){
+    	if ($(this).attr("class") == "badge badge-success bg-success" |  $(this).attr("class") == "label label-success"  ){
     	   //可選
     	  	$(this).removeClass() ;
-        	$(this).addClass('badge badge-warning') ;
+        	$(this).addClass('badge badge-warning bg-warning') ;
 		    label_left= $(this).attr("id")  ;
         	class_id =  $(this).attr("name_title")  ;
         	if (o_label_left!=''){
         		//換選，先前的還原
         		$('#'+o_label_left).removeClass() ;
-        		$('#'+o_label_left).addClass('badge badge-success') ;
+        		$('#'+o_label_left).addClass('badge badge-success bg-success') ;
         	}
         	o_label_left = $(this).attr("id")  ;
 		    link() ;
 	    }else {
-    		if ($(this).attr("class") == "badge badge-warning"  |  $(this).attr("class") == "label label-warning" ){
+    		if ($(this).attr("class") == "badge badge-warning bg-warning"  |  $(this).attr("class") == "label label-warning" ){
     			//不再選
     			$(this).removeClass() ;
-    			$(this).addClass('badge badge-success') ;
+    			$(this).addClass('badge badge-success bg-success') ;
     			label_left= '' ;
     			o_label_left ='' ;
             	class_id = '' ;
@@ -131,8 +131,8 @@
              job = $('#'+label_right).attr("name_title")  ;
              $('#'+label_left).removeClass() ;
              $('#'+label_left).html(class_id +'_'+ name) ;	//姓名+ 職稱
-             $('#'+label_left).addClass('badge badge-default') ;
-             //$('#'+label_right).addClass('badge badge-default') ;
+             $('#'+label_left).addClass('badge badge-default bg-secondary') ;
+             //$('#'+label_right).addClass('badge badge-default bg-secondary') ;
 
              //圖示的內容放置
              var splits = label_left.split('_') ;
@@ -148,7 +148,7 @@
              }else{
                  ///還原顏色
                  $('#'+o_label_right).removeClass() ;
-                 $('#'+o_label_right).addClass('badge badge-success') ;
+                 $('#'+o_label_right).addClass('badge badge-success bg-success') ;
              }
 
              label_right ='' ;
@@ -166,11 +166,11 @@
     function clear_now() {
              if (o_label_right!=''){
         		$('#'+o_label_right).removeClass() ;
-        		$('#'+o_label_right).addClass('badge badge-success') ;
+        		$('#'+o_label_right).addClass('badge badge-success bg-success') ;
              }
              if (o_label_left!=''){
         		$('#'+o_label_left).removeClass() ;
-        		$('#'+o_label_left).addClass('badge badge-success') ;
+        		$('#'+o_label_left).addClass('badge badge-success bg-success') ;
              }
              label_right ='' ;
              o_label_right ='' ;
@@ -188,10 +188,10 @@
     clear_now() ;
 
     $('#'+splits[0]).removeClass() ;
-    $('#'+splits[0]).addClass('badge badge-success') ;
+    $('#'+splits[0]).addClass('badge badge-success bg-success') ;
     $('#'+splits[0]).show() ;
     $('#'+splits[1]).removeClass() ;
-    $('#'+splits[1]).addClass('badge badge-success') ;
+    $('#'+splits[1]).addClass('badge badge-success bg-success') ;
 
     $('#'+splits[1]).text($('#'+splits[1]).attr("name_title") ) ;
     //清除教師

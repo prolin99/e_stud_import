@@ -211,7 +211,9 @@ function import_excel($file_up,$ver=2007) {
 
 	$PHPExcel = $reader->load( $file_up ); // 檔案名稱
 	$sheet = $PHPExcel->getSheet(0); // 讀取第一個工作表(編號從 0 開始)
-	$highestRow = $sheet->getHighestRow(); // 取得總列數
+	//$highestRow = $sheet->getHighestRow(); // 取得總列數
+    $maxCell = $PHPExcel->getActiveSheet()->getHighestRowAndColumn();
+    $highestRow = $maxCell['row'] ;
 
 	// 一次讀取一列
 	for ($row = 2; $row <= $highestRow; $row++) {

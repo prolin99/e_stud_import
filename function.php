@@ -67,6 +67,8 @@ function get_staff_list()
 function get_teacher_list($teach_group_id, $show = 0, $email_show = 0, $in_school = 0 , $order_mode ='staff')
 {
     global  $xoopsDB,$xoopsModuleConfig ,$xoopsUser;
+
+
 /*
 SELECT u.uid, u.name, u.user_occ, g.groupid ,c.class_id
 FROM `xx_groups_users_link` AS g
