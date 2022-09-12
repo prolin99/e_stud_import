@@ -11,7 +11,8 @@ CREATE TABLE `e_student` (
   `chk_date` date DEFAULT NULL,
   `tn_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `stud_id` (`stud_id`,`person_id`,`tn_id`)
+  KEY `stud_id` (`stud_id`,`person_id`,`tn_id`) ,
+  KEY `stud_id_1` (`stud_id`)
 ) ENGINE=MyISAM COMMENT='學生名冊' AUTO_INCREMENT=1 ;
 
 CREATE TABLE  `e_classteacher` (
