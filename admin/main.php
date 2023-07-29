@@ -12,6 +12,9 @@ $xoopsOption['template_main'] = "e_stud_adm_main.tpl";
 include_once "header.php";
 include_once "../function.php";
 
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel.php'; //引入 PHPExcel 物件庫
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php'; //引入PHPExcel_IOFactory 物件庫
+
 /*-----------function區--------------*/
 //
     //取得現在學年
@@ -201,7 +204,7 @@ function import_excel($file_up,$ver=2007) {
 
 
 
-	include_once '../../tadtools/PHPExcel/IOFactory.php';
+	//include_once '../../tadtools/PHPExcel/IOFactory.php';
     /*
 	if ($ver ==5)
 		$reader = PHPExcel_IOFactory::createReader('Excel5');

@@ -7,8 +7,13 @@
 /*-----------引入檔案區--------------*/
 include_once "header.php";
 
+//require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpword/src/PhpWord/PhpWord.php'  ; //引入 PhpWord 物件庫
+//require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpword/src/PhpWord/IOFactory.php'; 
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/autoload.php';
 
-include_once "../tadtools/PHPWord.php";
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+
 
 /*-----------function區--------------*/
 if (!$xoopsUser)
@@ -44,7 +49,7 @@ while($stud=$xoopsDB->fetchArray($result)){
 	//$data[]=$stud ;
 }
 
-	$PHPWord = new PHPWord();
+	$PHPWord = new PhpWord();
 
 
  	$PHPWord->setDefaultFontName('標楷體'); //設定預設字型
@@ -126,7 +131,7 @@ while($stud=$xoopsDB->fetchArray($result)){
 	header('Content-Type:application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 	header('Content-Disposition: attachment;filename=家長代表選單_' . $class_id .'.docx');
 	header('Cache-Control: max-age=0');
-	$objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+	$objWriter = IOFactory::createWriter($PHPWord, 'Word2007');
 	ob_clean();
 	$objWriter->save('php://output');
 	exit;

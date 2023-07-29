@@ -8,9 +8,9 @@
 
 include_once 'header.php';
 
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel.php'; //引入 PHPExcel 物件庫
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php'; //引入PHPExcel_IOFactory 物件庫
 
-include_once '../tadtools/PHPExcel.php';
-require_once '../tadtools/PHPExcel/IOFactory.php';
 /*-----------function區--------------*/
  if (!$xoopsUser) {
      redirect_header(XOOPS_URL, 3, '需要登入，才能使用！');
