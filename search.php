@@ -30,8 +30,8 @@ if (!in_array($teach_group_id, $xoopsUser->groups())) {
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 $myts = &MyTextSanitizer::getInstance();
-$act_search = $myts->htmlSpecialChars($myts->addSlashes($_POST['act_search']));
-$stud_name = $myts->htmlSpecialChars($myts->addSlashes($_POST['stud_name']));
+$act_search = $myts->htmlSpecialChars($xoopsDB->escape($_POST['act_search']));
+$stud_name = $myts->htmlSpecialChars($xoopsDB->escape($_POST['stud_name']));
 
 if ($act_search == 'search' and $stud_name) {
     //多人列表

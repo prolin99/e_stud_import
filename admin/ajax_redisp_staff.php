@@ -26,13 +26,13 @@ foreach($teacher_list as $uid => $teacher){
     if ($teacher['staff']) {
         //<!-- 已設職稱  -->
         list($sid,$job) = preg_split('/[-]/',$teacher['staff']) ;
-        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-default'>" ;
+        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='badge badge-default bg-secondary'>" ;
         $output.="{$teacher['name']}_$job <span class='del' id='sta_$sid:tea_$uid'></span></label> ";
     	// $output.=" <i class='icon-trash icon-white'></i></span></label> " ;
         $output.="   <span id='i_{$uid}' class='fa fa-trash del' data_ref='sta_{$sid}:tea_{$uid}'></span> "  ;
         $output.=" </span>" ;
     }else {
-        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='label label-success'>" ;
+        $output.=" <span class='col-md-3'><label  id='tea_{$uid}' title='{$teacher['name']}({$teacher['uname']})' name_title='{$teacher['name']}' class='badge badge-success bg-success'>" ;
         $output.="{$teacher['name']}" ;
         $output.="</label><i id='i_{$uid}' ></i>" ;
         $output.=" </span>" ;

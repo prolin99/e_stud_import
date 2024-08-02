@@ -28,7 +28,7 @@ function udList_set(){
     global $xoopsDB ;
     if ($_POST['updnlist']){
         $myts =& MyTextSanitizer::getInstance();
-    	$list = $myts->htmlspecialchars($myts->addSlashes($_POST['updnlist'])) ;
+    	$list = $myts->htmlspecialchars($xoopsDB->escape($_POST['updnlist'])) ;
 
         $sql=  " update   " . $xoopsDB->prefix("config") ." set conf_value='{$list}' where conf_name='es_stud_stud_dn'  "  ;
         $result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, $xoopsDB->error());

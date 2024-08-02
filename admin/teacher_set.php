@@ -16,7 +16,7 @@ include_once "../function.php";
 if ($_POST['act_class_set']) {
 
  	$myts =& MyTextSanitizer::getInstance();
-	$classname_set = $myts->htmlspecialchars($myts->addSlashes($_POST['class_name_set'])) ;
+	$classname_set = $myts->htmlspecialchars($xoopsDB->escape($_POST['class_name_set'])) ;
 
 
 	$sql = " delete  from  "  . $xoopsDB->prefix("es_log")  . " where module = 'es_classname'   "  ; ;
