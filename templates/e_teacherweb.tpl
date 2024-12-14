@@ -1,13 +1,14 @@
 
 <{$toolbar}>
-
+	
  <h3>教職員電子郵件帳號、網頁一覽表</h3>
     <table class="table  table-striped table-hover">
     <caption>教職員電子郵件帳號、網頁一覽表</caption>
     <thead>
-    <tr><th scope="col">次序<{$i++}></th><th scope="col">職務</th><th scope="col">姓名</th><th scope="col">郵件</th><th scope="col">網頁</th></tr>
+    <tr><th scope="col">次序</th><th scope="col">職務</th><th scope="col">姓名</th><th scope="col">郵件</th><th scope="col">網頁</th></tr>
   </thead>
    <tbody>
+	 <{assign var=i value=1}>
 	 <{foreach from= $data.teacher key=key item=tea }>
 	 <tr scope="row">
 	 	<td><{$i++}></td>

@@ -30,10 +30,10 @@ include_once "../function.php";
 
   //取得 group 名稱及代號
   $teach_group_list = $xoopsModuleConfig['es_studs_group_list']  ;
-  $data[group_list] = get_group_list($teach_group_list) ;
+  $data['group_list'] = get_group_list($teach_group_list) ;
 
   //取得指定 group  內的成員
-  $data[group_users_list] = get_group_users_list($teach_group_list) ;
+  $data['group_users_list'] = get_group_users_list($teach_group_list) ;
 
 
   //已指定，呈現中文名稱

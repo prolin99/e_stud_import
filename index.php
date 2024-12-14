@@ -9,11 +9,10 @@ use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 include_once "header.php";
 $xoopsOption['template_main'] = "e_teacherweb.tpl";
-
 include_once XOOPS_ROOT_PATH."/header.php";
 
-
 /*-----------function區--------------*/
+
   //校內教師群組代號
   $teach_group_id = $xoopsModuleConfig['es_studs_teacher_group']  ;
 
@@ -28,6 +27,7 @@ include_once XOOPS_ROOT_PATH."/header.php";
 
   //班級名稱
   $data['class_name_list_c']=es_class_name_list_c('long')   ;
+
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
 

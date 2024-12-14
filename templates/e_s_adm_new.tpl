@@ -1,8 +1,9 @@
 <div class="container-fluid">
 
  <h3>教職員帳號順序</h3>
+    <{assign var="i" value=1}>
     <table class="table  table-striped table-hover">
-    <tr><th>次序<{$i++}></th><th>職務</th><th>姓名</th><th>EMAIL帳號名稱</th> </tr>
+    <tr><th>次序</th><th>職務</th><th>姓名</th><th>EMAIL帳號名稱</th> </tr>
 	 <{foreach  key=key item=tea   from= $data.teacher }>
 	 <tr>
 	 	<td><{$i++}></td>
