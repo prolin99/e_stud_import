@@ -71,7 +71,7 @@ function stud_dn_list(){
 
     $stud_dn = $xoopsModuleConfig['es_stud_stud_dn']  ;
     $list=preg_split('/[-\n]/' , $stud_dn) ;
-    for ($i=0; $i<=count($list); $i=$i+3)
+    for ($i=0; $i<=count($list??[]); $i=$i+3)
         if ($list[$i])
             $stud_dn_list[trim($list[$i])]=strtoupper(trim($list[$i+2]));
 
