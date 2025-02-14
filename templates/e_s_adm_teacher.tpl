@@ -58,12 +58,12 @@
 	<{foreach  key=t_key item=teacher_list    from= $data.teacher }>
 	<{if ($data.teacher_class[$t_key])}>
  	<span  class="tea" id="tea_<{$t_key}>" data_ref="teacher_<{$t_key}>_<{$teacher_list.name}>" style='display: none;'>
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="badge badge-success text-dark" ><{$teacher_list.name}></label>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="badge badge-success bg-success bg-success" ><{$teacher_list.name}></label>
     </span>
 
 	<{else}>
  	<span  class="tea" id="tea_<{$t_key}>" data_ref="teacher_<{$t_key}>_<{$teacher_list.name}>" >
-	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="badge badge-success text-dark"><{$teacher_list.name}></label>
+	<label id="teacher_<{$t_key}>" title='<{$teacher_list.name}>(<{$teacher_list.uname}>)' name_title='<{$teacher_list.name}>' class="badge badge-success bg-success"><{$teacher_list.name}></label>
     </span>
 	<{/if}>
 	<{/foreach }>
@@ -73,7 +73,7 @@
       </div>
       <div class="row">
       	<p>
-            <span class="badge badge-info">說明</span>
+            <span class="badge badge-info bg-info">說明</span>
             拖拉到任教班級，點垃圾桶圖示表示清除。
         </p>
       </div>

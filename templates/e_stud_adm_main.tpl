@@ -6,7 +6,7 @@
 
       <div class="row">
       <div class="col-6">
-      <span class="badge badge-success">現在學生數：<{$data_list.students }> 人</span>
+      <span class="badge badge-success bg-success">現在學生數：<{$data_list.students }> 人</span>
       <{if ($message) }>
       <div class="alert alert-danger"><{$message }> </div>
       <{/if}>
