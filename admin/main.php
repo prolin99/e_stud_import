@@ -155,13 +155,13 @@ function import_xml($file_up){
             //昇降年度、指定班
             if ($dn_list[$stud_person_id] ){
                 if (substr($dn_list[$stud_person_id],0,1)=='D')
-                    $stud_year = $stud_year - substr($dn_list[$stud_person_id],1) ;
-                if (substr($dn_list[$stud_person_id],0,1)=='U')
-                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1) ;
+                    $stud_year = $stud_year - substr($dn_list[$stud_person_id],1,1) ;
+                if (substr($dn_list[$stud_person_id],0,1)=='A')
+                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1,1) ;
 
                 $stud_class_id  = $stud_year*100 + $stud_class ;
                 $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
-                if ($dn_list[$stud_person_id] > 100)
+                if (is_int($dn_list[$stud_person_id]))
                     $stud_class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
                 $message .=  $stud_name ." ,指定為 {$stud_class_id} 班 ($stud_person_id)  <br />" ;
             }
@@ -204,12 +204,6 @@ function import_excel($file_up,$ver=2007) {
 
 
 
-	//include_once '../../tadtools/PHPExcel/IOFactory.php';
-    /*
-	if ($ver ==5)
-		$reader = PHPExcel_IOFactory::createReader('Excel5');
-	else
-    */
 	$reader = PHPExcel_IOFactory::createReader('Excel2007');
 
 	$PHPExcel = $reader->load( $file_up ); // 檔案名稱
@@ -228,28 +222,13 @@ function import_excel($file_up,$ver=2007) {
 				$val = PHPExcel_Shared_Date::ExcelToPHPObject( $sheet->getCellByColumnAndRow( $col , $row )->getValue())->format('Y-m-d');
 			else
 				$val =  $sheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
-
-		 /*
-			//格式檢查(這部份有問題
-			if( PHPExcel_Shared_Date::isDateTime( $sheet->getCellByColumnAndRow($col , $row ) )){
-				$val = PHPExcel_Shared_Date::ExcelToPHPObject( $sheet->getCellByColumnAndRow( $col , $row )->getValue())->format('Y-m-d');
-			}else{
-				//$val =  $sheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
-				$val =  $sheet->getCellByColumnAndRow($col, $row)->getValue() ;
-			}
- 		*/
-
-			if(!get_magic_quotes_runtime()) {
-				$v[$col]=addSlashes($val);
-			}else{
-				$v[$col]= $val ;
-			}
-
+			$v[$col]=addSlashes($val);
 		}
 
 		if ($v[1]){
+			$stud_person_id=$v[0] ;
+			$stud_name = $v[1] ;
 			$stud_year = $c_year +1  -  $v[3] ; 	//入學年計算
-
 			$class_id  =  $stud_year*100 + $v[4] ;	//班級
 			$class_id  =  sprintf("%03d" ,$class_id) ;
 
@@ -267,15 +246,20 @@ function import_excel($file_up,$ver=2007) {
 
             //昇降年度、指定班
             if ($dn_list[$stud_person_id] ){
-                if (substr($dn_list[$stud_person_id],0,1)=='D')
-                    $stud_year = $stud_year - substr($dn_list[$stud_person_id],1) ;
-                if (substr($dn_list[$stud_person_id],0,1)=='U')
-                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1) ;
+                if (substr($dn_list[$stud_person_id],0,1)=='D'){
+					$stud_year = $stud_year - substr($dn_list[$stud_person_id],1,1) ;
+				}
+
+                if (substr($dn_list[$stud_person_id],0,1)=='A')
+                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1,1) ;
 
                 $stud_class_id  = $stud_year*100 +  $v[4] ;
+
                 $class_id  =  sprintf("%03d" ,$stud_class_id) ;
-                if ($dn_list[$stud_person_id] > 100)
-                    $class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
+                if (is_int($dn_list[$stud_person_id] )){
+					$class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
+				}
+
                 $message .=  $stud_name ." ,指定為 {$class_id} 班 ($stud_person_id)  <br />" ;
             }
 
