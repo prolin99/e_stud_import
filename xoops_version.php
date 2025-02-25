@@ -8,7 +8,7 @@
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
 #$modversion['version']	= '2.67';				//模組版次
-$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '2.8.0-Stable' : '2.8';
+$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '3.0.0-Stable' : '3.0';
 
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
