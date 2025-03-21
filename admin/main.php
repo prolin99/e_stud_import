@@ -161,7 +161,7 @@ function import_xml($file_up){
 
                 $stud_class_id  = $stud_year*100 + $stud_class ;
                 $stud_class_id  =  sprintf("%03d" ,$stud_class_id) ;
-                if (is_int($dn_list[$stud_person_id]))
+                if (is_numeric($dn_list[$stud_person_id]))
                     $stud_class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
                 $message .=  $stud_name ." ,指定為 {$stud_class_id} 班 ($stud_person_id)  <br />" ;
             }
@@ -256,7 +256,9 @@ function import_excel($file_up,$ver=2007) {
                 $stud_class_id  = $stud_year*100 +  $v[4] ;
 
                 $class_id  =  sprintf("%03d" ,$stud_class_id) ;
-                if (is_int($dn_list[$stud_person_id] )){
+				# 判別 $dn_list[$stud_person_id] 是否為數字
+
+                if (is_numeric($dn_list[$stud_person_id] )){
 					$class_id  =  sprintf("%03d" ,$dn_list[$stud_person_id]) ;
 				}
 
