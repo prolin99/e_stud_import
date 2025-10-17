@@ -228,14 +228,14 @@ function import_excel($file_up,$ver=2007) {
 		if ($v[1]){
 			$stud_person_id=$v[0] ;
 			$stud_name = $v[1] ;
-			$stud_year = $c_year +1  -  $v[3] ; 	//入學年計算
-			$class_id  =  $stud_year*100 + $v[4] ;	//班級
+			$stud_year = intval($c_year) + 1 - intval($v[3]) ; 	//入學年計算，確保是整數運算
+			$class_id  =  $stud_year*100 + intval($v[4]) ;	//班級，確保是整數運算
 			$class_id  =  sprintf("%03d" ,$class_id) ;
 
  			//無入學年，視為一年級
  			if (intval($v[3]) == 0) {
- 				$stud_year =1 ;
- 				$stud_class_id  = $stud_year*100 + $v[4] ;
+ 				$stud_year = 1 ;
+ 				$stud_class_id  = $stud_year*100 + intval($v[4]) ;
  				$class_id  =  sprintf("%03d" ,$stud_class_id) ;
  				$message .= $class_id . $v[1] ."未設定入學年({$v[0]}) <br />" ;
 			}
@@ -247,13 +247,13 @@ function import_excel($file_up,$ver=2007) {
             //昇降年度、指定班
             if ($dn_list[$stud_person_id] ){
                 if (substr($dn_list[$stud_person_id],0,1)=='D'){
-					$stud_year = $stud_year - substr($dn_list[$stud_person_id],1,1) ;
+					$stud_year = $stud_year - intval(substr($dn_list[$stud_person_id],1,1)) ;
 				}
 
                 if (substr($dn_list[$stud_person_id],0,1)=='A')
-                    $stud_year = $stud_year + substr($dn_list[$stud_person_id],1,1) ;
+                    $stud_year = $stud_year + intval(substr($dn_list[$stud_person_id],1,1)) ;
 
-                $stud_class_id  = $stud_year*100 +  $v[4] ;
+                $stud_class_id  = $stud_year*100 + intval($v[4]) ;
 
                 $class_id  =  sprintf("%03d" ,$stud_class_id) ;
 				# 判別 $dn_list[$stud_person_id] 是否為數字
