@@ -103,7 +103,9 @@ require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Clas
 			$row= $row+5 ;
 		}
 
-
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
     //header('Content-Type: application/vnd.ms-excel');
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header('Content-Disposition: attachment;filename=class_'.date("mdHi").'.xlsx' );
@@ -111,8 +113,7 @@ require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Clas
 
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-	//暫存區內容先清空
-	ob_clean();
+
 	$objWriter->save('php://output');
 	exit;
 

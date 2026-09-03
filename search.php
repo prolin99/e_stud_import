@@ -29,25 +29,27 @@ if (!in_array($teach_group_id, $xoopsUser->groups())) {
 
 /*-----------執行動作判斷區----------*/
 //$op=empty($_REQUEST['op'])?"":$_REQUEST['op'];
-$myts = &MyTextSanitizer::getInstance();
-$act_search = $myts->htmlSpecialChars($xoopsDB->escape($_POST['act_search']));
-$stud_name = $myts->htmlSpecialChars($xoopsDB->escape($_POST['stud_name']));
+
+$act_search = trim($_POST['act_search'] ?? '');
+$stud_name = trim($_POST['stud_name'] ?? '');
 
 if ($act_search == 'search' and $stud_name) {
     //多人列表
-    $stud_list = preg_split('/[,\r\n\s]/', $stud_name);
+    $stud_list = preg_split('/[,\r\n\s]+/', $stud_name);
     //var_dump($stud_list) ;
     foreach ($stud_list as $k => $stud_name2) {
         //取得學生姓名
         if (trim($stud_name2) != '') {
-            $sql = '  SELECT class_id , class_sit_num ,name  FROM '.$xoopsDB->prefix('e_student')."   where name like '%$stud_name2%'   ORDER BY  class_id , class_sit_num  ";
-            //echo $sql ;
+            $stud_name2_sql = $xoopsDB->escape($stud_name2);
+            $sql = '  SELECT class_id , class_sit_num ,name  FROM '.$xoopsDB->prefix('e_student')."   where name like '%$stud_name2_sql%'   ORDER BY  class_id , class_sit_num  ";
+            //echo $sql . "<br/>" ;
             $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, $xoopsDB->error());
             while ($stud = $xoopsDB->fetchArray($result)) {
                 $data['student'][] = $stud;
             }
         }
     }
+
 }
 
 /*-----------秀出結果區--------------*/

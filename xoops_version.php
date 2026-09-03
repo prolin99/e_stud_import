@@ -8,7 +8,7 @@
 //---基本設定---//
 $modversion['name'] = _MI_ESTUDENTS_NAME;			//模組名稱
 #$modversion['version']	= '2.67';				//模組版次
-$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '3.0.1-Stable' : '3.0.1';
+$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '3.1.0-Stable' : '3.1';
 
 $modversion['author'] = _MI_ESTUDENTS_AUTHOR;			//模組作者
 $modversion['description'] = _MI_ESTUDENTS_DESC;		//模組說明
@@ -20,7 +20,7 @@ $modversion['dirname'] = basename(dirname(__FILE__));		//模組目錄名稱
 
 //---模組狀態資訊---//
 //$modversion['status_version'] = '0.8';
-$modversion['release_date'] = '2024-12-17';
+$modversion['release_date'] = '2026-09-03';
 $modversion['module_website_url'] = 'https://github.com/prolin99/e_stud_import';
 $modversion['module_website_name'] = 'prolin';
 $modversion['module_status'] = 'release';

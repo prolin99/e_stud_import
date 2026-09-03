@@ -127,12 +127,15 @@ while($stud=$xoopsDB->fetchArray($result)){
 	}
  	$section->addText( $show_doc );
 
+	while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
   //header('Content-Type: application/vnd.ms-word');
 	header('Content-Type:application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 	header('Content-Disposition: attachment;filename=家長代表選單_' . $class_id .'.docx');
 	header('Cache-Control: max-age=0');
 	$objWriter = IOFactory::createWriter($PHPWord, 'Word2007');
-	ob_clean();
+
 	$objWriter->save('php://output');
 	exit;
 
